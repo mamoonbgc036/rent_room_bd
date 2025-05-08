@@ -1,0 +1,55 @@
+{
+    "name": "php-flasher/flasher-sweetalert-laravel",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://php-flasher.io",
+    "description": "Incorporate SweetAlert's interactive notifications into Laravel applications with PHPFlasher. Enhance user dialogs with SweetAlert and Laravel.",
+    "keywords": [
+        "laravel",
+        "sweetalert",
+        "sweetalert 2",
+        "flash-notifications",
+        "dynamic-notifications",
+        "phpflasher",
+        "user-feedback",
+        "open-source"
+    ],
+    "support": {
+        "issues": "https://github.com/php-flasher/php-flasher/issues",
+        "source": "https://github.com/php-flasher/php-flasher"
+    },
+    "authors": [
+        {
+            "name": "Younes ENNAJI",
+            "email": "younes.ennaji.pro@gmail.com",
+            "homepage": "https://www.linkedin.com/in/younes--ennaji/",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "php-flasher/flasher-laravel": "^2.0.1",
+        "php-flasher/flasher-sweetalert": "^2.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flasher\\SweetAlert\\Laravel\\": ""
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flasher\\SweetAlert\\Laravel\\FlasherSweetAlertServiceProvider"
+            ],
+            "aliases": {
+                "SweetAlert": "Flasher\\SweetAlert\\Laravel\\Facade\\SweetAlert"
+            }
+        }
+    }
+}
