@@ -31,6 +31,7 @@ class FooterSectionTwoSettings extends Component
         ]);
 
         FooterSectionTwo::create([
+            'footer_id' => 1,
             'title' => $this->newTitle,
             'link' => $this->newLink,
         ]);

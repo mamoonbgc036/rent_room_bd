@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     use HasFactory;
-    protected $fillable = ['country_id', 'city_id', 'name', 'photo'];
-
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
+    protected $guarded = ['id'];
 
     public function city()
     {

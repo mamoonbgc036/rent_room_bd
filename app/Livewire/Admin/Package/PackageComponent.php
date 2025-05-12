@@ -2,13 +2,7 @@
 
 namespace App\Livewire\Admin\Package;
 
-use App\Models\Amenity;
-use App\Models\Area;
-use App\Models\City;
-use App\Models\Country;
-use App\Models\Maintain;
 use App\Models\Package;
-use App\Models\Property;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;

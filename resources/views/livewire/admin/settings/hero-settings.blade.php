@@ -1,8 +1,8 @@
 <div class="container mt-5">
     @if (session()->has('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
     @endif
 
     <!-- Create/Edit Form -->
@@ -25,7 +25,7 @@
                 <input type="text" id="title_big" class="form-control" wire:model="title_big">
                 @error('title_big') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
-            
+
             <!-- Loading spinner -->
             <div wire:loading.flex class="spinner-border text-primary" role="status">
                 <span class="visually-hidden"><i class="fa-sharp fa-regular fa-circle-notch"></i></span>
@@ -50,21 +50,21 @@
             </thead>
             <tbody>
                 @foreach($heroSections as $section)
-                    <tr>
-                        <td>
-                            @if($section->background_image)
-                                <img src="{{ Storage::url($section->background_image) }}" width="100" alt="Background Image">
-                            @else
-                                No Image
-                            @endif
-                        </td>
-                        <td>{{ $section->title_small }}</td>
-                        <td>{{ $section->title_big }}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" wire:click="edit({{ $section->id }})">Edit</button>
-                            <button class="btn btn-danger btn-sm" wire:click="delete({{ $section->id }})">Delete</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @if($section->background_image)
+                        <img src="{{ asset('storage/'. $section->background_image ) }}" width="100" alt="Background Image">
+                        @else
+                        No Image
+                        @endif
+                    </td>
+                    <td>{{ $section->title_small }}</td>
+                    <td>{{ $section->title_big }}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" wire:click="edit({{ $section->id }})">Edit</button>
+                        <button class="btn btn-danger btn-sm" wire:click="delete({{ $section->id }})">Delete</button>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

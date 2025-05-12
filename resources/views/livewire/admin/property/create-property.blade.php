@@ -2,54 +2,64 @@
     <!-- Overlay -->
     <div class="overlay" wire:click="closeModal"></div>
 
-    <div class="fixed inset-0 flex items-center justify-center z-50">
-        <div class="w-full max-w-lg p-6 bg-white rounded shadow-lg">
-            <h2 class="text-2xl font-semibold mb-6">{{ $property_id ? 'Edit Property' : 'Create Property' }}</h2>
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-indigo-900 bg-opacity-95 backdrop-blur-sm">
+        <!-- Modal Container -->
+        <div class="w-full max-w-lg p-8 bg-white rounded-2xl shadow-2xl transform transition-all duration-300 scale-100">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">{{ $property_id ? 'Edit Property' : 'Create Property' }}</h2>
 
             <form wire:submit.prevent="store">
-                <div class="mb-4">
-                    <label for="country_id" class="block text-lg font-medium text-gray-700 mb-1">Country</label>
-                    <select id="country_id" wire:model="country_id" class="form-control border-0 shadow-none form-control-lg mb-2"
-                            wire:change="updateCities($event.target.value)">
-                        <option value="">Select Country</option>
-                        @foreach($countries as $country)
-                            <option value="{{ $country->id }}">{{ $country->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('country_id') <span class="text-red-500">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="city_id" class="block text-lg font-medium text-gray-700 mb-1">City</label>
-                    <select id="city_id" wire:model="city_id" class="form-control border-0 shadow-none form-control-lg mb-2">
-                        <option value="">Select City</option>
+                <!-- District -->
+                <div class="mb-5">
+                    <label for="city_id" class="block text-base font-semibold text-gray-700 mb-1">District</label>
+                    <select wire:model.live="city_id" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
+                        <option value="" selected>Select District</option>
                         @foreach($cities as $city)
-                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                        <option value="{{ $city->id }}" {{ $city->id == $city_id ? 'selected' : '' }}>{{ $city->name }}</option>
                         @endforeach
                     </select>
-                    @error('city_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                    @error('city_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="mb-4">
-                    <label for="property_type_id" class="block text-lg font-medium text-gray-700 mb-1">Property Type</label>
-                    <select id="property_type_id" wire:model="property_type_id" class="form-control border-0 shadow-none form-control-lg mb-2">
+                <!-- Thana -->
+                <div class="mb-5">
+                    <label for="area_id" class="block text-base font-semibold text-gray-700 mb-1">Thana</label>
+                    <select id="area_id" wire:model="area_id" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
+                        <option value="" selected>Select Thana</option>
+                        @if(!empty($areas))
+                        @foreach($areas as $thana)
+                        <option value="{{ $thana->id }}" {{ $thana->id == $area_id ? 'selected' : '' }}>{{ $thana->name }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    @error('area_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Property Type -->
+                <div class="mb-5">
+                    <label for="property_type_id" class="block text-base font-semibold text-gray-700 mb-1">Property Type</label>
+                    <select id="property_type_id" wire:model="property_type_id" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
                         <option value="">Select Property Type</option>
-                        @foreach($propertyTypes as $propertyType)
-                            <option value="{{ $propertyType->id }}">{{ $propertyType->type }}</option>
+                        @foreach($propertyTypes as $property_type)
+                        <option value="{{ $property_type->id }}">{{ $property_type->type }}</option>
                         @endforeach
                     </select>
-                    @error('property_type_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                    @error('property_type_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="mb-4">
-                    <label for="name" class="block text-lg font-medium text-gray-700 mb-1">Name</label>
-                    <input type="text" id="name" wire:model.defer="name" class="form-control form-control-lg border-0" placeholder="Name">
-                    @error('name') <span class="text-red-500">{{ $message }}</span> @enderror
+                <!-- Name -->
+                <div class="mb-6">
+                    <label for="name" class="block text-base font-semibold text-gray-700 mb-1">Name</label>
+                    <input type="text" id="name" wire:model.defer="name" placeholder="Property Name"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
+                    @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="flex justify-end">
-                    <button type="button" wire:click="closeModal" class="btn btn-lg btn-secondary next-button mb-3 mr-2">Cancel</button>
-                    <button type="submit" class="btn btn-lg btn-primary next-button mb-3">Save</button>
+                <!-- Buttons -->
+                <div class="flex justify-end space-x-3">
+                    <button type="button" wire:click="closeModal"
+                        class="px-6 btn-sm btn-warning mx-2 py-2 text-sm font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg transition duration-200">Cancel</button>
+                    <button type="submit"
+                        class="px-6 btn-sm btn-success mx-2 py-2 text-sm font-semibold text-gray-700 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition duration-200">Save</button>
                 </div>
             </form>
         </div>

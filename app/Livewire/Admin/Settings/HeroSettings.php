@@ -37,7 +37,7 @@ class HeroSettings extends Component
         $heroSection = new HeroSection();
 
         if ($this->background_image) {
-            $path = $this->background_image->store('public/background_images');
+            $path = $this->background_image->store('background_images');
             $heroSection->background_image = $path;
         }
 

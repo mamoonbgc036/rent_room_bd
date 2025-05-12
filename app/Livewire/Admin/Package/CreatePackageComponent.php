@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Admin\Package;
 
-use App\Models\{Amenity, Area, City, Country, Package, Property, RoomPrice, Maintain};
-use Illuminate\Support\Facades\{Auth, Storage};
+use Illuminate\Support\Facades\DB;
 use Livewire\{Component, WithFileUploads};
+use Illuminate\Support\Facades\{Auth, Storage};
+use App\Models\{Amenity, Area, City, Country, Package, Property, RoomPrice, Maintain};
 
 class CreatePackageComponent extends Component
 {
@@ -40,7 +41,7 @@ class CreatePackageComponent extends Component
 
     protected array $rules = [
         // Basic Information
-        'country_id' => 'required|exists:countries,id',
+        // 'country_id' => 'required|exists:countries,id',
         'city_id' => 'required|exists:cities,id',
         'area_id' => 'required|exists:areas,id',
         'property_id' => 'required|exists:properties,id',
@@ -91,7 +92,7 @@ class CreatePackageComponent extends Component
         $isAdmin = $user->roles->pluck('name')->contains('Super Admin');
 
         // Initialize data based on user role
-        $this->countries = Country::all();
+        $this->cities = DB::table('cities')->get();
         $this->properties = $isAdmin ? Property::all() : Property::where('user_id', $user->id)->get();
         $this->maintains = $isAdmin ? Maintain::all() : Maintain::where('user_id', $user->id)->get();
         $this->amenities = $isAdmin ? Amenity::all() : Amenity::where('user_id', $user->id)->get();
@@ -104,16 +105,14 @@ class CreatePackageComponent extends Component
     }
 
     // Location Updates
-    public function updatedCountryId($value)
+    public function updatedAreaId($value)
     {
-        $this->cities = City::where('country_id', $value)->get();
-        $this->city_id = null;
-        $this->area_id = null;
+        $this->properties = Property::where('area_id', $value)->get();
     }
 
     public function updatedCityId($value)
     {
-        $this->areas = Area::where('city_id', $value)->get();
+        $this->areas = Area::where('district_id', $value)->get();
         $this->area_id = null;
     }
 
@@ -254,7 +253,6 @@ class CreatePackageComponent extends Component
     protected function createPackage()
     {
         $package = Package::create([
-            'country_id' => $this->country_id,
             'city_id' => $this->city_id,
             'area_id' => $this->area_id,
             'property_id' => $this->property_id,

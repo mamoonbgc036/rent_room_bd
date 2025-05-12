@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Property extends Model
 {
     use HasFactory;
-    protected $fillable = ['country_id','user_id', 'city_id', 'property_type_id', 'name', 'photo'];
+    protected $fillable = ['city_id', 'user_id', 'area_id', 'property_type_id', 'name', 'photo'];
 
-    public function country()
+    public function area()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Area::class);
     }
 
     public function city()

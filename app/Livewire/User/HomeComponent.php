@@ -88,9 +88,8 @@ class HomeComponent extends Component
 
     public function loadCities()
     {
-        if ($this->selectedCountry) {
-            $this->cities = City::where('country_id', $this->selectedCountry)->get();
-        }
+        // $this->cities = City::where('country_id', $this->selectedCountry)->get();
+        $this->cities = City::all();
     }
 
     public function countryUpdated($countryId)
@@ -104,7 +103,7 @@ class HomeComponent extends Component
 
     public function updatedSelectedCity($cityId)
     {
-        $this->areas = Area::where('city_id', $cityId)->get();
+        $this->areas = Area::where('district_id', $cityId)->get();
         $this->selectedArea = null;
         $this->packages = [];
     }
