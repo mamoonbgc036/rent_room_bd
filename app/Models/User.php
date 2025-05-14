@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'fb_id',
         'password',
         'partner_bank_details',
         'proof_type_1',
@@ -132,5 +133,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(PackagePayment::class);
     }
-
 }

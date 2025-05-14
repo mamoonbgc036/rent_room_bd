@@ -1,4 +1,12 @@
 <div>
+    <div class="mt-2 d-flex justify-content-center">
+        <a href="{{ url('auth/facebook') }}" class="btn btn-primary d-flex align-items-center gap-2 px-4" style="background-color: #3b5998; border-color: #3b5998;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-facebook" viewBox="0 0 16 16">
+                <path d="M8.94 6.56H7.75V5.69c0-.32.21-.39.35-.39h.79V3.68L7.77 3.5c-1.36 0-1.72.65-1.72 1.64v1.42H5V8.44h1.05v4.06h1.7V8.44h1.15l.18-1.88z" />
+            </svg>
+            <span>Login with Facebook</span>
+        </a>
+    </div>
     <div class="modal-header border-0 px-8">
         <h5 class="modal-title">Sign Up</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -7,7 +15,7 @@
     </div>
     <div class="modal-body p-4 py-sm-7 px-sm-8">
         @if (session()->has('message'))
-            <div class="alert alert-success">{{ session('message') }}</div>
+        <div class="alert alert-success">{{ session('message') }}</div>
         @endif
         <form wire:submit.prevent="register" class="form">
             <div class="form-group mb-4">
@@ -82,54 +90,54 @@
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
             </div>
             @if($role === 'User')
-                <div class="form-group mt-2 d-flex align-items-center">
-                    <div class="form-check d-flex align-items-center">
-                        <input wire:model="agreeUserTerms" type="checkbox" class="form-check-input mr-2" id="agreeUserTerms" required>
-                        <label class="form-check-label" for="agreeUserTerms">
-                            By creating an account, you agree to RentsandRooms User
-                            <a class="text-heading" href="#" data-toggle="modal" data-target="#userPrivacyPolicyModal">
-                                <u>Terms of Use</u>
-                            </a>
-                        </label>
-                    </div>
-                    @error('agreeUserTerms') <span class="text-danger">{{ $message }}</span> @enderror
+            <div class="form-group mt-2 d-flex align-items-center">
+                <div class="form-check d-flex align-items-center">
+                    <input wire:model="agreeUserTerms" type="checkbox" class="form-check-input mr-2" id="agreeUserTerms" required>
+                    <label class="form-check-label" for="agreeUserTerms">
+                        By creating an account, you agree to RentsandRooms User
+                        <a class="text-heading" href="#" data-toggle="modal" data-target="#userPrivacyPolicyModal">
+                            <u>Terms of Use</u>
+                        </a>
+                    </label>
                 </div>
+                @error('agreeUserTerms') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
             @elseif($role === 'Partner')
-                <div class="form-group mt-2 d-flex align-items-center">
-                    <div class="form-check d-flex align-items-center">
-                        <input wire:model="agreePartnerTerms" type="checkbox" class="form-check-input mr-2" id="agreePartnerTerms" required>
-                        <label class="form-check-label" for="agreePartnerTerms">
-                            By creating an account, you agree to RentsandRooms Partner
-                            <a class="text-heading" href="#" data-toggle="modal" data-target="#partnerPrivacyPolicyModal">
-                                <u>Terms of Use</u>
-                            </a>
-                        </label>
-                    </div>
-                    @error('agreePartnerTerms') <span class="text-danger">{{ $message }}</span> @enderror
+            <div class="form-group mt-2 d-flex align-items-center">
+                <div class="form-check d-flex align-items-center">
+                    <input wire:model="agreePartnerTerms" type="checkbox" class="form-check-input mr-2" id="agreePartnerTerms" required>
+                    <label class="form-check-label" for="agreePartnerTerms">
+                        By creating an account, you agree to RentsandRooms Partner
+                        <a class="text-heading" href="#" data-toggle="modal" data-target="#partnerPrivacyPolicyModal">
+                            <u>Terms of Use</u>
+                        </a>
+                    </label>
                 </div>
+                @error('agreePartnerTerms') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
             @endif
         </form>
     </div>
 
-            @if($role === 'User')
-                <div class="modal fade" id="userPrivacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="userPrivacyPolicyModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
-                        <div class="modal-content term-modal">
-                            <div class="modal-body">
-                                @livewire('user.terms-condition-component')
-                            </div>
-                        </div>
-                    </div>
+    @if($role === 'User')
+    <div class="modal fade" id="userPrivacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="userPrivacyPolicyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
+            <div class="modal-content term-modal">
+                <div class="modal-body">
+                    @livewire('user.terms-condition-component')
                 </div>
-                @else
-                <div class="modal fade" id="partnerPrivacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="partnerPrivacyPolicyModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
-                        <div class="modal-content term-modal">
-                            <div class="modal-body">
-                                @livewire('user.partner-terms-condition-component')
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
+    @else
+    <div class="modal fade" id="partnerPrivacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="partnerPrivacyPolicyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
+            <div class="modal-content term-modal">
+                <div class="modal-body">
+                    @livewire('user.partner-terms-condition-component')
                 </div>
-                @endif
+            </div>
+        </div>
+    </div>
+    @endif
 </div>

@@ -1,68 +1,69 @@
 <?php
 
-use App\Http\Controllers\StripeController;
-use App\Livewire\Actions\Logout;
-use App\Livewire\Admin\AdminBookingComponent;
-use App\Livewire\Admin\AdminBookingEditComponent;
-use App\Livewire\Admin\Amenity\AmenityComponent;
-use App\Livewire\Admin\AmenityType\AmenityTypeComponent;
-use App\Livewire\Admin\Area\AreaComponent;
-use App\Livewire\Admin\Booking\ManageBookings;
-use App\Livewire\Admin\BookingComponent;
-use App\Livewire\Admin\BookingShowComponent;
-use App\Livewire\Admin\City\CityComponent;
-use App\Livewire\Admin\Country\CountryComponent;
-use App\Livewire\Admin\Dashboard\DashboardComponent;
-use App\Livewire\Admin\Maintain\MaintainComponent;
-use App\Livewire\Admin\MaintainType\MaintainTypeComponent;
-use App\Livewire\Admin\Package\CreatePackageComponent;
-use App\Livewire\Admin\Package\EditPackageComponent;
-use App\Livewire\Admin\Package\PackageComponent;
-use App\Livewire\Admin\Package\ShowPackageComponent;
-use App\Livewire\Admin\PaymentComponent;
-use App\Livewire\Admin\ProfileComponent;
-use App\Livewire\Admin\Property\PropertyComponent;
-use App\Livewire\Admin\PropertyType\PropertyTypeComponent;
-use App\Livewire\Admin\SendMailComponent;
-use App\Livewire\Admin\Settings\FooterSection;
-use App\Livewire\Admin\Settings\FooterSectionFourSettings;
-use App\Livewire\Admin\Settings\FooterSectionThreeSettings;
-use App\Livewire\Admin\Settings\FooterSectionTwoSettings;
-use App\Livewire\Admin\Settings\FooterSettings;
-use App\Livewire\Admin\Settings\HeaderSettings;
-use App\Livewire\Admin\Settings\HeroSettings;
-use App\Livewire\Admin\Settings\HomeDataSettings;
-use App\Livewire\Admin\Settings\ParetnerTermsConditionSettings;
-use App\Livewire\Admin\Settings\PrivacyPolicySettings;
-use App\Livewire\Admin\Settings\TermsConditionSettings;
-use App\Livewire\Admin\SettingsComponent;
-use App\Livewire\Admin\User\ManageUserComponent;
-use App\Livewire\Admin\UserViewComponent;
-use App\Livewire\MultipleFormsComponent;
+use App\Models\Payment;
 use App\Livewire\PaymentForm;
-use App\Livewire\RP\PermissionManager;
-use App\Livewire\RP\RoleInPermission;
-use App\Livewire\RP\RoleInPermission\RoleInPermissionCreate;
-use App\Livewire\RP\RoleInPermission\RoleInPermissionEdit;
-use App\Livewire\RP\RoleInPermission\RoleInPermissionIndex;
+use App\Livewire\Actions\Logout;
 use App\Livewire\RP\RoleManager;
 use App\Livewire\RP\UserManager;
-use App\Livewire\User\BookingComplete;
 use App\Livewire\User\BookingList;
-use App\Livewire\User\CheckoutComponent;
-use App\Livewire\User\HomeComponent;
 use App\Livewire\User\PackageList;
 use App\Livewire\User\PackageShow;
-use App\Livewire\User\PartnerTermsConditionComponent;
-use App\Livewire\User\PrivacyPolicyComponent;
 use App\Livewire\User\ShowBooking;
-use App\Livewire\User\TermsConditionComponent;
-use App\Livewire\User\UserMessages;
-use App\Models\Payment;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
+use App\Livewire\User\UserMessages;
+use App\Livewire\User\HomeComponent;
 use Illuminate\Support\Facades\Mail;
+use App\Livewire\RP\RoleInPermission;
+use Illuminate\Support\Facades\Route;
+use App\Livewire\RP\PermissionManager;
+use App\Livewire\User\BookingComplete;
+use Illuminate\Support\Facades\Artisan;
+use App\Livewire\Admin\BookingComponent;
+use App\Livewire\Admin\PaymentComponent;
+use App\Livewire\Admin\ProfileComponent;
+use App\Livewire\MultipleFormsComponent;
+use App\Livewire\User\CheckoutComponent;
+use App\Livewire\Admin\SendMailComponent;
+use App\Livewire\Admin\SettingsComponent;
+use App\Livewire\Admin\UserViewComponent;
+use App\Http\Controllers\StripeController;
+use App\Livewire\Admin\Area\AreaComponent;
+use App\Livewire\Admin\City\CityComponent;
+use App\Livewire\Admin\BookingShowComponent;
+use App\Livewire\Admin\AdminBookingComponent;
+use App\Livewire\Admin\Settings\HeroSettings;
+use App\Livewire\User\PrivacyPolicyComponent;
+use App\Livewire\Admin\Booking\ManageBookings;
+use App\Livewire\Admin\Settings\FooterSection;
+use App\Livewire\User\TermsConditionComponent;
+use App\Livewire\Admin\Settings\FooterSettings;
+use App\Livewire\Admin\Settings\HeaderSettings;
+use App\Livewire\Admin\Amenity\AmenityComponent;
+use App\Livewire\Admin\Country\CountryComponent;
+use App\Livewire\Admin\Package\PackageComponent;
+use App\Livewire\Admin\User\ManageUserComponent;
+use App\Http\Controllers\Auth\FacebookController;
+use App\Livewire\Admin\AdminBookingEditComponent;
+use App\Livewire\Admin\Settings\HomeDataSettings;
+use App\Livewire\Admin\Maintain\MaintainComponent;
+use App\Livewire\Admin\Property\PropertyComponent;
+use App\Livewire\Admin\Dashboard\DashboardComponent;
+use App\Livewire\Admin\Package\EditPackageComponent;
+use App\Livewire\Admin\Package\ShowPackageComponent;
+use App\Livewire\User\PartnerTermsConditionComponent;
+use App\Livewire\Admin\Package\CreatePackageComponent;
+use App\Livewire\Admin\Settings\PrivacyPolicySettings;
+use App\Livewire\Admin\Settings\TermsConditionSettings;
+use App\Livewire\Admin\AmenityType\AmenityTypeComponent;
+use App\Livewire\Admin\Settings\FooterSectionTwoSettings;
+use App\Livewire\Admin\MaintainType\MaintainTypeComponent;
+use App\Livewire\Admin\PropertyType\PropertyTypeComponent;
+use App\Livewire\Admin\Settings\FooterSectionFourSettings;
+use App\Livewire\RP\RoleInPermission\RoleInPermissionEdit;
+use App\Livewire\Admin\Settings\FooterSectionThreeSettings;
+use App\Livewire\RP\RoleInPermission\RoleInPermissionIndex;
+use App\Livewire\RP\RoleInPermission\RoleInPermissionCreate;
+use App\Livewire\Admin\Settings\ParetnerTermsConditionSettings;
 
 
 Route::get('/payment', PaymentForm::class);
@@ -100,6 +101,11 @@ Route::get('/seeder', function () {
 Route::get('/migrate', function () {
     Artisan::call('migrate');
 });
+
+
+Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook']);
+Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
+
 
 
 Route::get('/checkout/success', function () {
@@ -158,7 +164,7 @@ Route::get('/partner-terms-condition', PartnerTermsConditionComponent::class)->n
 
 
 Route::get('/payment/{uniqueId}', PaymentComponent::class)->name('payment.page');
-Route::get('/payment/success', function(Request $request) {
+Route::get('/payment/success', function (Request $request) {
     // Handle successful payment
     if ($request->session_id && $request->payment_link) {
         $paymentLink = PaymentLink::where('unique_id', $request->payment_link)->first();
@@ -177,7 +183,7 @@ Route::get('/payment/success', function(Request $request) {
     return view('payment.success');
 })->name('payment.success');
 
-Route::get('/payment/cancel', function(Request $request) {
+Route::get('/payment/cancel', function (Request $request) {
     return view('payment.cancel');
 })->name('payment.cancel');
 
@@ -211,9 +217,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/users/{userId}', action: UserViewComponent::class)->name('admin.users.view');
     Route::post('user/documents/store', [UserViewComponent::class, 'saveDocuments'])->name('user.documents.store');
     Route::get('/admin/bookings/create', AdminBookingComponent::class)
-    ->name('admin.bookings.create');
+        ->name('admin.bookings.create');
     Route::get('/admin/bookings/{booking}/edit', AdminBookingEditComponent::class)
-    ->name('admin.bookings.edit');
+        ->name('admin.bookings.edit');
 
     Route::get('/dashboard/main', DashboardComponent::class)->name('dashboard')->middleware('can:dashboard');
 
@@ -239,10 +245,10 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-        Route::prefix('admin/packages/{package}/documents')->name('admin.packages.documents.')->group(function () {
-            Route::post('/update', [UserViewComponent::class, 'updateDocuments'])->name('update');
-            Route::delete('/{type}', [UserViewComponent::class, 'deletePartnerDocument'])->name('delete');
-        });
+    Route::prefix('admin/packages/{package}/documents')->name('admin.packages.documents.')->group(function () {
+        Route::post('/update', [UserViewComponent::class, 'updateDocuments'])->name('update');
+        Route::delete('/{type}', [UserViewComponent::class, 'deletePartnerDocument'])->name('delete');
+    });
 
 
     Route::get('/admin/logo', HeaderSettings::class)->name('logo');

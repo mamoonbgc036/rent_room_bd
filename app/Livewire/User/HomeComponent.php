@@ -2,16 +2,17 @@
 
 namespace App\Livewire\User;
 
+use Carbon\Carbon;
 use App\Models\Area;
 use App\Models\City;
+use App\Models\User;
 use App\Models\Country;
-use App\Models\HeroSection;
 use App\Models\Message;
 use App\Models\Package;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use App\Models\HeroSection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class HomeComponent extends Component
 {
@@ -24,6 +25,9 @@ class HomeComponent extends Component
     public $selectedArea = null;
     public $keyword = '';
     public $noPackagesFound;
+
+    public $search = '';
+    public $search_area;
 
     public $backgroundImage;
     public $titleSmall;
@@ -55,6 +59,29 @@ class HomeComponent extends Component
             }
         }
         return null;
+    }
+
+    public function updatedSearch($value)
+    {
+        if (strlen($value) <= 1) {
+            $this->search_area = [];
+        } else {
+            $this->search_area = DB::table('pk_search')->where('name', 'like', '%' . $value . '%')->orderBy('id', 'desc')->get();
+        }
+    }
+
+    public function selectPackage($areaId)
+    {
+        $splited_data = explode('/', $areaId);
+        if ($splited_data[0] == 'di') {
+            $this->packages = Package::where('city_id', $splited_data[1])->get();
+        } else {
+            $this->packages = Package::where('area_id', $splited_data[1])->get();
+        }
+        if ($this->packages->isEmpty()) {
+            $this->dispatch('noPackagesFound');
+        }
+        $this->search_area = [];
     }
 
     public function getPriceIndicator($type)
@@ -131,12 +158,12 @@ class HomeComponent extends Component
         if ($this->selectedArea) {
             $query->where('area_id', $this->selectedArea);
         }
-        if ($this->keyword) {
-            $query->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->keyword . '%')
-                    ->orWhere('address', 'like', '%' . $this->keyword . '%');
-            });
-        }
+        // if ($this->keyword) {
+        //     $query->where(function ($q) {
+        //         $q->where('name', 'like', '%' . $this->keyword . '%')
+        //             ->orWhere('address', 'like', '%' . $this->keyword . '%');
+        //     });
+        // }
 
         $this->packages = $query->get();
 

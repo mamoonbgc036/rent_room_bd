@@ -539,7 +539,7 @@
                                 <div class=" col-md-3 mb-2 mb-4">
                                     <div class="position-relative border p-2 rounded">
                                         <!-- Image Preview -->
-                                        <img src="{{ Storage::url($photo) }}" alt="Photo Preview"
+                                        <img src="{{ asset('storage/'. $photo) }}" alt="Photo Preview"
                                             class="img-fluid rounded"
                                             style="height: 180px; width: 100%; object-fit: cover;">
 

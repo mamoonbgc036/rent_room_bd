@@ -10,30 +10,30 @@
                 <div class="container mb-4">
                     <div class="row justify-content-center">
                         <div class="col-lg-6">
-                            <div class="d-flex flex-column flex-lg-row align-items-center">
-                                <div class="mr-lg-2 mb-2 mb-lg-0 w-100">
-                                    <select wire:model.live="selectedCity" class="form-control">
-                                        <option value="">Select City</option>
-                                        @foreach($cities as $city)
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="row g-1">
+                                <div class="col-7">
+                                    <input type="search" placeholder="Search by area like Mothijheel" wire:model.live="search" name="" class="form-control" style="background-color: rgba(255, 255, 255, 0.7);::placeholder { color: white; }" id="">
                                 </div>
-                                <div class="mr-lg-2 mb-2 mb-lg-0 w-100">
-                                    <select wire:model.live="selectedArea" class="form-control">
-                                        <option value="">Select Area</option>
-                                        @foreach($areas as $area)
-                                        <option value="{{ $area->id }}">{{ $area->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mr-lg-2 mb-2 mb-lg-0 w-100 d-none">
-                                    <input type="text" wire:model.live.debounce.300ms="keyword" class="form-control" placeholder="Or Keyword">
-                                </div>
-                                <div class="w-100">
-                                    <button wire:click="searchPackages" class="btn btn-primary btn-block">Search</button>
+                                <div class="col-5">
+                                    <button wire:click="searchPackages" class="btn btn-primary w-100" style="background-color: rgba(13, 110, 253, 0.7); border-color: rgba(13, 110, 253, 0.7);">
+                                        Search
+                                    </button>
                                 </div>
                             </div>
+                            @if (!empty($search_area))
+                            <ul
+                                class="position-absolute list-group w-75 z-3"
+                                style="max-height: 300px; overflow-y: auto;margin-top: 5px">
+                                @foreach ($search_area as $area)
+                                <li
+                                    class="list-group-item list-group-item-action"
+                                    wire:click="selectPackage({{ is_null($area->district_id) ? "'th/".$area->id."'" : "'di/".$area->district_id."'" }})"
+                                    style="cursor: pointer;">
+                                    {{ $area->name }}
+                                </li>
+                                @endforeach
+                            </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -43,6 +43,9 @@
 
     @if($packages)
     <div id="filterPackage" class="container">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mt-8 mb-6">
+            🔍 Your Search Result
+        </h1>
         <div class="row">
             @foreach($packages as $package)
             <div class="col-md-4 mb-4">
@@ -138,11 +141,11 @@
             </div>
             @endforeach
         </div>
-    </div>
-    @endif
-    @if($noPackagesFound)
-    <div id="filterPackage" class="alert alert-warning text-center" role="alert">
-        No packages found.
+        @if($noPackagesFound)
+        <div id="filterPackage" class="alert alert-warning text-center" role="alert">
+            No packages found.
+        </div>
+        @endif
     </div>
     @endif
     <script>
@@ -175,7 +178,6 @@
                         <span class="heading-divider"></span>
                         <p class="mb-2">Choose Your Package</p>
                     </div>
-
                 </div>
                 <div wire:ignore class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
                     data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
@@ -291,28 +293,16 @@
                                         </li>
                                         {{-- Additional list items can go here --}}
                                     </ul>
-
-
-
-
-
                                 </div>
                                 <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-
                                 </div>
                             </div>
                         </a>
                     </div>
-
                     @endforeach
-
                 </div>
             </div>
         </section>
-
         @livewire('user.home-data-user')
     </div>
-
-
-
 </div>

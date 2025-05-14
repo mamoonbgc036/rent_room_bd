@@ -78,5 +78,4 @@ class ManageBookings extends Component
     {
         return view('livewire.admin.booking.manage-bookings');
     }
-
 }

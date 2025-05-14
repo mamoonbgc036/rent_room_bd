@@ -88,7 +88,7 @@
             transition: all 0.2s;
             cursor: pointer;
             background: #585858;
-       }
+        }
 
         .room-item {
             border: 1px solid #dee2e6;
@@ -167,18 +167,18 @@
                     </div> --}}
                                 </div>
                                 @role('Super Admin')
-                                    <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
-                                        data-target="#primaryMenuSidebar" aria-controls="primaryMenuSidebar"
-                                        aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
+                                <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
+                                    data-target="#primaryMenuSidebar" aria-controls="primaryMenuSidebar"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
                                 @endrole
                                 @role('Partner')
-                                    <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
-                                        data-target="#primaryMenuSidebar" aria-controls="primaryMenuSidebar"
-                                        aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
+                                <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
+                                    data-target="#primaryMenuSidebar" aria-controls="primaryMenuSidebar"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
                                 @endrole
                             </div>
                         </div>
@@ -196,275 +196,275 @@
                             <ul class="list-group list-group-flush w-100">
                                 <li class="list-group-item">
                                     @role('Super Admin')
-                                        <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Main</h5>
+                                    <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Main</h5>
                                     @endrole
                                     <ul class="list-group list-group-no-border rounded-lg">
                                         @role('Super Admin|Partner|User')
-                                            @can('dashboard')
-                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
-                                                    onclick="window.location='{{ route('dashboard') }}'">
-                                                    <a href="{{ route('dashboard') }}"
-                                                        class="text-heading lh-1 sidebar-link">
-                                                        <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
-                                                                class="fad fa-chart-line"></i></span>
-                                                        <span class="sidebar-item-text">Dashboard</span>
-                                                    </a>
-                                                </li>
-                                            @endcan
+                                        @can('dashboard')
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
+                                            onclick="window.location='{{ route('dashboard') }}'">
+                                            <a href="{{ route('dashboard') }}"
+                                                class="text-heading lh-1 sidebar-link">
+                                                <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
+                                                        class="fad fa-chart-line"></i></span>
+                                                <span class="sidebar-item-text">Dashboard</span>
+                                            </a>
+                                        </li>
+                                        @endcan
                                         @endrole
                                         @can('package')
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
-                                                onclick="window.location='{{ route('admin.packages') }}'">
-                                                <a href="{{ route('admin.packages') }}"
-                                                    class="text-heading lh-1 sidebar-link">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
-                                                            class="fad fa-box-check"></i></span>
-                                                    <span class="sidebar-item-text">Packages</span>
-                                                </a>
-                                            </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
+                                            onclick="window.location='{{ route('admin.packages') }}'">
+                                            <a href="{{ route('admin.packages') }}"
+                                                class="text-heading lh-1 sidebar-link">
+                                                <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
+                                                        class="fad fa-box-check"></i></span>
+                                                <span class="sidebar-item-text">Packages</span>
+                                            </a>
+                                        </li>
                                         @endcan
                                         @can('booking')
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
-                                                onclick="window.location='{{ route('admin.bookings.index') }}'">
-                                                <a href="{{ route('admin.bookings.index') }}"
-                                                    class="text-heading lh-1 sidebar-link">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
-                                                            class="fad fa-folder-download"></i></span>
-                                                    <span class="sidebar-item-text">Bookings</span>
-                                                </a>
-                                            </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
+                                            onclick="window.location='{{ route('admin.bookings.index') }}'">
+                                            <a href="{{ route('admin.bookings.index') }}"
+                                                class="text-heading lh-1 sidebar-link">
+                                                <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
+                                                        class="fad fa-folder-download"></i></span>
+                                                <span class="sidebar-item-text">Bookings</span>
+                                            </a>
+                                        </li>
                                         @endcan
                                         @can('user')
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
-                                                onclick="window.location='{{ route('users.manage') }}'">
-                                                <a href="{{ route('users.manage') }}"
-                                                    class="text-heading lh-1 sidebar-link">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
-                                                            class="fad fa-users"></i></span>
-                                                    <span class="sidebar-item-text">Users</span>
-                                                </a>
-                                            </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
+                                            onclick="window.location='{{ route('users.manage') }}'">
+                                            <a href="{{ route('users.manage') }}"
+                                                class="text-heading lh-1 sidebar-link">
+                                                <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
+                                                        class="fad fa-users"></i></span>
+                                                <span class="sidebar-item-text">Users</span>
+                                            </a>
+                                        </li>
                                         @endcan
 
                                         @can('send-emails')
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
-                                                onclick="window.location='{{ route('send.mail') }}'">
-                                                <a href="{{ route('send.mail') }}"
-                                                    class="text-heading lh-1 sidebar-link">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
-                                                            class="fad fa-envelope"></i></span>
-                                                    <span class="sidebar-item-text">Massage Send</span>
-                                                </a>
-                                            </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
+                                            onclick="window.location='{{ route('send.mail') }}'">
+                                            <a href="{{ route('send.mail') }}"
+                                                class="text-heading lh-1 sidebar-link">
+                                                <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
+                                                        class="fad fa-envelope"></i></span>
+                                                <span class="sidebar-item-text">Massage Send</span>
+                                            </a>
+                                        </li>
                                         @endcan
 
                                         @can('earning')
-                                            {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button" onclick="window.location='{{ route('admin.bookings') }}'" >
-                        <a href="{{route('admin.bookings')}}" class="text-heading lh-1 sidebar-link">
-                          <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i class="fad fa-money-check-edit-alt"></i></span>
-                          <span class="sidebar-item-text">Earnings</span>
-                        </a>
-                      </li> --}}
-                                        @endcan
-                                    </ul>
-                                </li>
-
-
-
-
-                                <li class="list-group-item">
-                                    @canany(['package.setup', 'role.permission'])
-                                    @endcanany
-                                    <ul class="list-group list-group-no-border rounded-lg">
-                                        @can('package.setup')
-                                            <li class="list-group-item sidebar-item">
-                                                <a href="#package_collapse"
-                                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                                    data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                                        <i class="fad fa-users-cog"></i>
-                                                    </span>
-                                                    <span class="sidebar-item-text">Package Setup</span>
-                                                    <span class="d-inline-block ml-auto"><i
-                                                            class="fal fa-angle-down"></i></span>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        <div class="collapse" id="package_collapse">
-                                            <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                                <ul class="list-group list-group-flush list-group-no-border">
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('countries') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('countries') }}">Country</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('cities') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('cities') }}">City</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('areas') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('areas') }}">Area</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('property-types') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('property-types') }}">Property Type</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('properties') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('properties') }}">Properties</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('maintain-type') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('maintain-type') }}">Maintain Type</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('maintain') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('maintain') }}">Maintains</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('amenity-type') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('amenity-type') }}">Amenity Type</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
-                                                        role="button"
-                                                        onclick="window.location='{{ route('amenities') }}'">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('amenities') }}">Aminities</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </ul>
-                                    <ul class="list-group list-group-no-border rounded-lg">
-                                        @can('role.permission')
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a href="#roles_collapse"
-                                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                                    data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                                        <i class="fad fa-trophy-alt"></i>
-                                                    </span>
-                                                    <span class="sidebar-item-text">Role & Permission</span>
-                                                    <span class="d-inline-block ml-auto"><i
-                                                            class="fal fa-angle-down"></i></span>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        <div class="collapse" id="roles_collapse">
-                                            <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                                <ul class="list-group list-group-flush list-group-no-border">
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('roles') }}">Roles</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('permissions') }}">Permission</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('role.in.permission') }}">Role In
-                                                            Permission</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('users') }}">Assign Role</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        {{-- @can('site.settings')
-                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button" onclick="window.location='{{ route('site.settings') }}'">
-                                <a href="{{route('site.settings')}}" class="text-heading lh-1 sidebar-link">
-                                <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
-                                                class="fad fa-cog"></i></span>
-                                <span class="sidebar-item-text">Site Settings</span>
-                                </a>
+                                        {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button" onclick="window.location='{{ route('admin.bookings') }}'" >
+                                        <a href="{{route('admin.bookings')}}" class="text-heading lh-1 sidebar-link">
+                                            <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i class="fad fa-money-check-edit-alt"></i></span>
+                                            <span class="sidebar-item-text">Earnings</span>
+                                        </a>
+                                </li> --}}
+                                @endcan
+                            </ul>
                             </li>
-                        @endcan --}}
-                                    </ul>
 
-                                    <ul class="list-group list-group-no-border rounded-lg">
-                                        @can('site.settings')
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a href="#sites_collapse"
-                                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                                    data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                                        <i class="far fa-cog"></i>
-                                                    </span>
-                                                    <span class="sidebar-item-text">Site Settings</span>
-                                                    <span class="d-inline-block ml-auto"><i
-                                                            class="fal fa-angle-down"></i></span>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        <div class="collapse" id="sites_collapse">
-                                            <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                                <ul class="list-group list-group-flush list-group-no-border">
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('logo') }}">Header</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a
-                                                            class="text-heading lh-1 sidebar-link"href="{{ route('hero-section') }}">Hero
-                                                            Section</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('home-data') }}">Home Data</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('admin.privacy-policy') }}">Privacy
-                                                            Policy</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('admin-terms-condition') }}">User Terms &
-                                                            Condition</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('admin-partner-terms-condition') }}">Partner
-                                                            Terms & Condition</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('footer-main') }}">Footer 1</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('footer-two') }}">Footer 2</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('footer-three') }}">Footer 3</a>
-                                                    </li>
-                                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                        <a class="text-heading lh-1 sidebar-link"
-                                                            href="{{ route('footer-four') }}">Footer 4</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
+
+
+                            <li class="list-group-item">
+                                @canany(['package.setup', 'role.permission'])
+                                @endcanany
+                                <ul class="list-group list-group-no-border rounded-lg">
+                                    @can('package.setup')
+                                    <li class="list-group-item sidebar-item">
+                                        <a href="#package_collapse"
+                                            class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                            data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                                <i class="fad fa-users-cog"></i>
+                                            </span>
+                                            <span class="sidebar-item-text">Package Setup</span>
+                                            <span class="d-inline-block ml-auto"><i
+                                                    class="fal fa-angle-down"></i></span>
+                                        </a>
+                                    </li>
+                                    @endcan
+                                    <div class="collapse" id="package_collapse">
+                                        <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                            <ul class="list-group list-group-flush list-group-no-border">
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('countries') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('countries') }}">Country</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('cities') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('cities') }}">City</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('areas') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('areas') }}">Area</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('property-types') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('property-types') }}">Property Type</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('properties') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('properties') }}">Properties</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('maintain-type') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('maintain-type') }}">Maintain Type</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('maintain') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('maintain') }}">Maintains</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('amenity-type') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('amenity-type') }}">Amenity Type</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item"
+                                                    role="button"
+                                                    onclick="window.location='{{ route('amenities') }}'">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('amenities') }}">Aminities</a>
+                                                </li>
+                                            </ul>
                                         </div>
+                                    </div>
+                                </ul>
+                                <ul class="list-group list-group-no-border rounded-lg">
+                                    @can('role.permission')
+                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                        <a href="#roles_collapse"
+                                            class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                            data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                                <i class="fad fa-trophy-alt"></i>
+                                            </span>
+                                            <span class="sidebar-item-text">Role & Permission</span>
+                                            <span class="d-inline-block ml-auto"><i
+                                                    class="fal fa-angle-down"></i></span>
+                                        </a>
+                                    </li>
+                                    @endcan
+                                    <div class="collapse" id="roles_collapse">
+                                        <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                            <ul class="list-group list-group-flush list-group-no-border">
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('roles') }}">Roles</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('permissions') }}">Permission</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('role.in.permission') }}">Role In
+                                                        Permission</a>
+                                                </li>
+                                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                    <a class="text-heading lh-1 sidebar-link"
+                                                        href="{{ route('users') }}">Assign Role</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {{-- @can('site.settings')
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button" onclick="window.location='{{ route('site.settings') }}'">
+                                    <a href="{{route('site.settings')}}" class="text-heading lh-1 sidebar-link">
+                                        <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
+                                                class="fad fa-cog"></i></span>
+                                        <span class="sidebar-item-text">Site Settings</span>
+                                    </a>
+                            </li>
+                            @endcan --}}
+                            </ul>
+
+                            <ul class="list-group list-group-no-border rounded-lg">
+                                @can('site.settings')
+                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                    <a href="#sites_collapse"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                            <i class="far fa-cog"></i>
+                                        </span>
+                                        <span class="sidebar-item-text">Site Settings</span>
+                                        <span class="d-inline-block ml-auto"><i
+                                                class="fal fa-angle-down"></i></span>
+                                    </a>
+                                </li>
+                                @endcan
+                                <div class="collapse" id="sites_collapse">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('logo') }}">Header</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a
+                                                    class="text-heading lh-1 sidebar-link" href="{{ route('hero-section') }}">Hero
+                                                    Section</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('home-data') }}">Home Data</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('admin.privacy-policy') }}">Privacy
+                                                    Policy</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('admin-terms-condition') }}">User Terms &
+                                                    Condition</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('admin-partner-terms-condition') }}">Partner
+                                                    Terms & Condition</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('footer-main') }}">Footer 1</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('footer-two') }}">Footer 2</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('footer-three') }}">Footer 3</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('footer-four') }}">Footer 4</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
 
                                 </li>
 
@@ -472,60 +472,60 @@
                                 <li class="list-group-item ">
                                     <ul class="list-group list-group-no-border rounded-lg">
                                         @can('my-packages')
-                                            <li class="list-group-item sidebar-item">
-                                                <a href="{{ route('user.bookings.index') }}"
-                                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                                        <svg class="icon icon-my-package">
-                                                            <use xlink:href="#icon-my-package"></use>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="sidebar-item-text">My Booking</span>
-                                                    <span
-                                                        class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">
-                                                        @php
-                                                            $bookingCount = App\Models\Booking::where(
-                                                                'user_id',
-                                                                Auth::id(),
-                                                            )->count();
-                                                            echo $bookingCount;
-                                                        @endphp
-                                                    </span>
-                                                </a>
-                                            </li>
+                                        <li class="list-group-item sidebar-item">
+                                            <a href="{{ route('user.bookings.index') }}"
+                                                class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                                <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                                    <svg class="icon icon-my-package">
+                                                        <use xlink:href="#icon-my-package"></use>
+                                                    </svg>
+                                                </span>
+                                                <span class="sidebar-item-text">My Booking</span>
+                                                <span
+                                                    class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">
+                                                    @php
+                                                    $bookingCount = App\Models\Booking::where(
+                                                    'user_id',
+                                                    Auth::id(),
+                                                    )->count();
+                                                    echo $bookingCount;
+                                                    @endphp
+                                                </span>
+                                            </a>
+                                        </li>
                                         @endcan
                                         @can('my-packages')
-                                            <li class="list-group-item sidebar-item">
-                                                <a href="{{ route('profile') }}"
-                                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
-                                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                                        <i class="far fa-user-alt"></i>
-                                                    </span>
-                                                    <span class="sidebar-item-text">My Profile</span>
-                                                </a>
-                                            </li>
+                                        <li class="list-group-item sidebar-item">
+                                            <a href="{{ route('profile') }}"
+                                                class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                                <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                                    <i class="far fa-user-alt"></i>
+                                                </span>
+                                                <span class="sidebar-item-text">My Profile</span>
+                                            </a>
+                                        </li>
                                         @endcan
                                         {{-- @can('massage')
                           <li class="list-group-item sidebar-item">
                             <a href="{{ route('user.messages') }}"
-                                class="text-heading lh-1 sidebar-link d-flex align-items-center">
-                                <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                  <i class="far fa-inbox"></i>
-                                </span>
-                                <span class="sidebar-item-text">Massages</span>
-                                <span class="sidebar-item-number massage-count ml-auto text-primary fs-15 font-weight-bold">
-                                  @php
-                                    $unreadMessageCount = App\Models\Message::where('recipient_id', Auth::id())
-                                                                            ->where('is_read', false)
-                                                                            ->count();
-                                    echo $unreadMessageCount;
-                                @endphp
-                                </span>
-                            </a>
-                        </li>
-                        @endcan --}}
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                            <i class="far fa-inbox"></i>
+                                        </span>
+                                        <span class="sidebar-item-text">Massages</span>
+                                        <span class="sidebar-item-number massage-count ml-auto text-primary fs-15 font-weight-bold">
+                                            @php
+                                            $unreadMessageCount = App\Models\Message::where('recipient_id', Auth::id())
+                                            ->where('is_read', false)
+                                            ->count();
+                                            echo $unreadMessageCount;
+                                            @endphp
+                                        </span>
+                                        </a>
+                                </li>
+                                @endcan --}}
 
-                                        {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                         <a href="dashboard-my-profiles.html"
                                class="text-heading lh-1 sidebar-link">
                           <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
@@ -534,24 +534,24 @@
                           <span class="sidebar-item-text">My Profile</span>
                         </a>
                       </li> --}}
-                                        <li class="list-group-item mt-2 px-3 px-xl-4 py-2 sidebar-item">
-                                            <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                                class="text-heading lh-1 sidebar-link">
-                                                <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                                    <svg class="icon icon-log-out">
-                                                        <use xlink:href="#icon-log-out"></use>
-                                                    </svg>
-                                                </span>
-                                                <span class="sidebar-item-text">Log Out</span>
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </li>
-                                    </ul>
+                                <li class="list-group-item mt-2 px-3 px-xl-4 py-2 sidebar-item">
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                        class="text-heading lh-1 sidebar-link">
+                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                            <svg class="icon icon-log-out">
+                                                <use xlink:href="#icon-log-out"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="sidebar-item-text">Log Out</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                 </li>
+                            </ul>
+                            </li>
                             </ul>
                         </div>
                     </div>
@@ -561,25 +561,13 @@
                 <header class="main-header shadow-none shadow-lg-xs-1 bg-white position-relative d-none d-xl-block">
                     <div class="container-fluid">
                         <nav class="navbar navbar-light py-0 row no-gutters px-3 px-lg-0">
-                            <div class="col-md-4 px-0 px-md-6 order-1 order-md-0">
-                                <form>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend mr-0">
-                                            <button class="btn border-0 shadow-none fs-20 text-muted p-0"
-                                                type="submit"><i class="far fa-search"></i></button>
-                                        </div>
-                                        <input type="text" class="form-control border-0 bg-transparent shadow-none"
-                                            placeholder="Search for..." name="search">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-6 d-flex flex-wrap justify-content-md-end order-0 order-md-1">
+                            <div class="col-md-12 d-flex flex-wrap justify-content-md-end order-0 order-md-1">
                                 @role('Super Admin')
-                                    <a href="{{ route('admin.bookings.create') }}"
-                                        class="btn btn-link btn-sm text-primary py-2 px-3 d-flex align-items-center">
-                                        <i class="fas fa-plus mr-2"></i>
-                                        Create Booking
-                                    </a>
+                                <a href="{{ route('admin.bookings.create') }}"
+                                    class="btn btn-link btn-sm text-primary py-2 px-3 d-flex align-items-center">
+                                    <i class="fas fa-plus mr-2"></i>
+                                    Create Booking
+                                </a>
                                 @endrole
                                 <div class="dropdown border-md-right border-0 py-3 text-right">
                                     <a href="#"
@@ -805,7 +793,7 @@
                                     </div>
                                     <p class="form-text">Minimum 8 characters with 1 number and 1 letter</p>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign upss</button>
                             </form>
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">

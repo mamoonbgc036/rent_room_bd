@@ -10,6 +10,7 @@
         "kreait/laravel-firebase": "^5.9",
         "laravel/breeze": "^2.0",
         "laravel/framework": "^11.0",
+        "laravel/socialite": "^5.20",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",

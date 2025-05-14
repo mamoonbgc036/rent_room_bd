@@ -15,7 +15,7 @@ class HeroSettings extends Component
     public $isEditing = false;
 
     protected $rules = [
-        'background_image' => 'nullable|image|max:2048',
+        'background_image' => 'nullable|image',
         'title_small' => 'required|string|max:255',
         'title_big' => 'required|string|max:255',
     ];

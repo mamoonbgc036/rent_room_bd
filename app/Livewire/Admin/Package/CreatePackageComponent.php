@@ -218,7 +218,7 @@ class CreatePackageComponent extends Component
         ]);
 
         foreach ($this->photos as $photo) {
-            $this->storedPhotos[] = $photo->store('photos-temp', 'public');
+            $this->storedPhotos[] = $photo->store('photos-temp');
         }
         $this->reset('photos');
     }
@@ -337,8 +337,7 @@ class CreatePackageComponent extends Component
     {
         foreach ($this->storedPhotos as $photo) {
             $newFilePath = str_replace('photos-temp', 'photos', $photo);
-            Storage::disk('public')->move($photo, $newFilePath);
-
+            Storage::move($photo, $newFilePath);
             $package->photos()->create([
                 'url' => $newFilePath,
                 'user_id' => Auth::id(),

@@ -155,57 +155,57 @@
                                     <!-- Auth Section -->
                                     <div class="nav-item py-2 py-lg-0">
                                         @if (auth()->check())
-                                            <div class="dropdown">
-                                                <a href="#"
-                                                    class="dropdown-toggle d-flex align-items-center text-heading"
-                                                    data-toggle="dropdown">
-                                                    <div class="user-avatar">
-                                                        <img src="{{ auth()->user()->photo ? asset('images/' . auth()->user()->photo) : asset('profile.png') }}"
-                                                            alt="{{ auth()->user()->name }}" class="rounded-circle"
-                                                            style="width: 32px; height: 32px; object-fit: cover;">
-                                                    </div>
-                                                    <span class="fs-13 font-weight-500 d-none d-sm-inline ml-2">
-                                                        {{ auth()->user()->name }}
-                                                    </span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    @role('User')
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('user.bookings.index') }}">
-                                                            <i class="fas fa-bookmark mr-2"></i>My Packages
-                                                        </a>
-                                                    @endrole
-                                                    @role('Super Admin|Admin')
-                                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                                            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
-                                                        </a>
-                                                    @endrole
-                                                    <a class="dropdown-item" href="{{ route('profile') }}">
-                                                        <i class="fas fa-user mr-2"></i>My Profile
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                                                    </a>
+                                        <div class="dropdown">
+                                            <a href="#"
+                                                class="dropdown-toggle d-flex align-items-center text-heading"
+                                                data-toggle="dropdown">
+                                                <div class="user-avatar">
+                                                    <img src="{{ auth()->user()->photo ? asset('images/' . auth()->user()->photo) : asset('profile.png') }}"
+                                                        alt="{{ auth()->user()->name }}" class="rounded-circle"
+                                                        style="width: 32px; height: 32px; object-fit: cover;">
                                                 </div>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    class="d-none">
-                                                    @csrf
-                                                </form>
+                                                <span class="fs-13 font-weight-500 d-none d-sm-inline ml-2">
+                                                    {{ auth()->user()->name }}
+                                                </span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                @role('User')
+                                                <a class="dropdown-item"
+                                                    href="{{ route('user.bookings.index') }}">
+                                                    <i class="fas fa-bookmark mr-2"></i>My Packages
+                                                </a>
+                                                @endrole
+                                                @role('Super Admin|Admin')
+                                                <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                                                </a>
+                                                @endrole
+                                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                                    <i class="fas fa-user mr-2"></i>My Profile
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                                </a>
                                             </div>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
                                         @else
-                                            <div
-                                                class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
-                                                <a class="nav-link px-2 text-dark hover-s mb-2 mb-lg-0 mr-lg-2"
-                                                    data-toggle="modal" href="#signInModal">
-                                                    <i class="fas fa-sign-in-alt mr-1"></i>SIGN IN
-                                                </a>
-                                                <a class="nav-link px-2 text-dark hover-s" data-toggle="modal"
-                                                    href="#signUpModal">
-                                                    <i class="fas fa-user-plus mr-1"></i>SIGN UP
-                                                </a>
-                                            </div>
+                                        <div
+                                            class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
+                                            <a class="nav-link px-2 text-dark hover-s mb-2 mb-lg-0 mr-lg-2"
+                                                data-toggle="modal" href="#signInModal">
+                                                <i class="fas fa-sign-in-alt mr-1"></i>SIGN IN
+                                            </a>
+                                            <a class="nav-link px-2 text-dark hover-s" data-toggle="modal"
+                                                href="#signUpModal">
+                                                <i class="fas fa-user-plus mr-1"></i>SIGN UP
+                                            </a>
+                                        </div>
                                         @endif
                                     </div>
                                 </div>
@@ -238,46 +238,46 @@
 
             <!-- Auth Button -->
             @if (auth()->check())
-                <div class="dropdown position-relative">
-                    <a href="#" class="text-center text-decoration-none" data-toggle="dropdown">
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="position-relative">
-                                <img src="{{ auth()->user()->photo ? asset('images/' . auth()->user()->photo) : asset('profile.png') }}"
-                                    alt="{{ auth()->user()->name }}" class="rounded-circle"
-                                    style="width: 24px; height: 24px; object-fit: cover;">
-                            </div>
-                            <span class="text-dark mt-1" style="font-size: 12px;">Profile</span>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        @role('User')
-                            <a class="dropdown-item" href="{{ route('user.bookings.index') }}">
-                                <i class="fas fa-bookmark mr-2"></i>My Packages
-                            </a>
-                        @endrole
-                        @role('Super Admin|Admin')
-                            <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
-                            </a>
-                        @endrole
-                        <a class="dropdown-item" href="{{ route('profile') }}">
-                            <i class="fas fa-user mr-2"></i>My Profile
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                        </a>
-                    </div>
-                </div>
-            @else
-                <a href="#" class="text-center text-decoration-none" data-toggle="modal"
-                    data-target="#signInModal">
+            <div class="dropdown position-relative">
+                <a href="#" class="text-center text-decoration-none" data-toggle="dropdown">
                     <div class="d-flex flex-column align-items-center">
-                        <i class="fas fa-user text-primary" style="font-size: 20px;"></i>
-                        <span class="text-dark mt-1" style="font-size: 12px;">Sign In</span>
+                        <div class="position-relative">
+                            <img src="{{ auth()->user()->photo ? asset('images/' . auth()->user()->photo) : asset('profile.png') }}"
+                                alt="{{ auth()->user()->name }}" class="rounded-circle"
+                                style="width: 24px; height: 24px; object-fit: cover;">
+                        </div>
+                        <span class="text-dark mt-1" style="font-size: 12px;">Profile</span>
                     </div>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    @role('User')
+                    <a class="dropdown-item" href="{{ route('user.bookings.index') }}">
+                        <i class="fas fa-bookmark mr-2"></i>My Packages
+                    </a>
+                    @endrole
+                    @role('Super Admin|Admin')
+                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                        <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                    </a>
+                    @endrole
+                    <a class="dropdown-item" href="{{ route('profile') }}">
+                        <i class="fas fa-user mr-2"></i>My Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </a>
+                </div>
+            </div>
+            @else
+            <a href="#" class="text-center text-decoration-none" data-toggle="modal"
+                data-target="#signInModal">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fas fa-user text-primary" style="font-size: 20px;"></i>
+                    <span class="text-dark mt-1" style="font-size: 12px;">Sign In</span>
+                </div>
+            </a>
             @endif
         </div>
     </div>

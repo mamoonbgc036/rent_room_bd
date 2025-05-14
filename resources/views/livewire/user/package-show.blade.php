@@ -1,18 +1,18 @@
 <div class="mb-10">
 
     @php
-        $videoUrl = $package->video_link;
-        if (
-            preg_match(
-                '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i',
-                $videoUrl,
-                $matches,
-            )
-        ) {
-            $videoId = $matches[1];
-        } else {
-            $videoId = null;
-        }
+    $videoUrl = $package->video_link;
+    if (
+    preg_match(
+    '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i',
+    $videoUrl,
+    $matches,
+    )
+    ) {
+    $videoId = $matches[1];
+    } else {
+    $videoId = null;
+    }
     @endphp
     <section>
         <div class="container mt-4">
@@ -68,8 +68,8 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     // Get all images from PHP/Blade
                     const images = @json(
-                        $package->photos->map(function ($photo) {
-                            return asset('storage/' . $photo->url);
+                        $package-> photos->map(function($photo) {
+                            return asset('storage/'.$photo-> url);
                         }));
 
                     // Initialize variables
@@ -374,16 +374,16 @@
     <Section>
         <div class="container py-4 video-section">
             @if ($videoId)
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe src="https://www.youtube.com/embed/{{ $videoId }}" title="YouTube video player"
-                        class="embed-responsive-item w-100 h-100 rounded-t-lg mb-4" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe src="https://www.youtube.com/embed/{{ $videoId }}" title="YouTube video player"
+                    class="embed-responsive-item w-100 h-100 rounded-t-lg mb-4" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
             @else
-                <p class="text-center text-danger">Unable to load the video. Please check the video link or try again
-                    later.</p>
+            <p class="text-center text-danger">Unable to load the video. Please check the video link or try again
+                later.</p>
             @endif
         </div>
     </Section>
@@ -411,10 +411,10 @@
                                         <span class="text-break">{{ $package->address }}</span>
                                     </div>
                                     @if ($package->map_link)
-                                        <a href="{{ $package->map_link }}" target="_blank"
-                                            class="btn btn-sm btn-outline-secondary">
-                                            Map
-                                        </a>
+                                    <a href="{{ $package->map_link }}" target="_blank"
+                                        class="btn btn-sm btn-outline-secondary">
+                                        Map
+                                    </a>
                                     @endif
                                 </div>
                             </div>
@@ -423,90 +423,91 @@
                             <div class="col-12 col-md-4">
                                 <div class="price-section text-left text-md-right">
                                     @php
-                                        $roomPrices = $package->rooms->flatMap(function ($room) {
-                                            return $room->roomPrices->map(function ($price) use ($room) {
-                                                $price->room_name = $room->name; // Add room name to each price
-                                                return $price;
-                                            });
-                                        });
-                                        $firstPrice = $roomPrices->first();
-                                        $priceType = $firstPrice ? $firstPrice->type : null;
+                                    $roomPrices = $package->rooms->flatMap(function ($room) {
+                                    return $room->roomPrices->map(function ($price) use ($room) {
+                                    $price->room_name = $room->name; // Add room name to each price
+                                    return $price;
+                                    });
+                                    });
+                                    $firstPrice = $roomPrices->first();
+                                    $priceType = $firstPrice ? $firstPrice->type : null;
                                     @endphp
 
                                     @if ($firstPrice)
-                                        <div class="dropdown">
-                                            <button class="btn btn-outline-secondary w-100 w-md-auto position-relative"
-                                                type="button" id="priceDropdown" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <div class="d-flex flex-column align-items-start">
-                                                        <!-- Main Price -->
-                                                        <span class="h5 mb-0 font-weight-bold">
-                                                            @if ($firstPrice->discount_price)
-                                                                ৳{{ number_format($firstPrice->discount_price, 2) }}
-                                                            @else
-                                                                ৳{{ number_format($firstPrice->fixed_price, 2) }}
-                                                            @endif
-                                                            <small class="text-muted" style="font-size: 0.65rem;">
-                                                                {{ ucfirst($priceType) }}ly
-                                                            </small>
-                                                        </span>
-                                                        <!-- Deleted Price, Rate Type and Room Name -->
-                                                        <div class="d-flex align-items-center">
-                                                            @if ($firstPrice->discount_price)
-                                                                <del
-                                                                    class="small text-muted mr-1">৳{{ number_format($firstPrice->fixed_price, 2) }}</del>
-                                                            @endif
-                                                            <small class="text-muted"
-                                                                style="font-size: 0.65rem;">{{ $firstPrice->room_name }}</small>
-                                                        </div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-secondary w-100 w-md-auto position-relative"
+                                            type="button" id="priceDropdown" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex flex-column align-items-start">
+                                                    <!-- Main Price -->
+                                                    <span class="h5 mb-0 font-weight-bold">
+                                                        @if ($firstPrice->discount_price)
+                                                        ৳{{ number_format($firstPrice->discount_price, 2) }}
+                                                        @else
+                                                        ৳{{ number_format($firstPrice->fixed_price, 2) }}
+                                                        @endif
+                                                        <small class="text-muted" style="font-size: 0.65rem;">
+                                                            {{ ucfirst($priceType) }}ly
+                                                        </small>
+                                                    </span>
+                                                    <!-- Deleted Price, Rate Type and Room Name -->
+                                                    <div class="d-flex align-items-center">
+                                                        @if ($firstPrice->discount_price)
+                                                        <del
+                                                            class="small text-muted mr-1">৳{{ number_format($firstPrice->fixed_price, 2) }}</del>
+                                                        @endif
+                                                        <small class="text-muted"
+                                                            style="font-size: 0.65rem;">{{ $firstPrice->room_name }}</small>
                                                     </div>
-                                                    <!-- Dropdown Icon -->
-                                                    <i class="fas fa-chevron-down ml-2"></i>
                                                 </div>
-                                            </button>
+                                                <!-- Dropdown Icon -->
+                                                <i class="fas fa-chevron-down ml-2"></i>
+                                            </div>
+                                        </button>
 
-                                            <!-- Price Dropdown Menu -->
-                                            <div class="dropdown-menu dropdown-menu-right p-3 w-100"
-                                                style="min-width: 280px; max-width: 100%; max-height: 400px; overflow-y: auto;">
-                                                @foreach ($package->rooms as $room)
-                                                    <div class="room-price-item mb-3">
-                                                        <h6 class="border-bottom pb-2">
-                                                            <i class="fas fa-bed mr-2 text-primary"></i>
-                                                            {{ $room->name }}
-                                                        </h6>
-                                                        @php
-                                                            $pricesByType = $room->roomPrices->groupBy('type');
-                                                        @endphp
-                                                        @foreach ($pricesByType as $type => $prices)
-                                                            <div class="price-type-group mb-2">
-                                                                <div class="text-muted small mb-1">
-                                                                    {{ ucfirst($type) }}ly</div>
-                                                                @foreach ($prices as $price)
-                                                                    <div
-                                                                        class="price-item d-flex justify-content-between align-items-center py-1">
-                                                                        <div class="price-amount">
-                                                                            @if ($price->discount_price)
-                                                                                <del
-                                                                                    class="text-muted small">৳{{ number_format($price->fixed_price, 2) }}</del>
-                                                                                <span
-                                                                                    class="text-success">৳{{ number_format($price->discount_price, 2) }}</span>
-                                                                            @else
-                                                                                <span>৳{{ number_format($price->fixed_price, 2) }}</span>
-                                                                            @endif
-                                                                        </div>
-                                                                        <small class="text-muted booking-fee">
-                                                                            +৳{{ number_format($price->booking_price, 2) }}
-                                                                            booking
-                                                                        </small>
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                        @endforeach
+                                        <!-- Price Dropdown Menu -->
+                                        <div class="dropdown-menu dropdown-menu-right p-3 w-100"
+                                            style="min-width: 280px; max-width: 100%; max-height: 400px; overflow-y: auto;">
+                                            @foreach ($package->rooms as $room)
+                                            <div class="room-price-item mb-3">
+                                                <h6 class="border-bottom pb-2">
+                                                    <i class="fas fa-bed mr-2 text-primary"></i>
+                                                    {{ $room->name }}
+                                                </h6>
+                                                @php
+                                                $pricesByType = $room->roomPrices->groupBy('type');
+                                                @endphp
+                                                @foreach ($pricesByType as $type => $prices)
+                                                <div class="price-type-group mb-2">
+                                                    <div class="text-muted small mb-1">
+                                                        {{ ucfirst($type) }}ly
                                                     </div>
+                                                    @foreach ($prices as $price)
+                                                    <div
+                                                        class="price-item d-flex justify-content-between align-items-center py-1">
+                                                        <div class="price-amount">
+                                                            @if ($price->discount_price)
+                                                            <del
+                                                                class="text-muted small">৳{{ number_format($price->fixed_price, 2) }}</del>
+                                                            <span
+                                                                class="text-success">৳{{ number_format($price->discount_price, 2) }}</span>
+                                                            @else
+                                                            <span>৳{{ number_format($price->fixed_price, 2) }}</span>
+                                                            @endif
+                                                        </div>
+                                                        <small class="text-muted booking-fee">
+                                                            +৳{{ number_format($price->booking_price, 2) }}
+                                                            booking
+                                                        </small>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
                                                 @endforeach
                                             </div>
+                                            @endforeach
                                         </div>
+                                    </div>
                                     @endif
                                 </div>
                             </div>
@@ -517,49 +518,49 @@
                             <div class="d-flex align-items-center justify-content-between mb-1">
                                 <!-- Partner Info - Moves to new line on extra small screens -->
                                 @if ($package->assignedPartner)
-                                    <div class="d-flex align-items-center">
-                                        <!-- Partner Profile Photo -->
-                                        <div class="partner-photo">
-                                            @if ($package->user && $package->user->profile_photo_path)
-                                                <img src="{{ Storage::url($package->user->profile_photo_path) }}"
-                                                    alt="{{ $package->user->name }}"
-                                                    class="rounded-circle border shadow-sm"
-                                                    style="width: 32px; height: 32px; object-fit: cover;">
-                                            @else
-                                                <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center border shadow-sm"
-                                                    style="width: 32px; height: 32px;">
-                                                    <i class="fas fa-user-circle"></i>
-                                                </div>
-                                            @endif
+                                <div class="d-flex align-items-center">
+                                    <!-- Partner Profile Photo -->
+                                    <div class="partner-photo">
+                                        @if ($package->user && $package->user->profile_photo_path)
+                                        <img src="{{ Storage::url($package->user->profile_photo_path) }}"
+                                            alt="{{ $package->user->name }}"
+                                            class="rounded-circle border shadow-sm"
+                                            style="width: 32px; height: 32px; object-fit: cover;">
+                                        @else
+                                        <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center border shadow-sm"
+                                            style="width: 32px; height: 32px;">
+                                            <i class="fas fa-user-circle"></i>
                                         </div>
-
-                                        <!-- Partner Name -->
-                                        <div class="partner-name">
-                                            @if ($package->assignedPartner)
-                                                <a href="{{ route('partner.packages', ['partnerSlug' => str_replace(' ', '-', strtolower($package->assignedPartner->name))]) }}"
-                                                    class="text-decoration-none">
-                                                    <span class="font-weight-medium ml-2 text-success">
-                                                        {{ $package->assignedPartner->name }}
-                                                    </span>
-                                                </a>
-                                            @endif
-                                        </div>
+                                        @endif
                                     </div>
+
+                                    <!-- Partner Name -->
+                                    <div class="partner-name">
+                                        @if ($package->assignedPartner)
+                                        <a href="{{ route('partner.packages', ['partnerSlug' => str_replace(' ', '-', strtolower($package->assignedPartner->name))]) }}"
+                                            class="text-decoration-none">
+                                            <span class="font-weight-medium ml-2 text-success">
+                                                {{ $package->assignedPartner->name }}
+                                            </span>
+                                        </a>
+                                        @endif
+                                    </div>
+                                </div>
                                 @endif
                             </div>
 
                             <div class="description-content">
                                 @php
-                                    $words = explode(' ', $package->details);
-                                    $limitedWords = array_slice($words, 0, 50);
-                                    $remainingWords = array_slice($words, 50);
+                                $words = explode(' ', $package->details);
+                                $limitedWords = array_slice($words, 0, 50);
+                                $remainingWords = array_slice($words, 50);
                                 @endphp
                                 <p class="mb-0 text-break">
                                     {{ implode(' ', $viewMore ? $words : $limitedWords) }}
                                     @if (count($words) > 50)
-                                        <span wire:click="toggleViewMore" class="text-primary cursor-pointer">
-                                            {{ $viewMore ? 'View less' : 'View more' }}
-                                        </span>
+                                    <span wire:click="toggleViewMore" class="text-primary cursor-pointer">
+                                        {{ $viewMore ? 'View less' : 'View more' }}
+                                    </span>
                                     @endif
                                 </p>
                             </div>
@@ -712,7 +713,8 @@
                                                         </div>
                                                         <div class="media-body ml-2">
                                                             <p class="m-0 fs-13 font-weight-bold text-heading">
-                                                                {{ $package->user->name }}</p>
+                                                                {{ $package->user->name }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -723,7 +725,8 @@
                                                         </div>
                                                         <div class="media-body ml-2">
                                                             <p class="m-0 fs-13 font-weight-bold text-heading">
-                                                                {{ $package->number_of_kitchens }}</p>
+                                                                {{ $package->number_of_kitchens }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -735,7 +738,8 @@
 
                                                         <div class="media-body ml-2">
                                                             <p class="m-0 fs-13 font-weight-bold text-heading">
-                                                                {{ $package->seating }}</p>
+                                                                {{ $package->seating }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -748,7 +752,8 @@
                                                         </div>
                                                         <div class="media-body ml-2">
                                                             <p class="m-0 fs-13 font-weight-bold text-heading">
-                                                                {{ $package->number_of_rooms }}</p>
+                                                                {{ $package->number_of_rooms }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -763,7 +768,8 @@
                                                         </div>
                                                         <div class="media-body ml-2">
                                                             <p class="m-0 fs-13 font-weight-bold text-heading">
-                                                                {{ $package->common_bathrooms }}</p>
+                                                                {{ $package->common_bathrooms }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -788,10 +794,10 @@
                                             <div class="px-4">
                                                 <ul class="list-unstyled mb-0 row no-gutters">
                                                     @foreach ($package->amenities as $amenity)
-                                                        <li class="col-sm-3 col-6 mb-2">
-                                                            <i
-                                                                class="far fa-check mr-2 text-primary"></i>{{ $amenity->name }}
-                                                        </li>
+                                                    <li class="col-sm-3 col-6 mb-2">
+                                                        <i
+                                                            class="far fa-check mr-2 text-primary"></i>{{ $amenity->name }}
+                                                    </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -799,19 +805,19 @@
                                             <div class="px-4">
                                                 <ul class="list-unstyled mb-0 row no-gutters">
                                                     @foreach ($package->amenities()->wherePivot('is_paid', true)->get() as $amenity)
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    wire:model="selectedAmenities.{{ $amenity->id }}"
-                                                                    value="{{ $amenity->pivot->price }}"
-                                                                    id="amenity{{ $amenity->id }}">
-                                                                <label class="form-check-label"
-                                                                    for="amenity{{ $amenity->id }}">
-                                                                    {{ $amenity->name }} -
-                                                                    ৳{{ $amenity->pivot->price }}
-                                                                </label>
-                                                            </div>
-                                                        </li>
+                                                    <li class="list-group-item">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                wire:model="selectedAmenities.{{ $amenity->id }}"
+                                                                value="{{ $amenity->pivot->price }}"
+                                                                id="amenity{{ $amenity->id }}">
+                                                            <label class="form-check-label"
+                                                                for="amenity{{ $amenity->id }}">
+                                                                {{ $amenity->name }} -
+                                                                ৳{{ $amenity->pivot->price }}
+                                                            </label>
+                                                        </div>
+                                                    </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -838,29 +844,29 @@
 
                                                 <ul class="list-unstyled mb-0 row no-gutters">
                                                     @foreach ($package->maintains()->wherePivot('is_paid', false)->get() as $maintain)
-                                                        <li class="col-sm-3 col-6 mb-2">
-                                                            <i
-                                                                class="far fa-check mr-2 text-primary"></i>{{ $maintain->name }}
-                                                        </li>
+                                                    <li class="col-sm-3 col-6 mb-2">
+                                                        <i
+                                                            class="far fa-check mr-2 text-primary"></i>{{ $maintain->name }}
+                                                    </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
                                             <div class="px-4">
                                                 <ul class="list-unstyled mb-0 row no-gutters">
                                                     @foreach ($package->maintains()->wherePivot('is_paid', true)->get() as $maintain)
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    wire:model="selectedMaintains.{{ $maintain->id }}"
-                                                                    value="{{ $maintain->pivot->price }}"
-                                                                    id="maintain{{ $maintain->id }}">
-                                                                <label class="form-check-label"
-                                                                    for="maintain{{ $maintain->id }}">
-                                                                    {{ $maintain->name }} -
-                                                                    ৳{{ $maintain->pivot->price }}
-                                                                </label>
-                                                            </div>
-                                                        </li>
+                                                    <li class="list-group-item">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                wire:model="selectedMaintains.{{ $maintain->id }}"
+                                                                value="{{ $maintain->pivot->price }}"
+                                                                id="maintain{{ $maintain->id }}">
+                                                            <label class="form-check-label"
+                                                                for="maintain{{ $maintain->id }}">
+                                                                {{ $maintain->name }} -
+                                                                ৳{{ $maintain->pivot->price }}
+                                                            </label>
+                                                        </div>
+                                                    </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -882,16 +888,16 @@
                                     <div class="tab-content pt-1 pb-0 px-0 shadow-none">
                                         <div id="signupform" class="tab-pane fade show active" role="tabpanel">
                                             @if (session('error'))
-                                                <div class="alert alert-warning">{{ session('error') }}</div>
+                                            <div class="alert alert-warning">{{ session('error') }}</div>
                                             @endif
 
                                             @unless (Auth::check())
-                                                <div class="text-center mb-4">
-                                                    <p>Please <a class="text-primary fw-bold" href="#signInModal"
-                                                            data-toggle="modal">Sign in</a>
-                                                        if not <a class="text-primary fw-bold" href="#signUpModal"
-                                                            data-toggle="modal">Sign up</a></p>
-                                                </div>
+                                            <div class="text-center mb-4">
+                                                <p>Please <a class="text-primary fw-bold" href="#signInModal"
+                                                        data-toggle="modal">Sign in</a>
+                                                    if not <a class="text-primary fw-bold" href="#signUpModal"
+                                                        data-toggle="modal">Sign up</a></p>
+                                            </div>
                                             @endunless
 
                                             <div class="mb-4">
@@ -908,65 +914,65 @@
                                                         <div class="dropdown-menu w-100"
                                                             aria-labelledby="roomSelectButton">
                                                             @foreach ($package->rooms as $room)
-                                                                <a class="dropdown-item {{ $selectedRoom == $room->id ? 'active' : '' }}"
-                                                                    wire:click="selectRoom({{ $room->id }})">
-                                                                    {{ $room->name }} • {{ $room->number_of_beds }}
-                                                                    Beds • {{ $room->number_of_bathrooms }} Baths
-                                                                </a>
+                                                            <a class="dropdown-item {{ $selectedRoom == $room->id ? 'active' : '' }}"
+                                                                wire:click="selectRoom({{ $room->id }})">
+                                                                {{ $room->name }} • {{ $room->number_of_beds }}
+                                                                Beds • {{ $room->number_of_bathrooms }} Baths
+                                                            </a>
                                                             @endforeach
                                                         </div>
                                                     </div>
                                                     @if (!Auth::check())
-                                                        <div class="overlay auth-overlay"
-                                                            wire:click="showAuthMessage('room')"
-                                                            style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
-                                                        </div>
+                                                    <div class="overlay auth-overlay"
+                                                        wire:click="showAuthMessage('room')"
+                                                        style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 @if ($showAuthWarning === 'room')
-                                                    <span class="text-danger">Please sign in or sign up first.</span>
+                                                <span class="text-danger">Please sign in or sign up first.</span>
                                                 @endif
 
                                                 @if ($selectedRoom)
-                                                    <div class="selected-room-details mt-3 p-3 bg-light rounded">
-                                                        @php $room = $package->rooms->find($selectedRoom) @endphp
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="mr-3">{{ $room->name }}</span>
-                                                            <span class="text-muted">
-                                                                <i class="fas fa-bed"></i> {{ $room->number_of_beds }}
-                                                                <i class="fas fa-bath ml-2"></i>
-                                                                {{ $room->number_of_bathrooms }}
-                                                            </span>
-                                                        </div>
+                                                <div class="selected-room-details mt-3 p-3 bg-light rounded">
+                                                    @php $room = $package->rooms->find($selectedRoom) @endphp
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="mr-3">{{ $room->name }}</span>
+                                                        <span class="text-muted">
+                                                            <i class="fas fa-bed"></i> {{ $room->number_of_beds }}
+                                                            <i class="fas fa-bath ml-2"></i>
+                                                            {{ $room->number_of_bathrooms }}
+                                                        </span>
                                                     </div>
+                                                </div>
                                                 @endif
                                             </div>
 
                                             @if ($selectedRoom && $calendarView)
-                                                <div x-data="datePickerComponent({{ json_encode($disabledDates) }})" wire:ignore.self class="mt-4">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label class="mb-2">Check-in Date</label>
-                                                            <input x-ref="checkInPicker" type="text"
-                                                                class="form-control"
-                                                                placeholder="Select check-in date" readonly
-                                                                {{ !Auth::check() ? 'disabled' : '' }}>
-                                                            @error('fromDate')
-                                                                <span class="text-danger small">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="mb-2">Check-out Date</label>
-                                                            <input x-ref="checkOutPicker" type="text"
-                                                                class="form-control"
-                                                                placeholder="Select check-out date" readonly
-                                                                {{ !Auth::check() ? 'disabled' : '' }}>
-                                                            @error('toDate')
-                                                                <span class="text-danger small">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
+                                            <div x-data="datePickerComponent({{ json_encode($disabledDates) }})" wire:ignore.self class="mt-4">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="mb-2">Check-in Date</label>
+                                                        <input x-ref="checkInPicker" type="text"
+                                                            class="form-control"
+                                                            placeholder="Select check-in date" readonly
+                                                            {{ !Auth::check() ? 'disabled' : '' }}>
+                                                        @error('fromDate')
+                                                        <span class="text-danger small">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="mb-2">Check-out Date</label>
+                                                        <input x-ref="checkOutPicker" type="text"
+                                                            class="form-control"
+                                                            placeholder="Select check-out date" readonly
+                                                            {{ !Auth::check() ? 'disabled' : '' }}>
+                                                        @error('toDate')
+                                                        <span class="text-danger small">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
+                                            </div>
                                             @endif
 
                                             <script>
@@ -1030,18 +1036,18 @@
                                                         wire:model="phone" placeholder="Your Phone" required
                                                         {{ !Auth::check() ? 'disabled' : '' }}>
                                                     @if (!Auth::check())
-                                                        <div class="overlay auth-overlay"
-                                                            wire:click="showAuthMessage('phone')"
-                                                            style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
-                                                        </div>
+                                                    <div class="overlay auth-overlay"
+                                                        wire:click="showAuthMessage('phone')"
+                                                        style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 @error('phone')
-                                                    <span class="error text-danger">{{ $message }}</span>
+                                                <span class="error text-danger">{{ $message }}</span>
                                                 @enderror
                                                 @if ($showAuthWarning === 'phone')
-                                                    <span class="text-danger">Please sign in or sign up
-                                                        first.</span>
+                                                <span class="text-danger">Please sign in or sign up
+                                                    first.</span>
                                                 @endif
                                             </div>
 
@@ -1056,20 +1062,20 @@
                                                 <a href="#" class="text-danger" id="openModal">Terms &
                                                     Conditions</a>
                                                 @error('terms')
-                                                    <span
-                                                        class="error text-danger d-block mt-1">{{ $message }}</span>
+                                                <span
+                                                    class="error text-danger d-block mt-1">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <!-- Error Messages -->
                                             @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul class="mb-0">
-                                                        @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
+                                            <div class="alert alert-danger">
+                                                <ul class="mb-0">
+                                                    @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
                                             @endif
 
                                             <!-- Submit Button -->
