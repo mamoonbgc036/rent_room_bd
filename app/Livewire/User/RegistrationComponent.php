@@ -21,9 +21,7 @@ class RegistrationComponent extends Component
     public function register()
     {
         $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|numeric|unique:users,phone|digits:11',
             'password' => 'required|string|min:8',
             'role' => 'required|string|in:User,Partner',
             'agreeUserTerms' => 'required_if:role,User',
@@ -31,8 +29,6 @@ class RegistrationComponent extends Component
         ]);
 
         $user = User::create([
-            'name' => $this->name,
-            'email' => $this->email,
             'phone' => $this->phone,
             'password' => Hash::make($this->password),
         ]);

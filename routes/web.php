@@ -34,7 +34,6 @@ use App\Livewire\Admin\AdminBookingComponent;
 use App\Livewire\Admin\Settings\HeroSettings;
 use App\Livewire\User\PrivacyPolicyComponent;
 use App\Livewire\Admin\Booking\ManageBookings;
-use App\Livewire\Admin\Settings\FooterSection;
 use App\Livewire\User\TermsConditionComponent;
 use App\Livewire\Admin\Settings\FooterSettings;
 use App\Livewire\Admin\Settings\HeaderSettings;

@@ -1,93 +1,88 @@
 <div>
-    <div class="mt-2 d-flex justify-content-center">
-        <a href="{{ url('auth/facebook') }}" class="btn btn-primary d-flex align-items-center gap-2 px-4" style="background-color: #3b5998; border-color: #3b5998;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-facebook" viewBox="0 0 16 16">
-                <path d="M8.94 6.56H7.75V5.69c0-.32.21-.39.35-.39h.79V3.68L7.77 3.5c-1.36 0-1.72.65-1.72 1.64v1.42H5V8.44h1.05v4.06h1.7V8.44h1.15l.18-1.88z" />
-            </svg>
-            <span>Login with Facebook</span>
-        </a>
+    <!-- Modal Header -->
+    <div class="modal-header border-0 px-4 pt-4 pb-0">
+        <h5 class="modal-title fw-bold">Create an Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
     </div>
-    <div class="modal-header border-0 px-8">
-        <h5 class="modal-title">Sign Up</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body p-4 py-sm-7 px-sm-8">
+
+    <!-- Modal Body -->
+    <div class="modal-body p-4 pt-3">
         @if (session()->has('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
         @endif
         <form wire:submit.prevent="register" class="form">
+
+            <!-- Role Selection -->
             <div class="form-group mb-4">
-                <label for="role" class="sr-only">Role</label>
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                            <i class="far fa-user"></i>
-                        </span>
+                <label class="fw-semibold mb-3 d-block">Register As</label>
+                <div class="row g-3">
+                    <!-- Host Option -->
+                    <div class="col-6">
+                        <label class="w-100 border rounded-4 text-center p-3 shadow-sm position-relative cursor-pointer role-card">
+                            <div>
+                                <img src="{{ asset('images/hosts.jpg') }}" alt="Guest" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+                            </div>
+                            <div>
+                                <input type="radio" wire required wire:model.live="role" style="width: 35px; height: 35px;" value="User" />
+                            </div>
+                            <div class="fw-bold text-dark">Guest</div>
+                        </label>
                     </div>
-                    <select wire:model.live="role" class="form-control border-0 shadow-none fs-13" id="role" required>
-                        <option value="">Select Type</option>
-                        <option value="User">User</option>
-                        <option value="Partner">Partner</option>
-                    </select>
-                </div>
-                @error('role') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group mb-4">
-                <label for="name" class="sr-only">Full name</label>
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                            <i class="far fa-address-card"></i>
-                        </span>
+                    <!-- Guest Option -->
+                    <div class="col-6">
+                        <label class="w-100 border rounded-4 text-center p-3 shadow-sm position-relative cursor-pointer role-card">
+                            <div>
+                                <img src="{{ asset('images/host_two.png') }}" alt="Guest" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+                            </div>
+                            <div>
+                                <input type="radio" required wire:model.live="role" style="width: 35px; height: 35px;" value="Partner" />
+                            </div>
+                            <div class="fw-bold text-dark">Host</div>
+                        </label>
                     </div>
-                    <input type="text" wire:model.defer="name" class="form-control border-0 shadow-none fs-13" id="name" required placeholder="Full name">
                 </div>
-                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group mb-4">
-                <label for="email" class="sr-only">Email</label>
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                            <i class="far fa-user"></i>
-                        </span>
-                    </div>
-                    <input type="email" wire:model.defer="email" class="form-control border-0 shadow-none fs-13" id="email" required placeholder="Your email">
-                </div>
-                @error('email') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
 
+            <!-- Phone Number -->
             <div class="form-group mb-4">
-                <label for="phone" class="sr-only">Phone Number</label>
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                            <i class="far fa-phone"></i>
-                        </span>
-                    </div>
-                    <input type="text" wire:model.defer="phone" class="form-control border-0 shadow-none fs-13" id="phone" required placeholder="Phone Number">
+                <div class="input-group input-group-lg shadow-sm">
+                    <span class="input-group-text bg-light border-0 text-muted">
+                        <i class="far fa-phone"></i>
+                    </span>
+                    <input type="text" wire:model.defer="phone" class="form-control border-0 shadow-none fs-6" placeholder="Phone Number" required />
                 </div>
-                @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+                @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
 
+            <!-- Password -->
             <div class="form-group mb-4">
-                <label for="password" class="sr-only">Password</label>
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                            <i class="far fa-lock"></i>
-                        </span>
-                    </div>
-                    <input type="password" wire:model.defer="password" class="form-control border-0 shadow-none fs-13" id="password" required placeholder="Password">
+                <div class="input-group input-group-lg shadow-sm">
+                    <span class="input-group-text bg-light border-0 text-muted">
+                        <i class="far fa-lock"></i>
+                    </span>
+                    <input type="password" wire:model.defer="password" class="form-control border-0 shadow-none fs-6" placeholder="Password" required />
                 </div>
-                <p class="form-text">Minimum 8 characters
-                </p>
-                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                <small class="form-text text-muted">Minimum 8 characters</small>
+                @error('password') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
-            <div class="d-flex justify-content-evenly button-login">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+
+            <!-- Submit Button -->
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-semibold shadow">Sign Up</button>
+            </div>
+
+            <!-- Divider -->
+            <div class="text-center my-3 text-muted fw-semibold">OR</div>
+
+            <!-- Facebook Login -->
+            <div class="d-flex justify-content-center">
+                <a href="{{ url('auth/facebook') }}" class="btn d-flex align-items-center gap-2 px-4 text-white fw-semibold shadow"
+                    style="background-color: #3b5998; border-color: #3b5998;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-facebook" viewBox="0 0 16 16">
+                        <path d="M8.94 6.56H7.75V5.69c0-.32.21-.39.35-.39h.79V3.68L7.77 3.5c-1.36 0-1.72.65-1.72 1.64v1.42H5V8.44h1.05v4.06h1.7V8.44h1.15l.18-1.88z" />
+                    </svg>
+                    <span>Signup with Facebook</span>
+                </a>
             </div>
             @if($role === 'User')
             <div class="form-group mt-2 d-flex align-items-center">
@@ -118,7 +113,6 @@
             @endif
         </form>
     </div>
-
     @if($role === 'User')
     <div class="modal fade" id="userPrivacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="userPrivacyPolicyModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xs modal-dialog-centered" role="document">

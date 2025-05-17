@@ -74,6 +74,20 @@
                         @enderror
                     </div>
 
+                    <div class=" col-md-3 mb-2">
+                        <label class="form-label required">Property Type</label>
+                        <select wire:model="property_type_id"
+                            class="form-select @error('property_type_id') is-invalid @enderror">
+                            <option value="">Select Property Type</option>
+                            @foreach ($property_types as $propertyType)
+                            <option value="{{ $propertyType->id }}">{{ $propertyType->type }}</option>
+                            @endforeach
+                        </select>
+                        @error('property_type_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class=" col-md-6 mb-2">
                         <label class="form-label required">Package Name</label>
                         <input type="text" wire:model="name" class="form-control @error('name') is-invalid @enderror"

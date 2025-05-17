@@ -8,14 +8,14 @@ use Livewire\Component;
 
 class LoginComponent extends Component
 {
-    public $email;
+    public $phone;
     public $password;
     public $remember;
 
     public function login()
     {
         $credentials = $this->validate([
-            'email' => 'required|string|email|max:255',
+            'phone' => 'required|numeric|digits:11',
             'password' => 'required|string',
         ]);
 
@@ -25,7 +25,7 @@ class LoginComponent extends Component
             $this->dispatch('hideModal');
         } else {
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'phone' => __('auth.failed'),
             ]);
         }
     }

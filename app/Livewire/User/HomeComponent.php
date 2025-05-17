@@ -11,6 +11,7 @@ use App\Models\Message;
 use App\Models\Package;
 use Livewire\Component;
 use App\Models\HeroSection;
+use App\Models\PropertyType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,8 +27,16 @@ class HomeComponent extends Component
     public $keyword = '';
     public $noPackagesFound;
 
+    public $propertyTypes;
+
+    public $accomodationType;
+
+    public $phone;
+
     public $search = '';
     public $search_area;
+
+    public $areaData;
 
     public $backgroundImage;
     public $titleSmall;
@@ -43,6 +52,22 @@ class HomeComponent extends Component
 
         $threshold = Carbon::now()->subHours(24);
         Message::where('created_at', '<', $threshold)->delete();
+    }
+
+    public function updatedaccomodationType()
+    {
+        $this->selectedPackageRefresh();
+        $this->packages = $this->packages->where('property_type_id', $this->accomodationType);
+    }
+
+    public function selectedPackageRefresh()
+    {
+        $splited_data = explode('/', $this->areaData);
+        if ($splited_data[0] == 'di') {
+            $this->packages = Package::where('city_id', $splited_data[1])->get();
+        } else {
+            $this->packages = Package::where('area_id', $splited_data[1])->get();
+        }
     }
 
     public function getFirstAvailablePrice($prices)
@@ -73,11 +98,14 @@ class HomeComponent extends Component
     public function selectPackage($areaId)
     {
         $splited_data = explode('/', $areaId);
+        $this->areaData = $areaId;
+        $this->propertyTypes = DB::table('property_types')->select('id', 'type')->get();
         if ($splited_data[0] == 'di') {
             $this->packages = Package::where('city_id', $splited_data[1])->get();
         } else {
             $this->packages = Package::where('area_id', $splited_data[1])->get();
         }
+
         if ($this->packages->isEmpty()) {
             $this->dispatch('noPackagesFound');
         }
@@ -185,15 +213,13 @@ class HomeComponent extends Component
     {
         // Validation (you can customize this based on your requirements)
         $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|unique',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         // Create a new user
         User::create([
-            'name' => $this->name,
-            'email' => $this->email,
+            'phone' => $this->phone,
             'password' => Hash::make($this->password),
         ]);
 

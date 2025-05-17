@@ -5,7 +5,7 @@ namespace App\Livewire\Admin\Package;
 use Illuminate\Support\Facades\DB;
 use Livewire\{Component, WithFileUploads};
 use Illuminate\Support\Facades\{Auth, Storage};
-use App\Models\{Amenity, Area, City, Country, Package, Property, RoomPrice, Maintain};
+use App\Models\{Amenity, Area, City, Country, Package, Property, RoomPrice, Maintain, PropertyType};
 
 class CreatePackageComponent extends Component
 {
@@ -23,6 +23,10 @@ class CreatePackageComponent extends Component
     public $seating = 0;
     public $details;
     public $video_link;
+
+    public $property_types;
+
+    public $property_type_id;
 
     // Room Management
     public $rooms = [];
@@ -45,6 +49,7 @@ class CreatePackageComponent extends Component
         'city_id' => 'required|exists:cities,id',
         'area_id' => 'required|exists:areas,id',
         'property_id' => 'required|exists:properties,id',
+        'property_type_id' => 'required',
         'name' => 'required|string|max:255',
         'address' => 'required|string|max:500',
         'map_link' => 'nullable|url|max:1000',
@@ -90,6 +95,8 @@ class CreatePackageComponent extends Component
     {
         $user = Auth::user();
         $isAdmin = $user->roles->pluck('name')->contains('Super Admin');
+
+        $this->property_types = DB::table('property_types')->select('id', 'type')->get();
 
         // Initialize data based on user role
         $this->cities = DB::table('cities')->get();
@@ -236,7 +243,6 @@ class CreatePackageComponent extends Component
     public function save()
     {
         $this->validate();
-
         try {
             $package = $this->createPackage();
             $this->saveRooms($package);
@@ -252,7 +258,7 @@ class CreatePackageComponent extends Component
 
     protected function createPackage()
     {
-        $package = Package::create([
+        $data = [
             'city_id' => $this->city_id,
             'area_id' => $this->area_id,
             'property_id' => $this->property_id,
@@ -268,7 +274,10 @@ class CreatePackageComponent extends Component
             'expiration_date' => $this->expiration_date,
             'status' => strtotime($this->expiration_date) <= strtotime(now()) ? 'expired' : 'active',
             'user_id' => Auth::id(),
-        ]);
+            'property_type_id' => $this->property_type_id,
+        ];
+
+        $package = Package::create($data);
 
         foreach ($this->instructions as $instruction) {
             $package->instructions()->create([

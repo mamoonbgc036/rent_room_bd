@@ -7,27 +7,27 @@
     </div>
     <div class="modal-body p-4 py-sm-7 px-sm-8">
         @if (session()->has('message'))
-            <div class="alert alert-success">{{ session('message') }}</div>
+        <div class="alert alert-success">{{ session('message') }}</div>
         @endif
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
         <form wire:submit.prevent="login" class="form">
             <div class="form-group mb-4">
-                <label for="email" class="sr-only">Email</label>
+                <label for="phone" class="sr-only">Phone</label>
                 <div class="input-group input-group-lg">
                     <div class="input-group-prepend">
                         <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
                             <i class="far fa-user"></i>
                         </span>
                     </div>
-                    <input wire:model="email" type="email" class="form-control border-0 shadow-none fs-13" id="email" required placeholder="Your email">
+                    <input wire:model="phone" type="phone" class="form-control border-0 shadow-none fs-13" id="phone" required placeholder="Your phone">
                 </div>
             </div>
             <div class="form-group mb-4">

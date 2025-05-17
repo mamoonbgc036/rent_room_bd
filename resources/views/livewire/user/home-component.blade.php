@@ -12,7 +12,7 @@
                         <div class="col-lg-6">
                             <div class="row g-1">
                                 <div class="col-7">
-                                    <input type="search" placeholder="Search by area like Mothijheel" wire:model.live="search" name="" class="form-control" style="background-color: rgba(255, 255, 255, 0.7);::placeholder { color: white; }" id="">
+                                    <input type="search" placeholder="Search by city or area" wire:model.live="search" name="" class="form-control" style="background-color: rgba(255, 255, 255, 0.7);::placeholder { color: white; }" id="">
                                 </div>
                                 <div class="col-5">
                                     <button wire:click="searchPackages" class="btn btn-primary w-100" style="background-color: rgba(13, 110, 253, 0.7); border-color: rgba(13, 110, 253, 0.7);">
@@ -46,16 +46,35 @@
         <h1 class="text-3xl font-bold text-center text-gray-800 mt-8 mb-6">
             🔍 Your Search Result
         </h1>
-        <div class="row">
+        <div class="d-flex justify-content-around my-2">
+            <div>
+                <label for="accomodation_type" class="d-block text-center" style="margin-bottom: 0px;">Accomodation Type</label>
+                <select name="property_type" wire:model.live="accomodationType" id="property_type" class="form-control-sm w-100">
+                    <option value="" selected>Select Accomodation Type</option>
+                    @foreach($propertyTypes as $propertyType)
+                    <option value="{{ $propertyType->id }}" class="form-control-sm">{{ $propertyType->type }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label for="local_area" class="d-block text-center" style="margin-bottom: 0px;">Local Area</label>
+                <select name="local_area" id="local_area" class="form-control-sm w-100">
+                    <option value="" selected>Select Local Area</option>
+                    <option value="">Gulshan One</option>
+                    <option value="">Gulshan Two</option>
+                </select>
+            </div>
+        </div>
+        <div class="row justify-content-center">
             @foreach($packages as $package)
             <div class="col-md-4 mb-4">
                 <a href="{{ $package->getShowUrl() }}" class="text-decoration-none">
                     <div class="card py-3">
                         <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
-                            @if($package->photos->isNotEmpty())
+                            @if($package->photos->isNotEmpty() && file_exists('storage/'.$package->photos->first()->url))
                             <img src="{{ asset('storage/'.$package->photos->first()->url) }}" alt="Thumbnail" class="img-thumbnail">
                             @else
-                            <img src="{{ asset('default-thumbnail.jpg') }}" alt="Thumbnail" class="img-thumbnail">
+                            <img src="{{ asset('images/no_image.png') }}" alt="Thumbnail" class="img-thumbnail">
                             @endif
                         </div>
                         <div class="card-body pt-3 px-3 pb-1">
@@ -186,10 +205,10 @@
                         <a href="{{ $package->getShowUrl() }}" class="text-dark text-decoration-none">
                             <div class="card shadow-hover-2">
                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                    @if($package->photos->isNotEmpty())
+                                    @if($package->photos->isNotEmpty() && file_exists(public_path('storage/'. $package->photos->first()->url)))
                                     <img src="{{ asset('storage/'.$package->photos->first()->url) }}" alt="Thumbnail" class="img-thumbnail">
                                     @else
-                                    <img src="{{ asset('default-thumbnail.jpg') }}" alt="Thumbnail" class="img-thumbnail">
+                                    <img src="{{ asset('images/no_image.png') }}" alt="Thumbnail" class="img-thumbnail">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
                                         <div>

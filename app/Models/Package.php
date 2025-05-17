@@ -28,7 +28,8 @@ class Package extends Model
         'expiration_date',
         'assigned_to',
         'assigned_by',
-        'assigned_at'
+        'assigned_at',
+        'property_type_id'
     ];
     protected $dates = ['assigned_at'];
     protected $casts = [
