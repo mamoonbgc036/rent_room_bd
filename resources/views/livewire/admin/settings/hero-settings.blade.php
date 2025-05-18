@@ -26,11 +26,6 @@
                 @error('title_big') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Loading spinner -->
-            <div wire:loading.flex class="spinner-border text-primary" role="status">
-                <span class="visually-hidden"><i class="fa-sharp fa-regular fa-circle-notch"></i></span>
-            </div>
-
             <button type="submit" class="btn btn-primary">{{ $isEditing ? 'Update' : 'Save' }}</button>
         </form>
 
