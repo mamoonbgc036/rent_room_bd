@@ -7,7 +7,7 @@
 
     <!-- Create/Edit Form -->
     <div class="mb-4">
-        <form wire:submit.prevent="{{ $isEditing ? 'update' : 'store' }}" enctype="multipart/form-data">
+        <form wire:submit.prevent="{{ $isEditing ? 'update' : 'store' }}">
             <div class="mb-3">
                 <label for="background_image" class="form-label">Background Image</label>
                 <input type="file" id="background_image" class="form-control" wire:model="background_image">
