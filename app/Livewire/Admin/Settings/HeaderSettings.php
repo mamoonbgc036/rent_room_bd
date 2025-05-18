@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Settings;
 use App\Models\Header;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class HeaderSettings extends Component
 {
@@ -36,7 +37,7 @@ class HeaderSettings extends Component
         $header = Header::firstOrCreate([]);
 
         if ($this->logo) {
-            $logoPath = $this->logo->store('logos', 'public');
+            $logoPath = Storage::put('logos', $this->logo);
             $header->logo = $logoPath;
         }
 
