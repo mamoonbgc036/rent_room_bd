@@ -43,7 +43,7 @@ class HomeDataSettings extends Component
         $this->validateOnly('newItem');
 
         if (isset($this->newItem['item_image']) && is_object($this->newItem['item_image'])) {
-            $this->newItem['item_image'] = $this->newItem['item_image']->store('images');
+            $this->newItem['item_image'] = Storage::put('images', $this->newItem['item_image']);
         }
 
         $homeDataItem = HomeDataItem::create([
