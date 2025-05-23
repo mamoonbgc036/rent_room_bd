@@ -16,12 +16,6 @@ class FacebookController extends Controller
 
     public function handleFacebookCallback()
     {
-
-        // check user with fb id 
-
-
-        // if exist login with the user object
-        // if not create and login
         try {
             $facebookUser = Socialite::driver('facebook')->user();
 

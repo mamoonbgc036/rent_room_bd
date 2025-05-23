@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Payment;
+
 use App\Livewire\PaymentForm;
 use App\Livewire\Actions\Logout;
 use App\Livewire\RP\RoleManager;
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\DB;
 use App\Livewire\User\UserMessages;
 use App\Livewire\User\HomeComponent;
 use Illuminate\Support\Facades\Mail;
-use App\Livewire\RP\RoleInPermission;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\RP\PermissionManager;
 use App\Livewire\User\BookingComplete;
@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Artisan;
 use App\Livewire\Admin\BookingComponent;
 use App\Livewire\Admin\PaymentComponent;
 use App\Livewire\Admin\ProfileComponent;
-use App\Livewire\MultipleFormsComponent;
 use App\Livewire\User\CheckoutComponent;
 use App\Livewire\Admin\SendMailComponent;
 use App\Livewire\Admin\SettingsComponent;
@@ -54,6 +53,7 @@ use App\Livewire\Admin\Package\CreatePackageComponent;
 use App\Livewire\Admin\Settings\PrivacyPolicySettings;
 use App\Livewire\Admin\Settings\TermsConditionSettings;
 use App\Livewire\Admin\AmenityType\AmenityTypeComponent;
+use App\Livewire\Admin\Area\LocalArea;
 use App\Livewire\Admin\Settings\FooterSectionTwoSettings;
 use App\Livewire\Admin\MaintainType\MaintainTypeComponent;
 use App\Livewire\Admin\PropertyType\PropertyTypeComponent;
@@ -63,7 +63,6 @@ use App\Livewire\Admin\Settings\FooterSectionThreeSettings;
 use App\Livewire\RP\RoleInPermission\RoleInPermissionIndex;
 use App\Livewire\RP\RoleInPermission\RoleInPermissionCreate;
 use App\Livewire\Admin\Settings\ParetnerTermsConditionSettings;
-
 
 Route::get('/payment', PaymentForm::class);
 Route::post('stripe', [StripeController::class, 'stripe'])->name('stripe');
@@ -201,6 +200,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/countries', CountryComponent::class)->name('countries')->middleware('can:package.setup');
     Route::get('/admin/cities', CityComponent::class)->name('cities')->middleware('can:package.setup');
     Route::get('/admin/areas', AreaComponent::class)->name('areas')->middleware('can:package.setup');
+    Route::get('/admin/local-area', LocalArea::class)->name('local.area')->middleware('can:package.setup');
     Route::get('/admin/property-types', PropertyTypeComponent::class)->name('property-types')->middleware('can:package.setup');
     Route::get('/admin/properties', PropertyComponent::class)->name('properties')->middleware('can:package.setup');
     Route::get('/admin/maintain-type', MaintainTypeComponent::class)->name('maintain-type')->middleware('can:package.setup');

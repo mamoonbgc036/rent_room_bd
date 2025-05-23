@@ -6,14 +6,14 @@
             <h2 class="text-2xl font-semibold mb-6">{{ $area_id ? 'Edit Local Area' : 'Create Local Area' }}</h2>
             <form wire:submit.prevent="store">
                 <div class="mb-4">
-                    <label for="city_id" class="block text-lg font-medium text-gray-700 mb-1">City</label>
-                    <select id="city_id" wire:model="city_id" class="form-control border-0 shadow-none form-control-lg mb-2">
+                    <label for="area_id" class="block text-lg font-medium text-gray-700 mb-1">City</label>
+                    <select id="area_id" wire:model="area_id" class="form-control border-0 shadow-none form-control-lg mb-2">
                         <option value="">Select City</option>
-                        @foreach($cities as $city)
+                        @foreach($areas as $city)
                         <option value="{{ $city->id }}">{{ $city->name }}</option>
                         @endforeach
                     </select>
-                    @error('city_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                    @error('area_id') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
                     <input type="text" wire:model="name" class="form-control form-control-lg border-0" placeholder="Area Name">

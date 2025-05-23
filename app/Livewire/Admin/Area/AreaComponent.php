@@ -5,9 +5,9 @@ namespace App\Livewire\Admin\Area;
 use App\Models\Area;
 use App\Models\City;
 use App\Models\Country;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class AreaComponent extends Component
 {
@@ -19,11 +19,11 @@ class AreaComponent extends Component
 
     public function mount()
     {
-        $this->countries = Country::all();
+        // $this->countries = Country::all();
         // Set default cities based on the first country
-        if ($this->countries->isNotEmpty()) {
-            $this->cities = City::where('country_id', $this->countries->first()->id)->get();
-        }
+        // if ($this->countries->isNotEmpty()) {
+        //     $this->cities = City::where('country_id', $this->countries->first()->id)->get();
+        // }
     }
 
     public function updatedCountryId($value)
@@ -39,7 +39,9 @@ class AreaComponent extends Component
 
     public function render()
     {
-        $this->areas = Area::with(['country', 'city'])->get();
+        $this->areas = DB::table('areas')->join('cities', 'areas.district_id', '=', 'cities.id')
+            ->select('areas.*', 'cities.id as city_id', 'cities.name as city_name')
+            ->get();
         return view('livewire.admin.area.area-component');
     }
 
@@ -47,6 +49,7 @@ class AreaComponent extends Component
     public function create()
     {
         $this->resetInputFields();
+        $this->cities = DB::table('cities')->orderBy('id', 'desc')->get();
         $this->openModal();
     }
 
@@ -63,7 +66,6 @@ class AreaComponent extends Component
     private function resetInputFields()
     {
         $this->area_id = '';
-        $this->country_id = null; // Reset country_id
         $this->cities = []; // Reset cities
         $this->city_id = '';
         $this->name = '';
@@ -124,5 +126,4 @@ class AreaComponent extends Component
         Area::find($id)->delete();
         session()->flash('message', 'Area Deleted Successfully.');
     }
-
 }

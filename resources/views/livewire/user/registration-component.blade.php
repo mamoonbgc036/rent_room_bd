@@ -1,7 +1,7 @@
 <div>
     <!-- Modal Header -->
     <div class="modal-header border-0 px-4 pt-4 pb-0">
-        <h5 class="modal-title fw-bold">Create an Account</h5>
+        <h5 class="modal-title fw-bold text-center">Create an Account</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
     </div>
 
@@ -20,7 +20,7 @@
                     <div class="col-6">
                         <label class="w-100 border rounded-4 text-center p-3 shadow-sm position-relative cursor-pointer role-card">
                             <div>
-                                <img src="{{ asset('images/hosts.jpg') }}" alt="Guest" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+                                <img src="{{ asset('images/customer.jpg') }}" alt="Guest" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
                             </div>
                             <div>
                                 <input type="radio" wire required wire:model.live="role" style="width: 35px; height: 35px;" value="User" />
@@ -32,7 +32,7 @@
                     <div class="col-6">
                         <label class="w-100 border rounded-4 text-center p-3 shadow-sm position-relative cursor-pointer role-card">
                             <div>
-                                <img src="{{ asset('images/host_two.png') }}" alt="Guest" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+                                <img src="{{ asset('images/home_logo.avif') }}" alt="Guest" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
                             </div>
                             <div>
                                 <input type="radio" required wire:model.live="role" style="width: 35px; height: 35px;" value="Partner" />

@@ -1,4 +1,5 @@
 <div>
+    @if($isSearchComplete)
     <section class="d-flex flex-column">
         <div style="background-image: url('{{ asset('storage/' . $heroSection?->background_image) }}');"
             class="bg-cover d-flex align-items-center custom-vh-60" wire:ignore.self>
@@ -40,11 +41,12 @@
             </div>
         </div>
     </section>
+    @endif
 
     @if($packages)
-    <div id="filterPackage" class="container">
+    <div id="filterPackage" class="container" style="margin-top: 100px;">
         <h1 class="text-3xl font-bold text-center text-gray-800 mt-8 mb-6">
-            🔍 Your Search Result
+            🔍 Select Your Package
         </h1>
         <div class="d-flex justify-content-around my-2">
             <div>
@@ -66,6 +68,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            @if($packages->isNotEmpty())
             @foreach($packages as $package)
             <div class="col-md-4 mb-4">
                 <a href="{{ $package->getShowUrl() }}" class="text-decoration-none">
@@ -159,6 +162,16 @@
                 </a>
             </div>
             @endforeach
+            @else
+            <div class="w-100 text-center">
+                <div>
+                    <img src="{{ asset('images/not_found.gif') }}" alt="Not_Found">
+                </div>
+                <div id="filterPackage" class="alert alert-warning text-center" role="alert">
+                    No packages found.
+                </div>
+            </div>
+            @endif
         </div>
         @if($noPackagesFound)
         <div id="filterPackage" class="alert alert-warning text-center" role="alert">

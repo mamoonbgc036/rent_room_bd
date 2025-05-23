@@ -33,6 +33,8 @@ class HomeComponent extends Component
 
     public $phone;
 
+    public $isSearchComplete = true;
+
     public $search = '';
     public $search_area;
 
@@ -98,6 +100,7 @@ class HomeComponent extends Component
     public function selectPackage($areaId)
     {
         $splited_data = explode('/', $areaId);
+        $this->isSearchComplete = false;
         $this->areaData = $areaId;
         $this->propertyTypes = DB::table('property_types')->select('id', 'type')->get();
         if ($splited_data[0] == 'di') {

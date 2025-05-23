@@ -870,6 +870,7 @@ class ComposerStaticInitda9b7a1dc1dd923105198c572cc7df8d
         'App\\Console\\Commands\\ProcessBookingRenewals' => __DIR__ . '/../..' . '/app/Console/Commands/ProcessBookingRenewals.php',
         'App\\Console\\Commands\\UpdateExpiredPackages' => __DIR__ . '/../..' . '/app/Console/Commands/UpdateExpiredPackages.php',
         'App\\Console\\Scheduler' => __DIR__ . '/../..' . '/app/Console/Scheduler.php',
+        'App\\Http\\Controllers\\Auth\\FacebookController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/FacebookController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',

@@ -4,11 +4,12 @@ namespace App\Livewire\User;
 
 use App\Models\Area;
 use App\Models\City;
+use App\Models\User;
 use App\Models\Country;
 use App\Models\Package;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class PackageList extends Component
 {
@@ -28,7 +29,7 @@ class PackageList extends Component
 
     public function mount($partnerSlug = null)
     {
-        $this->countries = Country::all();
+        // $this->countries = Country::all();
         $this->cities = [];
         $this->areas = [];
         $this->selectedCountry = 1;
@@ -38,7 +39,7 @@ class PackageList extends Component
 
         if ($partnerSlug) {
             $this->partnerSlug = $partnerSlug;
-            $this->partner = User::where(function($query) use ($partnerSlug) {
+            $this->partner = User::where(function ($query) use ($partnerSlug) {
                 $query->whereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [strtolower($partnerSlug)]);
             })->firstOrFail();
         }
@@ -47,7 +48,7 @@ class PackageList extends Component
     public function loadCities()
     {
         if ($this->selectedCountry) {
-            $this->cities = City::where('country_id', $this->selectedCountry)->get();
+            $this->cities = DB::table('cities')->get();
             $this->selectedCity = null; // Reset city selection
             $this->areas = []; // Reset areas
             $this->selectedArea = null; // Reset area selection
@@ -69,19 +70,15 @@ class PackageList extends Component
 
         // If viewing partner's packages
         if ($this->partner) {
-            $query->where(function($q) {
+            $query->where(function ($q) {
                 $q->where('assigned_to', $this->partner->id)
-                  ->orWhere('user_id', $this->partner->id);
+                    ->orWhere('user_id', $this->partner->id);
             });
         }
 
-        return $query
-            ->when($this->selectedCountry, function ($query) {
-                return $query->where('country_id', $this->selectedCountry);
-            })
-            ->when($this->selectedCity, function ($query) {
-                return $query->where('city_id', $this->selectedCity);
-            })
+        return $query->when($this->selectedCity, function ($query) {
+            return $query->where('city_id', $this->selectedCity);
+        })
             ->when($this->selectedArea, function ($query) {
                 return $query->where('area_id', $this->selectedArea);
             })
@@ -174,5 +171,4 @@ class PackageList extends Component
             'featuredPackages' => $featuredPackages,
         ])->layout('layouts.guest');
     }
-
 }

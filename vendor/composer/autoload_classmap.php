@@ -10,6 +10,7 @@ return array(
     'App\\Console\\Commands\\ProcessBookingRenewals' => $baseDir . '/app/Console/Commands/ProcessBookingRenewals.php',
     'App\\Console\\Commands\\UpdateExpiredPackages' => $baseDir . '/app/Console/Commands/UpdateExpiredPackages.php',
     'App\\Console\\Scheduler' => $baseDir . '/app/Console/Scheduler.php',
+    'App\\Http\\Controllers\\Auth\\FacebookController' => $baseDir . '/app/Http/Controllers/Auth/FacebookController.php',
     'App\\Http\\Controllers\\Auth\\VerifyEmailController' => $baseDir . '/app/Http/Controllers/Auth/VerifyEmailController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\PaymentController' => $baseDir . '/app/Http/Controllers/PaymentController.php',
