@@ -14,7 +14,7 @@
                 <tr>
                     <th class="px-4 py-3">Name</th>
                     <th class="px-4 py-3">Country</th>
-                    <th class="px-4 py-3">City</th>
+                    <th class="px-4 py-3">District</th>
                     <th class="px-4 py-3">Property Type</th>
                     <th class="px-4 py-3">Action</th>
                 </tr>

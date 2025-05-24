@@ -38,6 +38,9 @@ class HomeComponent extends Component
     public $search = '';
     public $search_area;
 
+    public $zones = [];
+    public $zone_id;
+
     public $areaData;
 
     public $backgroundImage;
@@ -59,7 +62,17 @@ class HomeComponent extends Component
     public function updatedaccomodationType()
     {
         $this->selectedPackageRefresh();
-        $this->packages = $this->packages->where('property_type_id', $this->accomodationType);
+        if (!is_null($this->accomodationType)) {
+            $this->packages = $this->packages->where('property_type_id', $this->accomodationType);
+        }
+    }
+
+    public function updatedZoneId()
+    {
+        $this->updatedaccomodationType();
+        if (!is_null($this->zone_id)) {
+            $this->packages = $this->packages->where('zone_id', $this->zone_id);
+        }
     }
 
     public function selectedPackageRefresh()
@@ -99,14 +112,17 @@ class HomeComponent extends Component
 
     public function selectPackage($areaId)
     {
+
         $splited_data = explode('/', $areaId);
         $this->isSearchComplete = false;
         $this->areaData = $areaId;
         $this->propertyTypes = DB::table('property_types')->select('id', 'type')->get();
         if ($splited_data[0] == 'di') {
             $this->packages = Package::where('city_id', $splited_data[1])->get();
+            $this->zones = DB::table('zones')->where('city_id', $splited_data[1])->select('id', 'name')->get();
         } else {
             $this->packages = Package::where('area_id', $splited_data[1])->get();
+            $this->zones = DB::table('zones')->where('area_id', $splited_data[1])->select('id', 'name')->get();
         }
 
         if ($this->packages->isEmpty()) {
@@ -158,6 +174,8 @@ class HomeComponent extends Component
         $this->areas = [];
         $this->packages = [];
     }
+
+
 
     public function updatedSelectedCity($cityId)
     {

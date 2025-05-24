@@ -3,11 +3,8 @@
 namespace App\Livewire\Admin\Property;
 
 use App\Models\Area;
-use App\Models\City;
-use App\Models\Country;
 use Livewire\Component;
 use App\Models\Property;
-use App\Models\PropertyType;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +15,9 @@ class PropertyComponent extends Component
     use WithFileUploads;
 
     public $properties, $countries, $cities = [], $areas, $propertyTypes = [], $selectedCity = null;
-    public $property_id, $country_id, $area_id, $city_id, $property_type_id, $name, $photo;
+    public $property_id, $country_id, $area_id, $city_id, $property_type_id, $name, $photo, $zone_id, $zones;
     public $isOpen = false;
 
-    // public function mount()
-    // {
-    //     $this->countries = Country::all();
-    //     $this->propertyTypes = PropertyType::all();
-    //     // Set default country_id based on user's choice
-    //     $this->cities = City::all();
-    // }
 
     public function updatedCountryId($value)
     {
@@ -40,10 +30,10 @@ class PropertyComponent extends Component
         $this->area_id = null;
     }
 
-    // public function updatedSelectedCity($city_id)
-    // {
-    //     $this->areas = Area::where('district_id', $city_id)->get();
-    // }
+    public function updatedAreaId()
+    {
+        $this->zones = DB::table('zones')->where('area_id', $this->area_id)->select('id', 'name')->get();
+    }
 
     public function updatedSelectedCity($districtId)
     {
@@ -63,7 +53,7 @@ class PropertyComponent extends Component
     }
 
 
-    public function create($forEdit = [])
+    public function create()
     {
         $this->city_id = null;
         $this->property_type_id = null;
@@ -104,7 +94,9 @@ class PropertyComponent extends Component
         $this->country_id = null; // Reset country_id
         $this->cities = []; // Reset cities
         $this->city_id = '';
+        $this->zone_id = '';
         $this->property_type_id = '';
+        $this->area_id = '';
         $this->name = '';
         $this->photo = '';
     }
@@ -114,6 +106,7 @@ class PropertyComponent extends Component
         $this->validate([
             'city_id' => 'required',
             'area_id' => 'required',
+            'zone_id' => 'required',
             'property_type_id' => 'required',
             'name' => 'required',
             'photo' => 'nullable|image|max:1024', // 1MB Max
@@ -132,6 +125,7 @@ class PropertyComponent extends Component
             'name' => $this->name,
             'photo' => $photoPath,
             'user_id' => Auth::id(),
+            'zone_id' => $this->zone_id
         ]);
 
         session()->flash('message', $this->property_id ? 'Property Updated Successfully.' : 'Property Created Successfully.');

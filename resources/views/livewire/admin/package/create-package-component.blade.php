@@ -36,7 +36,7 @@
                 <div class="row g-3 mb-4">
                     <div class=" col-md-3 mb-2">
                         <label class="form-label required">District</label>
-                        <select wire:model.live="city_id" class="form-select @error('city_id') is-invalid @enderror">
+                        <select wire:model.live="city_id" class="form-select select2 @error('city_id') is-invalid @enderror">
                             <option value="">Select District</option>
                             @foreach ($cities as $city)
                             <option value="{{ $city->id }}">{{ $city->name }}</option>
@@ -61,8 +61,21 @@
                     </div>
 
                     <div class=" col-md-3 mb-2">
+                        <label class="form-label required">Local Area</label>
+                        <select wire:model.live="zone_id" class="form-select select2 @error('zone_id') is-invalid @enderror">
+                            <option value="">Select Area</option>
+                            @foreach ($zones as $zone)
+                            <option value="{{ $zone->id }}">{{ $zone->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('zone_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class=" col-md-3 mb-2">
                         <label class="form-label required">Property</label>
-                        <select wire:model.live="property_id"
+                        <select wire:model="property_id"
                             class="form-select @error('property_id') is-invalid @enderror">
                             <option value="">Select Property</option>
                             @foreach ($properties as $property)

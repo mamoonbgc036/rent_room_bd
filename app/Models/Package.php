@@ -15,6 +15,7 @@ class Package extends Model
         'city_id',
         'area_id',
         'property_id',
+        'zone_id',
         'name',
         'address',
         'map_link',
@@ -50,6 +51,11 @@ class Package extends Model
     public function area()
     {
         return $this->belongsTo(Area::class);
+    }
+
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
     }
 
     public function property()

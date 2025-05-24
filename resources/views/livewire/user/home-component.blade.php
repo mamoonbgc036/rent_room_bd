@@ -60,10 +60,11 @@
             </div>
             <div>
                 <label for="local_area" class="d-block text-center" style="margin-bottom: 0px;">Local Area</label>
-                <select name="local_area" id="local_area" class="form-control-sm w-100">
+                <select name="local_area" wire:model.live="zone_id" id="local_area" class="form-control-sm w-100">
                     <option value="" selected>Select Local Area</option>
-                    <option value="">Gulshan One</option>
-                    <option value="">Gulshan Two</option>
+                    @foreach($zones as $zone)
+                    <option value="{{ $zone->id }}">{{ $zone->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

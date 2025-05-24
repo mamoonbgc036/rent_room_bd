@@ -181,7 +181,7 @@ Route::get('/payment/success', function (Request $request) {
     return view('payment.success');
 })->name('payment.success');
 
-Route::get('/payment/cancel', function (Request $request) {
+Route::get('/payment/cancel', function () {
     return view('payment.cancel');
 })->name('payment.cancel');
 

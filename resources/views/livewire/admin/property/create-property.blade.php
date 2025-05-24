@@ -23,7 +23,7 @@
                 <!-- Thana -->
                 <div class="mb-5">
                     <label for="area_id" class="block text-base font-semibold text-gray-700 mb-1">Thana</label>
-                    <select id="area_id" wire:model="area_id" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
+                    <select id="area_id" wire:model.live="area_id" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
                         <option value="" selected>Select Thana</option>
                         @if(!empty($areas))
                         @foreach($areas as $thana)
@@ -32,6 +32,19 @@
                         @endif
                     </select>
                     @error('area_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="mb-5">
+                    <label for="zone_id" class="block text-base font-semibold text-gray-700 mb-1">Local Area</label>
+                    <select id="zone_id" wire:model="zone_id" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
+                        <option value="" selected>Select Local Area</option>
+                        @if(!empty($zones))
+                        @foreach($zones as $zone)
+                        <option value="{{ $zone->id }}" {{ $zone->id == $zone_id ? 'selected' : '' }}>{{ $zone->name }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    @error('zone_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Property Type -->

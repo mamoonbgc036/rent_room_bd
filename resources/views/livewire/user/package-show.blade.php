@@ -27,8 +27,10 @@
                 <div class="slider-section" id="imageSlider">
                     <!-- Main Image -->
                     <div class="main-image-wrapper">
+                       @if(empty($package))
                         <img src="{{ asset('storage/' . $package->photos[0]->url) }}" class="main-image" alt="Main Image"
                             id="mainImage">
+                        @endif
                     </div>
 
                     <!-- Navigation Controls -->
@@ -68,8 +70,8 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     // Get all images from PHP/Blade
                     const images = @json(
-                        $package-> photos->map(function($photo) {
-                            return asset('storage/'.$photo-> url);
+                        $package->photos->map(function($photo) {
+                            return asset('storage/'.$photo->url);
                         }));
 
                     // Initialize variables
@@ -899,7 +901,6 @@
                                                         data-toggle="modal">Sign up</a></p>
                                             </div>
                                             @endunless
-
                                             <div class="mb-4">
                                                 <div class="position-relative">
                                                     <div class="dropdown">

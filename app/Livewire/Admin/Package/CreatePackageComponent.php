@@ -21,6 +21,8 @@ class CreatePackageComponent extends Component
     public $number_of_rooms = 0;
     public $common_bathrooms = 0;
     public $seating = 0;
+    public $zones;
+    public $zone_id;
     public $details;
     public $video_link;
 
@@ -98,6 +100,8 @@ class CreatePackageComponent extends Component
 
         $this->property_types = DB::table('property_types')->select('id', 'type')->get();
 
+        $this->zones = [];
+
         // Initialize data based on user role
         $this->cities = DB::table('cities')->get();
         $this->properties = $isAdmin ? Property::all() : Property::where('user_id', $user->id)->get();
@@ -114,7 +118,7 @@ class CreatePackageComponent extends Component
     // Location Updates
     public function updatedAreaId($value)
     {
-        $this->properties = Property::where('area_id', $value)->get();
+        $this->zones = DB::table('zones')->where('area_id', $this->area_id)->select('id', 'name')->get();
     }
 
     public function updatedCityId($value)
@@ -155,6 +159,11 @@ class CreatePackageComponent extends Component
                 'booking_price' => 0
             ];
         }
+    }
+
+    public function updatedZoneId()
+    {
+        $this->properties = DB::table('properties')->where('zone_id', $this->zone_id)->get();
     }
 
     public function removePriceOption($roomIndex, $priceIndex)
@@ -275,6 +284,7 @@ class CreatePackageComponent extends Component
             'status' => strtotime($this->expiration_date) <= strtotime(now()) ? 'expired' : 'active',
             'user_id' => Auth::id(),
             'property_type_id' => $this->property_type_id,
+            'zone_id' => $this->zone_id
         ];
 
         $package = Package::create($data);

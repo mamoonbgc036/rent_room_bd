@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('vendors/mapbox-gl/mapbox-gl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/dataTables/jquery.dataTables.min.css') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -605,6 +607,7 @@
     </div>
     <!-- Vendors scripts -->
     <script src="{{ asset('vendors/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
