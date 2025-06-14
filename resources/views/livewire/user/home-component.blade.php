@@ -50,20 +50,20 @@
         </h1>
         <div class="d-flex justify-content-around my-2">
             <div>
-                <label for="accomodation_type" class="d-block text-center" style="margin-bottom: 0px;">Accomodation Type</label>
-                <select name="property_type" wire:model.live="accomodationType" id="property_type" class="form-control-sm w-100">
-                    <option value="" selected>Select Accomodation Type</option>
-                    @foreach($propertyTypes as $propertyType)
-                    <option value="{{ $propertyType->id }}" class="form-control-sm">{{ $propertyType->type }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div>
                 <label for="local_area" class="d-block text-center" style="margin-bottom: 0px;">Local Area</label>
                 <select name="local_area" wire:model.live="zone_id" id="local_area" class="form-control-sm w-100">
                     <option value="" selected>Select Local Area</option>
                     @foreach($zones as $zone)
                     <option value="{{ $zone->id }}">{{ $zone->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label for="accomodation_type" class="d-block text-center" style="margin-bottom: 0px;">Accomodation Type</label>
+                <select name="property_type" wire:model.live="accomodationType" id="property_type" class="form-control-sm w-100">
+                    <option value="" selected>Select Accomodation Type</option>
+                    @foreach($propertyTypes as $propertyType)
+                    <option value="{{ $propertyType->id }}" class="form-control-sm">{{ $propertyType->type }}</option>
                     @endforeach
                 </select>
             </div>
