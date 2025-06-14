@@ -27,8 +27,8 @@
                 <div class="slider-section" id="imageSlider">
                     <!-- Main Image -->
                     <div class="main-image-wrapper">
-                       @if(empty($package))
-                        <img src="{{ asset('storage/' . $package->photos[0]->url) }}" class="main-image" alt="Main Image"
+                        @if(!empty($package))
+                        <img src="{{ asset('storage/' . $package?->photos[0]->url) }}" class="main-image" alt="Main Image"
                             id="mainImage">
                         @endif
                     </div>
