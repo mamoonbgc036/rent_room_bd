@@ -123,11 +123,22 @@ class HomeComponent extends Component
             $this->packages = Package::where('area_id', $splited_data[1])->get();
             $this->zones = DB::table('zones')->where('area_id', $splited_data[1])->select('id', 'name')->get();
         }
-
         if ($this->packages->isEmpty()) {
             $this->dispatch('noPackagesFound');
         }
         $this->search_area = [];
+    }
+
+    public function searchPackages()
+    {
+        $search_area = DB::table('pk_search')->where('name', 'like', '%' . $this->search . '%')->orderBy('id', 'desc')->first();
+        // look for pk_search table
+        if ($search_area->district_id == null) {
+            $queryString = 'th/' . $search_area->id;
+        } else {
+            $queryString = 'di/' . $search_area->id;
+        }
+        $this->selectPackage($queryString);
     }
 
     public function getPriceIndicator($type)
@@ -192,34 +203,6 @@ class HomeComponent extends Component
     {
         $this->searchPackages();
     }
-
-    public function searchPackages()
-    {
-        $query = Package::query();
-
-        if ($this->selectedCountry) {
-            $query->where('country_id', $this->selectedCountry);
-        }
-        if ($this->selectedCity) {
-            $query->where('city_id', $this->selectedCity);
-        }
-        if ($this->selectedArea) {
-            $query->where('area_id', $this->selectedArea);
-        }
-        // if ($this->keyword) {
-        //     $query->where(function ($q) {
-        //         $q->where('name', 'like', '%' . $this->keyword . '%')
-        //             ->orWhere('address', 'like', '%' . $this->keyword . '%');
-        //     });
-        // }
-
-        $this->packages = $query->get();
-
-        if ($this->packages->isEmpty()) {
-            $this->dispatch('noPackagesFound');
-        }
-    }
-
 
 
     public function noPackagesFound()
