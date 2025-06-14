@@ -112,7 +112,6 @@ class HomeComponent extends Component
 
     public function selectPackage($areaId)
     {
-
         $splited_data = explode('/', $areaId);
         $this->isSearchComplete = false;
         $this->areaData = $areaId;
@@ -250,7 +249,6 @@ class HomeComponent extends Component
     public function render()
     {
         $featuredPackages = Package::with(['country', 'city', 'area', 'rooms', 'photos'])
-            ->take(8)
             ->get();
         return view('livewire.user.home-component', [
             'featuredPackages' => $featuredPackages,

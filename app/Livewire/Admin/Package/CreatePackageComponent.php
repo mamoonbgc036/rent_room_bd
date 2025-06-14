@@ -105,8 +105,14 @@ class CreatePackageComponent extends Component
         // Initialize data based on user role
         $this->cities = DB::table('cities')->get();
         $this->properties = $isAdmin ? Property::all() : Property::where('user_id', $user->id)->get();
-        $this->maintains = $isAdmin ? Maintain::all() : Maintain::where('user_id', $user->id)->get();
+        //previous
+        // $this->maintains = $isAdmin ? Maintain::all() : Maintain::where('user_id', $user->id)->get();
+        // mamoon
+        $this->maintains = Maintain::all();
+        //previous
         $this->amenities = $isAdmin ? Amenity::all() : Amenity::where('user_id', $user->id)->get();
+        //mamoon
+        $this->amenities = Amenity::all();
 
         // Initialize first room
         $this->addRoom();
