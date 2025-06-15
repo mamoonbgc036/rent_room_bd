@@ -232,7 +232,7 @@ class HomeComponent extends Component
     public function render()
     {
         $featuredPackages = Package::with(['country', 'city', 'area', 'rooms', 'photos'])
-            ->get();
+            ->orderBy('id', 'desc')->get();
         return view('livewire.user.home-component', [
             'featuredPackages' => $featuredPackages,
         ])->layout('layouts.guest');

@@ -39,7 +39,6 @@ class PackageShow extends Component
     protected $rules = [
         'fromDate' => 'required|date',
         'toDate' => 'required|date|after:fromDate',
-        'name' => 'required|string|max:255',
         'phone' => 'required|string|max:15',
         'selectedRoom' => 'required',
     ];

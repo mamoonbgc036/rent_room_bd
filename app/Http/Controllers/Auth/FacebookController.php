@@ -11,6 +11,9 @@ class FacebookController extends Controller
 {
     public function redirectToFacebook()
     {
+        if (str_contains(url()->previous(), 'package')) {
+            session()->put('previous_url', url()->previous());
+        }
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -29,6 +32,11 @@ class FacebookController extends Controller
                 ]);
             }
             Auth::login($user);
+            if (session()->has('previous_url')) {
+                $redirectUrl = session('previous_url');
+                session()->forget('previous_url');
+                return redirect($redirectUrl);
+            }
             return redirect()->route('dashboard');
         } catch (\Exception $e) {
             return redirect('/login')->withErrors(['msg' => 'Login with Facebook failed.']);
