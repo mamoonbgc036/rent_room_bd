@@ -10,7 +10,7 @@ new class extends Component
 {
     public string $name = '';
     public string $email = '';
-    public ?string $phone = ''; // Add phone property
+    public ?string $phone = '';
 
     /**
      * Mount the component.
@@ -18,9 +18,9 @@ new class extends Component
     public function mount(): void
     {
         $user = Auth::user();
-        $this->name = $user->name;
-        $this->email = $user->email;
-        $this->phone = $user->phone; // Initialize phone property
+        $this->name = $user?->name ?? '';
+        $this->email = $user?->email ?? '';
+        $this->phone = $user?->phone ?? null;
     }
 
     /**
@@ -32,7 +32,7 @@ new class extends Component
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'email' => ['nullable', 'string'],
             'phone' => ['nullable', 'string', 'max:20'], // Validate phone field
         ]);
 
@@ -91,18 +91,18 @@ new class extends Component
             @error('email') <div class="text-danger mt-2">{{ $message }}</div> @enderror
 
             @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
-                <div class="mt-3">
-                    <p class="text-muted">
-                        {{ __('Your email address is unverified.') }}
-                        <button wire:click.prevent="sendVerification" class="btn btn-link p-0">{{ __('Click here to re-send the verification email.') }}</button>
-                    </p>
+            <div class="mt-3">
+                <p class="text-muted">
+                    {{ __('Your email address is unverified.') }}
+                    <button wire:click.prevent="sendVerification" class="btn btn-link p-0">{{ __('Click here to re-send the verification email.') }}</button>
+                </p>
 
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 text-success">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
-                </div>
+                @if (session('status') === 'verification-link-sent')
+                <p class="mt-2 text-success">
+                    {{ __('A new verification link has been sent to your email address.') }}
+                </p>
+                @endif
+            </div>
             @endif
         </div>
 
@@ -119,13 +119,11 @@ new class extends Component
 
             <div wire:loading.remove wire:target="updateProfileInformation">
                 @if (session('status') === 'profile-updated')
-                    <div class="text-success">
-                        {{ __('Saved.') }}
-                    </div>
+                <div class="text-success">
+                    {{ __('Saved.') }}
+                </div>
                 @endif
             </div>
         </div>
     </form>
 </section>
-
-

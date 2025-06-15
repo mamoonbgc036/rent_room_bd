@@ -1,0 +1,17 @@
+# .gitignore
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+Homestead.yaml
+Homestead.json
+.phpunit.result.cache
+.idea
+*.log
+*.sqlite
+.DS_Store
+*.zip
+*.rar
+*.gz
+*.7z

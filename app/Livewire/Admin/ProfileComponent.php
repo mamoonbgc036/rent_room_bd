@@ -5,9 +5,6 @@ namespace App\Livewire\Admin;
 use App\Models\AgreementDetail;
 use App\Models\BankDetail;
 use App\Models\Package;
-use App\Models\PackagePayment;
-use App\Models\User;
-use App\Models\UserDetail;
 use App\Models\UserDocument;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -94,7 +91,6 @@ class ProfileComponent extends Component
         $this->loadBankDetail();
         $this->refreshPackages();
         $this->loadBookings();
-
     }
 
     private function refreshPackages()
@@ -154,7 +150,6 @@ class ProfileComponent extends Component
                 'deposit' => $detail->deposit,
             ];
         }
-
     }
 
     public function loadUserDetail()
@@ -339,7 +334,6 @@ class ProfileComponent extends Component
 
         flash()->success('Agreement details saved');
         return redirect()->back();
-
     }
     public function saveBankDetails()
     {
@@ -355,7 +349,6 @@ class ProfileComponent extends Component
 
         flash()->success('Bank details saved');
         $this->loadBankDetail();
-
     }
     public function deleteAgreementDetail()
     {
@@ -391,7 +384,6 @@ class ProfileComponent extends Component
         flash()->success('User details saved.');
 
         return redirect()->back();
-
     }
 
 
@@ -433,7 +425,6 @@ class ProfileComponent extends Component
 
         flash()->success('Id proof updated successfully');
         return redirect()->back()->with('message', 'Profile updated successfully.');
-
     }
     public function removePackage()
     {
