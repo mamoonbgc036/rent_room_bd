@@ -19,6 +19,11 @@ class SslCommerzPaymentController extends Controller
         return view('exampleHosted');
     }
 
+    public function booked()
+    {
+        return view('book.index');
+    }
+
     public function index(Request $request)
     {
         # Here you have to receive all the order data to initate the payment.
@@ -29,6 +34,11 @@ class SslCommerzPaymentController extends Controller
         $post_data['total_amount'] = '10'; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
+
+        $post_data['success_url'] = 'http://localhost:8000/booking-complete';
+        $post_data['fail_url']    = 'http://localhost:8000/fail';
+        $post_data['cancel_url']  = 'http://localhost:8000/cancel';
+        $post_data['ipn_url']     = 'http://localhost:8000/ipn';
 
         # CUSTOMER INFORMATION
         $post_data['cus_name'] = 'Customer Name';
@@ -97,6 +107,10 @@ class SslCommerzPaymentController extends Controller
         $post_data['total_amount'] = '10'; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
+        $post_data['success_url'] = 'http://localhost:8000/booking-complete/24';
+        $post_data['fail_url']    = 'http://localhost:8000/fail';
+        $post_data['cancel_url']  = 'http://localhost:8000/cancel';
+        $post_data['ipn_url']     = 'http://localhost:8000/ipn';
 
         # CUSTOMER INFORMATION
         $post_data['cus_name'] = 'Customer Name';

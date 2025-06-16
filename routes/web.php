@@ -86,7 +86,9 @@ Route::post('/logout', [Logout::class, 'logout'])->name('logout');
 
 
 Route::get('/packages', PackageList::class)->name('package.list');
-Route::get('booking-complete/{bookingId}', BookingComplete::class)->name('booking.complete');
+// Route::get('booking-complete/{bookingId}', BookingComplete::class)->name('booking.complete');
+Route::post('booking-complete', [SslCommerzPaymentController::class, 'booked'])->name('booking.complete');
+// Route::match(['GET', 'POST'], '/booking-complete/{id}', [BookingComplete::class])->name('booking.complete');
 
 Route::get('/package/{partnerSlug}/{packageSlug}', PackageShow::class)->name('package.show');
 Route::get('/partner/{partnerSlug}/packages', PackageList::class)->name('partner.packages');
