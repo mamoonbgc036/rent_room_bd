@@ -15,6 +15,7 @@ use App\Livewire\User\UserMessages;
 use App\Livewire\User\HomeComponent;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Admin\Area\LocalArea;
 use App\Livewire\RP\PermissionManager;
 use App\Livewire\User\BookingComplete;
 use Illuminate\Support\Facades\Artisan;
@@ -48,12 +49,12 @@ use App\Livewire\Admin\Property\PropertyComponent;
 use App\Livewire\Admin\Dashboard\DashboardComponent;
 use App\Livewire\Admin\Package\EditPackageComponent;
 use App\Livewire\Admin\Package\ShowPackageComponent;
+use App\Http\Controllers\SslCommerzPaymentController;
 use App\Livewire\User\PartnerTermsConditionComponent;
 use App\Livewire\Admin\Package\CreatePackageComponent;
 use App\Livewire\Admin\Settings\PrivacyPolicySettings;
 use App\Livewire\Admin\Settings\TermsConditionSettings;
 use App\Livewire\Admin\AmenityType\AmenityTypeComponent;
-use App\Livewire\Admin\Area\LocalArea;
 use App\Livewire\Admin\Settings\FooterSectionTwoSettings;
 use App\Livewire\Admin\MaintainType\MaintainTypeComponent;
 use App\Livewire\Admin\PropertyType\PropertyTypeComponent;
@@ -109,6 +110,19 @@ Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebook
 Route::get('/checkout/success', function () {
     return view('checkout.success');
 })->name('checkout.success');
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 Route::get('/checkout/cancel', function () {
     return view('checkout.cancel');
