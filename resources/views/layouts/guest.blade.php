@@ -53,6 +53,18 @@
     <meta property="og:image:height" content="630">
 
     <style>
+        .appealing {
+            color: rgb(40, 232, 11) !important;
+            /* Light golden */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+            /* Add depth & readability */
+            font-size: 2rem !important;
+            /* Adjust for your design */
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: center;
+        }
+
         .room-card {
             cursor: pointer;
             transition: all 0.2s ease;
