@@ -1,11 +1,24 @@
+<style>
+    .appealing {
+        color: rgb(40, 232, 11) !important;
+        /* Light golden */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+        /* Add depth & readability */
+        font-size: 2rem !important;
+        /* Adjust for your design */
+        font-weight: 600;
+        line-height: 1.4;
+        text-align: center;
+    }
+</style>
 <div>
     @if($isSearchComplete)
     <section class="d-flex flex-column">
         <div style="background-image: url('{{ asset('storage/' . $heroSection?->background_image) }}');"
             class="bg-cover d-flex align-items-center custom-vh-60" wire:ignore.self>
             <div wire:ignore.self class="container pt-lg-4 py-4" data-animate="zoomIn">
-                <p class="text-white fs-md-20 fs-16 font-weight-500 letter-spacing-367 mb-2 text-center text-uppercase">{{$heroSection?->title_small}}</p>
-                <h2 class="text-white display-2 text-center mb-sm-4 mb-4">
+                <p class="text-white fs-md-20 fs-16 font-weight-500 letter-spacing-367 mb-2 text-center text-uppercase appealing">{{$heroSection?->title_small}}</p>
+                <h2 class="text-white display-2 text-center mb-sm-4 mb-4 appealing">
                     {{$heroSection?->title_big }}
                 </h2>
                 <div class="container mb-4">
