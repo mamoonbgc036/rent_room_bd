@@ -33,17 +33,19 @@ class CheckoutComponent extends Component
     public $selectedMaintains = [];
     public $selectedAmenities = [];
     public $paymentOption = 'booking_only';
-    public $paymentMethod = 'bank_transfer';
+    public $paymentMethod = '';
     public $bankTransferReference;
     public $showPaymentModal = false;
     public $bankDetails;
+    public $bikash;
+    public $nogod;
 
     public $priceType;
     public $priceBreakdown;
 
     protected $rules = [
-        'paymentMethod' => 'required|in:cash,card,bank_transfer',
-        'bankTransferReference' => 'required_if:paymentMethod,bank_transfer',
+        'paymentMethod' => 'required|in:cash,bikash,nogod',
+        'bankTransferReference' => 'required',
     ];
 
     public function mount()
@@ -65,6 +67,8 @@ class CheckoutComponent extends Component
         $this->totalNights = Carbon::parse($this->fromDate)->diffInDays(Carbon::parse($this->toDate));
         $this->package = Package::findOrFail($this->packageId);
         $this->bankDetails = "Netsoftuk Solution A/C 17855008 S/C 04-06-05";
+        $this->bikash = "Bikash Merchant No. 01111111111";
+        $this->nogod = "Nogod Merchant No. 022222222222";
 
         if ($this->selectedRoom) {
             $this->priceBreakdown = $this->calculatePriceBreakdown();
@@ -191,7 +195,6 @@ class CheckoutComponent extends Component
     public function proceedPayment()
     {
         $this->validate();
-
         $paymentAmount = $this->calculateTotalAmount();
 
         DB::beginTransaction();

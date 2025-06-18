@@ -12,18 +12,13 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-6">
                             <div class="row g-1">
-                                <div class="col-7">
-                                    <input type="search" placeholder="Search by city or area" wire:model.live="search" name="" class="form-control" style="background-color: rgba(255, 255, 255, 0.7);::placeholder { color: white; }" id="">
-                                </div>
-                                <div class="col-5">
-                                    <button wire:click="searchPackages" class="btn btn-primary w-100" style="background-color: rgba(13, 110, 253, 0.7); border-color: rgba(13, 110, 253, 0.7);">
-                                        Search
-                                    </button>
+                                <div class="col-12">
+                                    <input type="search" placeholder="Type your place" wire:model.live="search" name="" class="form-control" style="background-color: rgba(255, 255, 255, 0.7); text-align: center; ::placeholder { color: white; text-align: center; }" id="">
                                 </div>
                             </div>
                             @if (!empty($search_area))
                             <ul
-                                class="position-absolute list-group w-75 z-3"
+                                class="position-absolute list-group w-100 z-3"
                                 style="max-height: 300px; overflow-y: auto;margin-top: 5px">
                                 @foreach ($search_area as $area)
                                 <li
@@ -48,7 +43,7 @@
         <h1 class="text-3xl font-bold text-center text-gray-800 mt-8 mb-6">
             🔍 Select Your Package
         </h1>
-        <div class="d-flex justify-content-around my-2">
+        <div class="d-flex justify-content-between">
             <div>
                 <label for="local_area" class="d-block text-center" style="margin-bottom: 0px;">Local Area</label>
                 <select name="local_area" wire:model.live="zone_id" id="local_area" class="form-control-sm w-100">

@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>{{ $selectedRoom->name }}</h5>
-                        <span class="badge badge-primary">৳{{ number_format($totalAmount, 2) }}</span>
+                        <span class="badge badge-primary">£{{ number_format($totalAmount, 2) }}</span>
                     </div>
                     <div class="room-features small text-muted">
                         <p class="mb-1"><i class="fas fa-bed mr-2"></i>{{ $selectedRoom->number_of_beds }} Beds</p>
@@ -52,7 +52,7 @@
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>{{ $amenity['name'] }}</span>
                                     <span
-                                        class="badge badge-secondary">৳{{ number_format($amenity['price'], 2) }}</span>
+                                        class="badge badge-secondary">£{{ number_format($amenity['price'], 2) }}</span>
                                 </li>
                                 @endforeach
                             </ul>
@@ -67,7 +67,7 @@
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>{{ $maintain['name'] }}</span>
                                     <span
-                                        class="badge badge-secondary">৳{{ number_format($maintain['price'], 2) }}</span>
+                                        class="badge badge-secondary">£{{ number_format($maintain['price'], 2) }}</span>
                                 </li>
                                 @endforeach
                             </ul>
@@ -95,22 +95,22 @@
                                 @if ($item['type'] === 'Month')
                                 {{ $item['description'] }}
                                 <small
-                                    class="text-muted">(৳{{ number_format($item['price'], 2) }}/month)</small>
+                                    class="text-muted">(£{{ number_format($item['price'], 2) }}/month)</small>
                                 @elseif($item['type'] === 'Week')
                                 {{ $item['quantity'] }} {{ Str::plural('Week', $item['quantity']) }}
                                 <small
-                                    class="text-muted">(৳{{ number_format($item['price'], 2) }}/week)</small>
+                                    class="text-muted">(£{{ number_format($item['price'], 2) }}/week)</small>
                                 @else
                                 {{ $item['quantity'] }} {{ Str::plural('Day', $item['quantity']) }}
-                                <small class="text-muted">(৳{{ number_format($item['price'], 2) }}/day)</small>
+                                <small class="text-muted">(£{{ number_format($item['price'], 2) }}/day)</small>
                                 @endif
                             </span>
-                            <span>৳{{ number_format($item['total'], 2) }}</span>
+                            <span>£{{ number_format($item['total'], 2) }}</span>
                         </div>
                         @endforeach
                         <div class="d-flex justify-content-between mb-3 font-weight-bold">
                             <span>Subtotal</span>
-                            <span>৳{{ number_format($totalAmount, 2) }}</span>
+                            <span>£{{ number_format($totalAmount, 2) }}</span>
                         </div>
 
                         <!-- Additional Services -->
@@ -118,28 +118,28 @@
                         <h6 class="mb-2 mt-4">Additional Services</h6>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Amenities</span>
-                            <span>৳{{ number_format($amenitiesTotal, 2) }}</span>
+                            <span>£{{ number_format($amenitiesTotal, 2) }}</span>
                         </div>
                         @endif
 
                         @if ($maintainsTotal > 0)
                         <div class="d-flex justify-content-between mb-2">
                             <span>Maintenance</span>
-                            <span>৳{{ number_format($maintainsTotal, 2) }}</span>
+                            <span>£{{ number_format($maintainsTotal, 2) }}</span>
                         </div>
                         @endif
 
                         <!-- Booking Price -->
                         <div class="d-flex justify-content-between mb-2">
                             <span>Booking</span>
-                            <span>৳{{ number_format($bookingPrice, 2) }}</span>
+                            <span>£{{ number_format($bookingPrice, 2) }}</span>
                         </div>
 
                         <!-- Total -->
                         <hr>
                         <div class="d-flex justify-content-between font-weight-bold">
                             <span>Total</span>
-                            <span>৳{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }}</span>
+                            <span>£{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }}</span>
                         </div>
 
                         <!-- Optional Alert for Long Stays -->
@@ -156,19 +156,72 @@
                         <label>Payment Option</label>
                         <select class="form-control" wire:model.live="paymentOption">
                             <option value="booking_only">Booking
-                                (৳{{ number_format($bookingPrice, 2) }})</option>
+                                (£{{ number_format($bookingPrice, 2) }})</option>
                             <option value="full">Full Amount
-                                (৳{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }})
+                                (£{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }})
                             </option>
                         </select>
                     </div>
-                    <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
-                        token="if you have any token validation"
-                        postdata="your javascript arrays or objects which requires in backend"
-                        order="If you already have the transaction generated for current order"
-                        endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
+
+                    <button class="btn btn-primary btn-block mt-3" wire:click="submitBooking">
+                        Proceed to Payment
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Payment Modal -->
+    @if ($showPaymentModal)
+    <div class="modal fade show" style="display: block; background: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Method</h5>
+                    <button type="button" class="close" wire:click="$set('showPaymentModal', false)">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <form wire:submit.prevent="proceedPayment">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Select Payment Method</label>
+                            <select class="form-control" wire:model.live="paymentMethod">
+                                <option value="" selected>Select a payment method</option>
+                                <option value="bikash">Bikash</option>
+                                <option value="nogod">Nogod</option>
+                            </select>
+                        </div>
+                        @if (in_array($paymentMethod, ['bikash', 'nogod']))
+                        <div class="alert alert-info">
+                            <p class="mb-2">
+                                <strong class="text-success">Send the payment to the following number:</strong>
+                            </p>
+                            <p class="mb-0">
+                                {{ $paymentMethod === 'bikash' ? $bikash : $nogod }}
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="bankTransferReference">Reference Number <span class="text-danger">*</span></label>
+                            <input type="text"
+                                id="bankTransferReference"
+                                class="form-control @error('bankTransferReference') is-invalid @enderror"
+                                wire:model.defer="bankTransferReference"
+                                placeholder="Enter the reference number from your transaction">
+                            @error('bankTransferReference')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn"
+                            wire:click="$set('showPaymentModal', false)">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Complete Payment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
+</div>

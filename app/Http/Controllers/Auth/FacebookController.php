@@ -20,7 +20,7 @@ class FacebookController extends Controller
     public function handleFacebookCallback()
     {
         try {
-            $facebookUser = Socialite::driver('facebook')->user();
+            $facebookUser = Socialite::driver('facebook')->stateless()->user();
 
             $user = User::where('fb_id', $facebookUser->getId())->first();
 
@@ -39,6 +39,7 @@ class FacebookController extends Controller
             }
             return redirect()->route('dashboard');
         } catch (\Exception $e) {
+            \Log::error('Facebook login error: ' . $e->getMessage());
             return redirect('/test')->withErrors(['msg' => 'Login with Facebook failed.']);
         }
     }

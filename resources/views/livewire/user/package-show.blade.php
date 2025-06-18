@@ -24,7 +24,7 @@
                 <div class="slider-section" id="imageSlider">
                     <!-- Main Image -->
                     <div class="main-image-wrapper">
-                        <img src="{{ asset('storage/' . $package->photos[0]->url) }}" class="main-image" alt="Main Image"
+                        <img src="{{ asset('storage/' . $package->photos?->first()?->url) }}" class="main-image" alt="Main Image"
                             id="mainImage">
                     </div>
 
