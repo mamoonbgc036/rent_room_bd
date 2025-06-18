@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>{{ $selectedRoom->name }}</h5>
-                        <span class="badge badge-primary">£{{ number_format($totalAmount, 2) }}</span>
+                        <span class="badge badge-primary">৳{{ number_format($totalAmount, 2) }}</span>
                     </div>
                     <div class="room-features small text-muted">
                         <p class="mb-1"><i class="fas fa-bed mr-2"></i>{{ $selectedRoom->number_of_beds }} Beds</p>
@@ -52,7 +52,7 @@
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>{{ $amenity['name'] }}</span>
                                     <span
-                                        class="badge badge-secondary">£{{ number_format($amenity['price'], 2) }}</span>
+                                        class="badge badge-secondary">৳{{ number_format($amenity['price'], 2) }}</span>
                                 </li>
                                 @endforeach
                             </ul>
@@ -67,7 +67,7 @@
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>{{ $maintain['name'] }}</span>
                                     <span
-                                        class="badge badge-secondary">£{{ number_format($maintain['price'], 2) }}</span>
+                                        class="badge badge-secondary">৳{{ number_format($maintain['price'], 2) }}</span>
                                 </li>
                                 @endforeach
                             </ul>
@@ -95,22 +95,22 @@
                                 @if ($item['type'] === 'Month')
                                 {{ $item['description'] }}
                                 <small
-                                    class="text-muted">(£{{ number_format($item['price'], 2) }}/month)</small>
+                                    class="text-muted">(৳{{ number_format($item['price'], 2) }}/month)</small>
                                 @elseif($item['type'] === 'Week')
                                 {{ $item['quantity'] }} {{ Str::plural('Week', $item['quantity']) }}
                                 <small
-                                    class="text-muted">(£{{ number_format($item['price'], 2) }}/week)</small>
+                                    class="text-muted">(৳{{ number_format($item['price'], 2) }}/week)</small>
                                 @else
                                 {{ $item['quantity'] }} {{ Str::plural('Day', $item['quantity']) }}
-                                <small class="text-muted">(£{{ number_format($item['price'], 2) }}/day)</small>
+                                <small class="text-muted">(৳{{ number_format($item['price'], 2) }}/day)</small>
                                 @endif
                             </span>
-                            <span>£{{ number_format($item['total'], 2) }}</span>
+                            <span>৳{{ number_format($item['total'], 2) }}</span>
                         </div>
                         @endforeach
                         <div class="d-flex justify-content-between mb-3 font-weight-bold">
                             <span>Subtotal</span>
-                            <span>£{{ number_format($totalAmount, 2) }}</span>
+                            <span>৳{{ number_format($totalAmount, 2) }}</span>
                         </div>
 
                         <!-- Additional Services -->
@@ -118,28 +118,28 @@
                         <h6 class="mb-2 mt-4">Additional Services</h6>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Amenities</span>
-                            <span>£{{ number_format($amenitiesTotal, 2) }}</span>
+                            <span>৳{{ number_format($amenitiesTotal, 2) }}</span>
                         </div>
                         @endif
 
                         @if ($maintainsTotal > 0)
                         <div class="d-flex justify-content-between mb-2">
                             <span>Maintenance</span>
-                            <span>£{{ number_format($maintainsTotal, 2) }}</span>
+                            <span>৳{{ number_format($maintainsTotal, 2) }}</span>
                         </div>
                         @endif
 
                         <!-- Booking Price -->
                         <div class="d-flex justify-content-between mb-2">
                             <span>Booking</span>
-                            <span>£{{ number_format($bookingPrice, 2) }}</span>
+                            <span>৳{{ number_format($bookingPrice, 2) }}</span>
                         </div>
 
                         <!-- Total -->
                         <hr>
                         <div class="d-flex justify-content-between font-weight-bold">
                             <span>Total</span>
-                            <span>£{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }}</span>
+                            <span>৳{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }}</span>
                         </div>
 
                         <!-- Optional Alert for Long Stays -->
@@ -156,9 +156,9 @@
                         <label>Payment Option</label>
                         <select class="form-control" wire:model.live="paymentOption">
                             <option value="booking_only">Booking
-                                (£{{ number_format($bookingPrice, 2) }})</option>
+                                (৳{{ number_format($bookingPrice, 2) }})</option>
                             <option value="full">Full Amount
-                                (£{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }})
+                                (৳{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }})
                             </option>
                         </select>
                     </div>

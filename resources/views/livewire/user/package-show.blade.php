@@ -440,9 +440,9 @@
                                                     <!-- Main Price -->
                                                     <span class="h5 mb-0 font-weight-bold">
                                                         @if ($firstPrice->discount_price)
-                                                        £{{ number_format($firstPrice->discount_price, 2) }}
+                                                        ৳{{ number_format($firstPrice->discount_price, 2) }}
                                                         @else
-                                                        £{{ number_format($firstPrice->fixed_price, 2) }}
+                                                        ৳{{ number_format($firstPrice->fixed_price, 2) }}
                                                         @endif
                                                         <small class="text-muted" style="font-size: 0.65rem;">
                                                             {{ ucfirst($priceType) }}ly
@@ -452,7 +452,7 @@
                                                     <div class="d-flex align-items-center">
                                                         @if ($firstPrice->discount_price)
                                                         <del
-                                                            class="small text-muted mr-1">£{{ number_format($firstPrice->fixed_price, 2) }}</del>
+                                                            class="small text-muted mr-1">৳{{ number_format($firstPrice->fixed_price, 2) }}</del>
                                                         @endif
                                                         <small class="text-muted"
                                                             style="font-size: 0.65rem;">{{ $firstPrice->room_name }}</small>
@@ -486,15 +486,15 @@
                                                         <div class="price-amount">
                                                             @if ($price->discount_price)
                                                             <del
-                                                                class="text-muted small">£{{ number_format($price->fixed_price, 2) }}</del>
+                                                                class="text-muted small">৳{{ number_format($price->fixed_price, 2) }}</del>
                                                             <span
-                                                                class="text-success">£{{ number_format($price->discount_price, 2) }}</span>
+                                                                class="text-success">৳{{ number_format($price->discount_price, 2) }}</span>
                                                             @else
-                                                            <span>£{{ number_format($price->fixed_price, 2) }}</span>
+                                                            <span>৳{{ number_format($price->fixed_price, 2) }}</span>
                                                             @endif
                                                         </div>
                                                         <small class="text-muted booking-fee">
-                                                            +£{{ number_format($price->booking_price, 2) }}
+                                                            +৳{{ number_format($price->booking_price, 2) }}
                                                             booking
                                                         </small>
                                                     </div>
@@ -811,7 +811,7 @@
                                                             <label class="form-check-label"
                                                                 for="amenity{{ $amenity->id }}">
                                                                 {{ $amenity->name }} -
-                                                                £{{ $amenity->pivot->price }}
+                                                                ৳{{ $amenity->pivot->price }}
                                                             </label>
                                                         </div>
                                                     </li>
@@ -860,7 +860,7 @@
                                                             <label class="form-check-label"
                                                                 for="maintain{{ $maintain->id }}">
                                                                 {{ $maintain->name }} -
-                                                                £{{ $maintain->pivot->price }}
+                                                                ৳{{ $maintain->pivot->price }}
                                                             </label>
                                                         </div>
                                                     </li>

@@ -28,7 +28,7 @@ class BookingAutoRenewalNotification extends Notification implements ShouldQueue
             ->greeting("Hello {$notifiable->name}")
             ->line('Your booking has been automatically renewed.')
             ->line("New booking period: {$this->booking->from_date->format('M d, Y')} to {$this->booking->to_date->format('M d, Y')}")
-            ->line("Amount due: £" . number_format($this->booking->price, 2))
+            ->line("Amount due: ৳" . number_format($this->booking->price, 2))
             ->action('View Booking', route('bookings.show', $this->booking))
             ->line('Thank you for using our service!')
             ->with([
