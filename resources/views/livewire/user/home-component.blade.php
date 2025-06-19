@@ -39,11 +39,11 @@
     @endif
 
     @if($packages)
-    <div id="filterPackage" class="container" style="margin-top: 100px;">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mt-8 mb-6">
+    <div>
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6" style="margin-top: 100px;">
             🔍 Select Your Package
         </h1>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between m-2">
             <div>
                 <label for="local_area" class="d-block text-center" style="margin-bottom: 0px;">Local Area</label>
                 <select name="local_area" wire:model.live="zone_id" id="local_area" class="form-control-sm w-100">
@@ -63,6 +63,8 @@
                 </select>
             </div>
         </div>
+    </div>
+    <div id="filterPackage" class="container" style="margin-top: 60px;">
         <div class="row justify-content-center">
             @if($packages->isNotEmpty())
             @foreach($packages as $package)
@@ -161,7 +163,7 @@
             @else
             <div class="w-100 text-center">
                 <div>
-                    <img src="{{ asset('images/not_found.gif') }}" alt="Not_Found">
+                    <img src="{{ asset('images/notFound.png') }}" alt="Not_Found">
                 </div>
                 <div id="filterPackage" class="alert alert-warning text-center" role="alert">
                     No packages found.
@@ -169,11 +171,11 @@
             </div>
             @endif
         </div>
-        @if($noPackagesFound)
+        {{-- @if($noPackagesFound)
         <div id="filterPackage" class="alert alert-warning text-center" role="alert">
             No packages found.
         </div>
-        @endif
+        @endif --}}
     </div>
     @endif
     <script>

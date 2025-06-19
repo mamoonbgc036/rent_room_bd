@@ -37,39 +37,39 @@
         </div>
         <div class="card-body">
             @if ($instructions->isEmpty())
-                <div class="text-center py-4">
-                    <div class="mb-3">
-                        <i class="fas fa-clipboard-list fa-3x text-muted"></i>
-                    </div>
-                    <p class="text-muted mb-0">No specific instructions provided for this package.</p>
+            <div class="text-center py-4">
+                <div class="mb-3">
+                    <i class="fas fa-clipboard-list fa-3x text-muted"></i>
                 </div>
+                <p class="text-muted mb-0">No specific instructions provided for this package.</p>
+            </div>
             @else
-                <div class="timeline">
-                    @foreach ($instructions as $instruction)
-                        <div class="instruction-item mb-4">
-                            <div class="d-flex">
-                                <div class="instruction-number">
-                                    <span class="badge rounded-circle d-flex align-items-center justify-content-center"
-                                        style="width: 35px; height: 35px; background-color: #252525; color: white;">
-                                        {{ $loop->iteration }}
-                                    </span>
-                                </div>
-                                <div class="instruction-content ml-3 flex-grow-1">
-                                    <div class="card bg-light border-0">
-                                        <div class="card-body">
-                                            <h6 class="card-title mb-2" style="color: #252525;">
-                                                {{ $instruction->title }}
-                                            </h6>
-                                            <p class="card-text text-muted mb-0">
-                                                {{ $instruction->description }}
-                                            </p>
-                                        </div>
-                                    </div>
+            <div class="timeline">
+                @foreach ($instructions as $instruction)
+                <div class="instruction-item mb-4">
+                    <div class="d-flex">
+                        <div class="instruction-number">
+                            <span class="badge rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 35px; height: 35px; background-color: #252525; color: white;">
+                                {{ $loop->iteration }}
+                            </span>
+                        </div>
+                        <div class="instruction-content ml-3 flex-grow-1">
+                            <div class="card bg-light border-0">
+                                <div class="card-body">
+                                    <h6 class="card-title mb-2" style="color: #252525;">
+                                        {{ $instruction->title }}
+                                    </h6>
+                                    <p class="card-text text-muted mb-0">
+                                        {{ $instruction->description }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
+                @endforeach
+            </div>
 
             @endif
         </div>
@@ -118,19 +118,19 @@
                                     <i class="fas fa-bed mr-2"></i>Room Information
                                 </h6>
                                 @php
-                                    $roomIds = json_decode($booking->room_ids, true) ?? [];
-                                    $rooms = \App\Models\Room::whereIn('id', $roomIds)->get();
+                                $roomIds = json_decode($booking->room_ids, true) ?? [];
+                                $rooms = \App\Models\Room::whereIn('id', $roomIds)->get();
                                 @endphp
                                 @foreach ($rooms as $room)
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="room-icon mr-3" style="background: rgba(37, 37, 37, 0.1);">
-                                            <i class="fas fa-door-open" style="color: #252525;"></i>
-                                        </div>
-                                        <div>
-                                            <strong class="d-block">{{ $room->name }}</strong>
-                                            <small class="text-muted">{{ $room->type }}</small>
-                                        </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="room-icon mr-3" style="background: rgba(37, 37, 37, 0.1);">
+                                        <i class="fas fa-door-open" style="color: #252525;"></i>
                                     </div>
+                                    <div>
+                                        <strong class="d-block">{{ $room->name }}</strong>
+                                        <small class="text-muted">{{ $room->type }}</small>
+                                    </div>
+                                </div>
                                 @endforeach
                             </div>
                         </div>
@@ -214,11 +214,11 @@
                             <strong style="color: #252525;">৳{{ number_format($booking->total_amount, 2) }}</strong>
                         </li>
                         @if ($booking->price + $booking->booking_price - $booking->total_amount > 0)
-                            <li class="list-group-item d-flex justify-content-between px-0">
-                                <span class="text-muted">Remaining Balance</span>
-                                <strong
-                                    style="color: #252525;">৳{{ number_format($booking->price + $booking->booking_price - $booking->total_amount, 2) }}</strong>
-                            </li>
+                        <li class="list-group-item d-flex justify-content-between px-0">
+                            <span class="text-muted">Remaining Balance</span>
+                            <strong
+                                style="color: #252525;">৳{{ number_format($booking->price + $booking->booking_price - $booking->total_amount, 2) }}</strong>
+                        </li>
                         @endif
                     </ul>
 
@@ -233,7 +233,7 @@
                                 <strong>{{ ucfirst($payment->payment_method) }}</strong>
                             </li>
                             <li>
-                                <small class="text-muted d-block">Transaction ID</small>
+                                <small class="text-muted d-block">Payment Reference No</small>
                                 <strong style="color: #252525;">{{ $payment->transaction_id ?? 'N/A' }}</strong>
                             </li>
                         </ul>

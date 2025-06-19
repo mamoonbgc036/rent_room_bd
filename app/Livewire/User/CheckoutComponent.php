@@ -39,12 +39,13 @@ class CheckoutComponent extends Component
     public $bankDetails;
     public $bikash;
     public $nogod;
+    public $rocket;
 
     public $priceType;
     public $priceBreakdown;
 
     protected $rules = [
-        'paymentMethod' => 'required|in:cash,bikash,nogod',
+        'paymentMethod' => 'required|in:cash,bikash,nogod,rocket',
         'bankTransferReference' => 'required',
     ];
 
@@ -69,6 +70,7 @@ class CheckoutComponent extends Component
         $this->bankDetails = "Netsoftuk Solution A/C 17855008 S/C 04-06-05";
         $this->bikash = "Bikash Merchant No. 01111111111";
         $this->nogod = "Nogod Merchant No. 022222222222";
+        $this->rocket = "Rocket Merchant No. 022222222222";
 
         if ($this->selectedRoom) {
             $this->priceBreakdown = $this->calculatePriceBreakdown();

@@ -190,15 +190,16 @@
                                 <option value="" selected>Select a payment method</option>
                                 <option value="bikash">Bikash</option>
                                 <option value="nogod">Nogod</option>
+                                <option value="rocket">Rocket</option>
                             </select>
                         </div>
-                        @if (in_array($paymentMethod, ['bikash', 'nogod']))
+                        @if (in_array($paymentMethod, ['bikash', 'nogod', 'rocket']))
                         <div class="alert alert-info">
                             <p class="mb-2">
                                 <strong class="text-success">Send the payment to the following number:</strong>
                             </p>
                             <p class="mb-0">
-                                {{ $paymentMethod === 'bikash' ? $bikash : $nogod }}
+                                {{ $paymentMethod === 'bikash' ? $bikash : ($paymentMethod === 'nogod' ? $nogod : $rocket) }}
                             </p>
                         </div>
                         <div class="form-group">

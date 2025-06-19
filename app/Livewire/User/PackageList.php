@@ -147,7 +147,7 @@ class PackageList extends Component
     public function updatedSelectedCity($value)
     {
         if ($value) {
-            $this->areas = Area::where('city_id', $value)->get();
+            $this->areas = Area::where('district_id', $value)->get();
             $this->selectedArea = null;
         } else {
             $this->areas = [];

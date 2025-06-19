@@ -103,7 +103,7 @@ class HomeComponent extends Component
 
     public function updatedSearch($value)
     {
-        if (strlen($value) <= 1) {
+        if (strlen($value) <= 0) {
             $this->search_area = [];
         } else {
             $this->search_area = DB::table('pk_search')->where('name', 'like', '%' . $value . '%')->orderBy('id', 'desc')->get();

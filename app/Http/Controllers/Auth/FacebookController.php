@@ -40,7 +40,7 @@ class FacebookController extends Controller
             return redirect()->route('dashboard');
         } catch (\Exception $e) {
             \Log::error('Facebook login error: ' . $e->getMessage());
-            return redirect('/test')->withErrors(['msg' => 'Login with Facebook failed.']);
+            return redirect('/login')->withErrors(['msg' => 'Login with Facebook failed.']);
         }
     }
 }

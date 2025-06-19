@@ -131,7 +131,7 @@
                 <nav class="navbar navbar-expand-xl navbar-light d-block px-0 header-sticky dashboard-nav py-0">
                     <div class="sticky-area shadow-xs-1 py-3">
                         <div class="d-flex px-3 px-xl-6 w-100">
-                            <a class="navbar-brand" href="{{ route('dashboard') }}">
+                            <a class="navbar-brand" href="{{ route('home') }}">
                                 <img src="{{ asset('logo.png') }}" alt="RentandRooms">
                             </a>
                             <div class="ml-auto d-flex align-items-center ">
@@ -203,7 +203,7 @@
                                     <ul class="list-group list-group-no-border rounded-lg">
                                         @role('Super Admin|Partner|User')
                                         @can('dashboard')
-                                        <!-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
                                             onclick="window.location='{{ route('dashboard') }}'">
                                             <a href="{{ route('dashboard') }}"
                                                 class="text-heading lh-1 sidebar-link">
@@ -211,7 +211,7 @@
                                                         class="fad fa-chart-line"></i></span>
                                                 <span class="sidebar-item-text">Dashboard</span>
                                             </a>
-                                        </li> -->
+                                        </li>
                                         @endcan
                                         @endrole
                                         @can('package')
