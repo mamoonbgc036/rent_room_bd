@@ -398,7 +398,8 @@
                                     @php
                                     $isPaid = $milestone->payment_status === 'paid';
                                     $dueDate = \Carbon\Carbon::parse($milestone->due_date);
-                                    $isOverdue = !$isPaid && $dueDate->isPast();
+                                    $isOverdue = !$isPaid && $milestone->milestone_type != 'Booking Fee' && $dueDate->isPast();
+                                    $isPending = $milestone->transaction_reference && !$isPaid;
                                     $isNextPayment = !$isPaid && $milestone->id === $currentMilestone?->id;
                                     @endphp
                                     <div
@@ -460,7 +461,7 @@
                                                             wire:click="showPaymentM({{ $milestone->id }}, {{ $milestone->amount }})">
                                                             Pay Now
                                                         </button>
-                                                        @else
+                                                        @elseif($isPending)
                                                         <span
                                                             class="badge badge-secondary text-white">Pending</span>
                                                         @endif
