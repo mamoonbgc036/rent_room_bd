@@ -17,7 +17,7 @@ class ShowBooking extends Component
     public $dueBill;
     public $showPaymentModal = false;
     public $showRenewalModal = false;
-    public $paymentMethod = 'bank_transfer';
+    public $paymentMethod;
     public $bankTransferReference;
     public $bankDetails = 'Netsoftuk Solution A/C 17855008 S/C 04-06-05';
     public $newFromDate;
@@ -27,11 +27,8 @@ class ShowBooking extends Component
     public $hasOverdue = false;
     public $selectedMilestoneId = null;
     public $selectedMilestoneAmount = null;
-
     public bool $autoRenewal = false;
-
     public int $renewalPeriodDays = 30;
-
     public bool $showAutoRenewalModal = false;
     public bool $canManageAutoRenewal = false;
 
@@ -54,8 +51,6 @@ class ShowBooking extends Component
         $this->renewalPeriodDays = (int) ($this->booking->renewal_period_days ?? 30);
         $this->dispatch('closeModal', 'autoRenewalModal');
     }
-
-
 
     public function canEnableAutoRenewal(): bool
     {
@@ -295,11 +290,6 @@ class ShowBooking extends Component
                 ->where('payment_status', '!=', 'paid')
                 ->where('due_date', '<', now())
                 ->isNotEmpty();
-
-            // Reset payment form
-            $this->paymentMethod = 'bank_transfer';
-            $this->bankTransferReference = '';
-
             // Dispatch modal open event
             $this->dispatch('openModal', 'paymentModal');
         } catch (\Exception $e) {
@@ -327,31 +317,19 @@ class ShowBooking extends Component
 
     public function proceedPayment()
     {
-        try {
-            // Validate inputs
-            $this->validate([
-                'paymentMethod' => 'required|in:card,bank_transfer',
-                'bankTransferReference' => 'required_if:paymentMethod,bank_transfer',
-            ], [
-                'bankTransferReference.required_if' => 'Please enter the bank transfer reference number.'
-            ]);
-
-            if (!$this->currentMilestone) {
-                throw new \Exception('No pending milestone found.');
-            }
-
-            // Handle payment based on method
-            if ($this->paymentMethod === 'card') {
-                return $this->handleStripePayment();
-            } else {
-                return $this->handleBankTransfer();
-            }
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            session()->flash('error', $e->getMessage());
-            return null;
-        } catch (\Exception $e) {
-            session()->flash('error', 'Payment failed: ' . $e->getMessage());
-            return null;
+        // Validate inputs
+        $this->validate([
+            'paymentMethod' => 'required',
+            'bankTransferReference' => 'required',
+        ]);
+        if (!$this->currentMilestone) {
+            throw new \Exception('No pending milestone found.');
+        }
+        // Handle payment based on method
+        if ($this->paymentMethod === 'card') {
+            return $this->handleStripePayment();
+        } else {
+            return $this->handleBankTransfer();
         }
     }
 
@@ -363,10 +341,6 @@ class ShowBooking extends Component
     protected function handleBankTransfer()
     {
         try {
-            if (empty($this->bankTransferReference)) {
-                throw new \Exception('Please enter a bank transfer reference.');
-            }
-
             // Begin transaction
             \DB::beginTransaction();
 
@@ -375,7 +349,7 @@ class ShowBooking extends Component
             // Create payment record
             $payment = Payment::create([
                 'booking_id' => $this->booking->id,
-                'payment_method' => 'bank_transfer',
+                'payment_method' => $this->paymentMethod,
                 'payment_type' => $paymentType,  // Add payment type
                 'amount' => $this->currentMilestone->amount,
                 'transaction_id' => $this->bankTransferReference,
@@ -385,7 +359,7 @@ class ShowBooking extends Component
 
             // Update milestone status
             $this->currentMilestone->update([
-                'status' => 'pending_bank_transfer'
+                'status' => 'pending_payment'
             ]);
 
             // Update booking status
@@ -395,10 +369,9 @@ class ShowBooking extends Component
 
             \DB::commit();
 
-            session()->flash('success', 'Bank transfer initiated. Please contact admin with transfer details.');
+            session()->flash('success', 'Payment transfer initiated. Please contact admin with transfer details.');
             $this->showPaymentModal = false;
             $this->resetForm();
-
             return redirect()->route('bookings.show', ['id' => $this->booking->id]);
         } catch (\Exception $e) {
             \DB::rollBack();
@@ -497,7 +470,7 @@ class ShowBooking extends Component
 
     private function resetForm()
     {
-        $this->paymentMethod = 'bank_transfer';
+        $this->paymentMethod = null;
         $this->bankTransferReference = '';
         $this->resetValidation();
     }

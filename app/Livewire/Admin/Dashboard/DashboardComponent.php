@@ -133,16 +133,16 @@ class DashboardComponent extends Component
             // Get Partner Stats using assigned_to
             $this->partnerPackages = Package::where('assigned_to', $user->id)->count();
 
-            $this->partnerBookings = Booking::whereHas('package', function($query) use ($user) {
+            $this->partnerBookings = Booking::whereHas('package', function ($query) use ($user) {
                 $query->where('assigned_to', $user->id);
             })->count();
 
-            $this->partnerUsers = User::whereHas('bookings.package', function($query) use ($user) {
+            $this->partnerUsers = User::whereHas('bookings.package', function ($query) use ($user) {
                 $query->where('assigned_to', $user->id);
             })->distinct()->count();
 
             // Get Partner Revenue
-            $partnerPayments = Payment::whereHas('booking.package', function($query) use ($user) {
+            $partnerPayments = Payment::whereHas('booking.package', function ($query) use ($user) {
                 $query->where('assigned_to', $user->id);
             })->whereIn('status', ['completed', 'paid']);
 

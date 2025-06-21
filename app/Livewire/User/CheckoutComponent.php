@@ -363,22 +363,23 @@ class CheckoutComponent extends Component
     private function createPayment($booking, $paymentAmount)
     {
         // Create the main payment record
-        $payment = Payment::create([
+        $payInof = [
             'booking_id' => $booking->id,
             'payment_method' => $this->paymentMethod,
             'amount' => $paymentAmount,
             'status' => 'pending',
             'transaction_id' => $this->bankTransferReference ?? null,
-            'payment_option' => $this->paymentOption,
+            'paymentOption' => $this->paymentOption,
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ];
+        $payment = Payment::create($payInof);
 
         // If this is the booking payment, update the first milestone payment
         if ($this->paymentOption === 'booking_only') {
             DB::table('booking_payments')
                 ->where('booking_id', $booking->id)
-                ->where('milestone_number', 1)
+                ->where('milestone_number', 0)
                 ->update([
                     'payment_status' => 'pending',
                     'payment_method' => $this->paymentMethod,

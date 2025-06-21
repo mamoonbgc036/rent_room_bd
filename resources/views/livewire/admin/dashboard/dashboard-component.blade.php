@@ -281,7 +281,7 @@
                             </div>
                             <div class="col-auto">
                                 <div class="bg-info text-white rounded-circle p-3">
-                                    <i class="fas fa-pound-sign fa-2x"></i>
+                                    <p style="font-size: 47px;">৳</p>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +298,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 col-sm-6 mb-3">
-                        <a href="" class="btn btn-light btn-block py-4 h-100">
+                        <a href="{{ route('home') }}" class="btn btn-light btn-block py-4 h-100">
                             <i class="fas fa-search fa-2x mb-2 text-gray-500"></i>
                             <div class="mt-2">Browse Packages</div>
                         </a>
@@ -316,7 +316,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-3">
-                        <a href="" class="btn btn-light btn-block py-4 h-100">
+                        <a href="https://wa.me/+8801715111193" class="btn btn-light btn-block py-4 h-100">
                             <i class="fas fa-question-circle fa-2x mb-2 text-gray-500"></i>
                             <div class="mt-2">Get Support</div>
                         </a>
@@ -465,7 +465,7 @@
                             </div>
                             <div class="col-auto">
                                 <div class="bg-success text-white rounded-circle p-3">
-                                    <i class="fas fa-pound-sign fa-2x"></i>
+                                    <p>৳</p>
                                 </div>
                             </div>
                         </div>
