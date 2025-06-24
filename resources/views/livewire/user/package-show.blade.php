@@ -888,8 +888,8 @@
                                             <div class="text-center mb-4">
                                                 <p>Please <a class="text-primary fw-bold" href="#signInModal"
                                                         data-toggle="modal">Sign in</a>
-                                                    if not <a class="text-primary fw-bold" href="#signUpModal"
-                                                        data-toggle="modal">Sign up</a></p>
+                                                    if not <a class="text-success fw-bold" href="#signUpModal"
+                                                        data-toggle="modal">Create Account</a></p>
                                             </div>
                                             @endunless
 
