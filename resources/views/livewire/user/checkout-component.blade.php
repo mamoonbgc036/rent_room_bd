@@ -35,39 +35,38 @@
                     </div>
                 </div>
             </div>
-
             <!-- Additional Services -->
-            @if ($selectedAmenities || $selectedMaintains)
+            @if ($selectedAmenities['sum'] || $selectedMaintains['sum'])
             <div class="card shadow-sm mb-4">
                 <div class="card-header">
                     <h6 class="mb-0">Additional Services</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        @if ($selectedAmenities)
-                        <div class="col-md-6">
+                        @if ($selectedAmenities['sum'])
+                        <div class="{{ empty($selectedMaintains['sum']) ? 'col-md-12' : 'col-md-6' }}">
                             <h6 class="mb-3">Amenities</h6>
                             <ul class="list-group">
-                                @foreach ($selectedAmenities as $amenity)
+                                @foreach ($selectedAmenities[0] as $amenity)
                                 <li class="list-group-item d-flex justify-content-between">
-                                    <span>{{ $amenity['name'] }}</span>
+                                    <span>{{ $amenity[0] }}</span>
                                     <span
-                                        class="badge badge-secondary">৳{{ number_format($amenity['price'], 2) }}</span>
+                                        class="badge badge-secondary">৳{{ number_format($amenity[1], 2) }}</span>
                                 </li>
                                 @endforeach
                             </ul>
                         </div>
                         @endif
 
-                        @if ($selectedMaintains)
-                        <div class="col-md-6">
+                        @if ($selectedMaintains['sum'])
+                        <div class="{{ empty($selectedAmenities['sum']) ? 'col-md-12' : 'col-md-6'}}">
                             <h6 class="mb-3">Maintenance Services</h6>
                             <ul class="list-group">
-                                @foreach ($selectedMaintains as $maintain)
+                                @foreach ($selectedMaintains[0] as $maintain)
                                 <li class="list-group-item d-flex justify-content-between">
-                                    <span>{{ $maintain['name'] }}</span>
+                                    <span>{{ $maintain[0] }}</span>
                                     <span
-                                        class="badge badge-secondary">৳{{ number_format($maintain['price'], 2) }}</span>
+                                        class="badge badge-secondary">৳{{ number_format($maintain[1], 2) }}</span>
                                 </li>
                                 @endforeach
                             </ul>
@@ -113,33 +112,38 @@
                             <span>৳{{ number_format($totalAmount, 2) }}</span>
                         </div>
 
-                        <!-- Additional Services -->
-                        @if ($amenitiesTotal > 0)
-                        <h6 class="mb-2 mt-4">Additional Services</h6>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Amenities</span>
-                            <span>৳{{ number_format($amenitiesTotal, 2) }}</span>
-                        </div>
-                        @endif
-
-                        @if ($maintainsTotal > 0)
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Maintenance</span>
-                            <span>৳{{ number_format($maintainsTotal, 2) }}</span>
-                        </div>
-                        @endif
-
-                        <!-- Booking Price -->
                         <div class="d-flex justify-content-between mb-2">
                             <span>Booking</span>
                             <span>৳{{ number_format($bookingPrice, 2) }}</span>
                         </div>
 
+                        <!-- Additional Services -->
+                        @if($selectedAmenities['sum'] || $selectedMaintains['sum'])
+                        <h6 class="mb-2 mt-4">Additional Services</h6>
+                        @if($selectedAmenities['sum'])
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Amenities</span>
+                            <span>৳ {{ $selectedAmenities['sum'] }}</span>
+                        </div>
+                        @endif
+
+
+                        @if ($selectedMaintains['sum'])
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Maintenance</span>
+                            <span>৳{{ number_format($selectedMaintains['sum'], 2) }}</span>
+                        </div>
+                        @endif
+                        @endif
+
+                        <!-- Booking Price -->
+
+
                         <!-- Total -->
                         <hr>
                         <div class="d-flex justify-content-between font-weight-bold">
                             <span>Total</span>
-                            <span>৳{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }}</span>
+                            <span>৳{{ number_format($totalAmount + $selectedAmenities['sum'] + $selectedMaintains['sum'] + $bookingPrice, 2) }}</span>
                         </div>
 
                         <!-- Optional Alert for Long Stays -->
@@ -156,9 +160,9 @@
                         <label>Payment Option</label>
                         <select class="form-control" wire:model.live="paymentOption">
                             <option value="booking_only">Booking
-                                (৳{{ number_format($bookingPrice, 2) }})</option>
+                                (৳{{ number_format($bookingPrice + $selectedAmenities['sum'] + $selectedMaintains['sum'], 2) }})</option>
                             <option value="full">Full Amount
-                                (৳{{ number_format($totalAmount + $amenitiesTotal + $maintainsTotal + $bookingPrice, 2) }})
+                                (৳{{ number_format($totalAmount + $selectedMaintains['sum'] + $selectedAmenities['sum'] + $bookingPrice, 2) }})
                             </option>
                         </select>
                     </div>

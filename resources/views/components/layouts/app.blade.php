@@ -196,14 +196,14 @@
                                 </div>
                             </form>
                             <ul class="list-group list-group-flush w-100">
-                                <li class="list-group-item">
+                                <li class="list-group-item" style="padding: 0px;">
                                     @role('Super Admin')
                                     <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Main</h5>
                                     @endrole
                                     <ul class="list-group list-group-no-border rounded-lg">
                                         @role('Super Admin|Partner|User')
                                         @can('dashboard')
-                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item" role="button"
+                                        <li class="list-group-item sidebar-item" role="button"
                                             onclick="window.location='{{ route('dashboard') }}'">
                                             <a href="{{ route('dashboard') }}"
                                                 class="text-heading lh-1 sidebar-link">

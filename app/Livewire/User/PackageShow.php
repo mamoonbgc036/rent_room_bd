@@ -34,6 +34,8 @@ class PackageShow extends Component
     public $selectedDates = [];
     public $calendarView = false;
     public $roomPrices = [];
+    public $selectedAmenities = [];
+    public $selectedMaintains = [];
 
 
     protected $rules = [
@@ -345,7 +347,6 @@ class PackageShow extends Component
     {
         try {
             $this->validate();
-
             $selectedRoom = Room::with(['roomPrices'])->find($this->selectedRoom);
             $priceBreakdown = $this->determineOptimalPriceType($selectedRoom, $this->fromDate, $this->toDate);
             $totalAmount = $this->calculateRoomTotal();
@@ -358,6 +359,8 @@ class PackageShow extends Component
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'selectedRoom' => $selectedRoom->id,
+                'selectedMaintains' => $this->selectedMaintains,
+                'selectedAmenities' => $this->selectedAmenities,
                 'roomDetails' => [
                     'id' => $selectedRoom->id,
                     'name' => $selectedRoom->name,

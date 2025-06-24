@@ -183,8 +183,8 @@
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 @role('User')
                                                 <a class="dropdown-item"
-                                                    href="{{ route('user.bookings.index') }}">
-                                                    <i class="fas fa-bookmark mr-2"></i>My Packages
+                                                    href="{{ route('dashboard') }}">
+                                                    <i class="fas fa-bookmark mr-2"></i>My Dashboard
                                                 </a>
                                                 @endrole
                                                 @role('Super Admin|Admin')

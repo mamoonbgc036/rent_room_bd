@@ -17,8 +17,8 @@ class Maintain extends Model
     public function packages()
     {
         return $this->belongsToMany(Package::class)
-                    ->withPivot('is_paid', 'price', 'user_id')
-                    ->withTimestamps();
+            ->withPivot('is_paid', 'price', 'user_id')
+            ->withTimestamps();
     }
     public function user()
     {
@@ -31,6 +31,4 @@ class Maintain extends Model
             ->withPivot('price')
             ->withTimestamps();
     }
-
-
 }

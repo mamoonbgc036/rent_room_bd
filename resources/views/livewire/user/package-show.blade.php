@@ -60,7 +60,6 @@
                     </div>
                 </div>
             </div>
-
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     // Get all images from PHP/Blade
@@ -804,10 +803,12 @@
                                                     @foreach ($package->amenities()->wherePivot('is_paid', true)->get() as $amenity)
                                                     <li class="list-group-item">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                wire:model="selectedAmenities.{{ $amenity->id }}"
-                                                                value="{{ $amenity->pivot->price }}"
-                                                                id="amenity{{ $amenity->id }}">
+                                                            <input
+                                                                class="form-check-input"
+                                                                type="checkbox"
+                                                                id="amenity{{ $amenity->id }}"
+                                                                value="{{ $amenity->id }}|{{ $amenity->name }}|{{ $amenity->pivot->price }}"
+                                                                wire:model="selectedAmenities">
                                                             <label class="form-check-label"
                                                                 for="amenity{{ $amenity->id }}">
                                                                 {{ $amenity->name }} -
@@ -818,8 +819,6 @@
                                                     @endforeach
                                                 </ul>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -838,7 +837,6 @@
                                         aria-labelledby="headingThree">
                                         <div class="panel-body">
                                             <div class="px-4">
-
                                                 <ul class="list-unstyled mb-0 row no-gutters">
                                                     @foreach ($package->maintains()->wherePivot('is_paid', false)->get() as $maintain)
                                                     <li class="col-sm-3 col-6 mb-2">
@@ -854,8 +852,8 @@
                                                     <li class="list-group-item">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                wire:model="selectedMaintains.{{ $maintain->id }}"
-                                                                value="{{ $maintain->pivot->price }}"
+                                                                wire:model="selectedMaintains"
+                                                                value="{{ $maintain->id }}|{{ $maintain->name }}| {{ $maintain->pivot->price }}"
                                                                 id="maintain{{ $maintain->id }}">
                                                             <label class="form-check-label"
                                                                 for="maintain{{ $maintain->id }}">
@@ -870,8 +868,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </section>

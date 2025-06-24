@@ -2,8 +2,10 @@
 
 namespace App\Livewire\User;
 
+use App\Models\Amenity;
 use App\Models\Booking;
 use App\Models\BookingPayment;
+use App\Models\Maintain;
 use App\Models\Package;
 use App\Models\Payment;
 use App\Models\Room;
@@ -55,7 +57,6 @@ class CheckoutComponent extends Component
         if (!$data) {
             return redirect()->route('home')->with('error', 'No checkout data found.');
         }
-
         $this->packageId = $data['packageId'];
         $this->fromDate = $data['fromDate'];
         $this->toDate = $data['toDate'];
@@ -63,8 +64,25 @@ class CheckoutComponent extends Component
         $this->email = $data['email'];
         $this->phone = $data['phone'];
         $this->selectedRoom = Room::with('roomPrices')->find($data['selectedRoom']);
-        $this->selectedMaintains = $data['selectedMaintains'] ?? [];
-        $this->selectedAmenities = $data['selectedAmenities'] ?? [];
+        //loop
+        $maintainTotal = 0;
+        if (!empty($data['selectedMaintains'])) {
+            foreach ($data['selectedMaintains'] as $maintain) {
+                $break = explode('|', $maintain);
+                $maintainMul[0][] = [$break[1], $break[2], $break[0]];
+                $maintainTotal += $break[2];
+            }
+        }
+        $maintainMul['sum'] = $maintainTotal;
+        $amenityTotal = 0;
+        foreach ($data['selectedAmenities'] as $amen) {
+            $break = explode('|', $amen);
+            $amenityMul[0][] = [$break[1], $break[2], $break[0]];
+            $amenityTotal += $break[2];
+        }
+        $amenityMul['sum'] = $amenityTotal;
+        $this->selectedMaintains = $maintainMul ?? [];
+        $this->selectedAmenities = $amenityMul ?? [];
         $this->totalNights = Carbon::parse($this->fromDate)->diffInDays(Carbon::parse($this->toDate));
         $this->package = Package::findOrFail($this->packageId);
         $this->bankDetails = "Netsoftuk Solution A/C 17855008 S/C 04-06-05";
@@ -182,8 +200,8 @@ class CheckoutComponent extends Component
 
     public function calculateTotalAmount()
     {
-        $total = $this->totalAmount + $this->amenitiesTotal + $this->maintainsTotal;
-        return $this->paymentOption === 'full' ? $total + $this->bookingPrice : $this->bookingPrice;
+        $total = $this->totalAmount + $this->selectedAmenities['sum'] + $this->selectedMaintains['sum'];
+        return $this->paymentOption === 'full' ? $total + $this->bookingPrice : $this->bookingPrice + $this->selectedAmenities['sum'] + $this->selectedMaintains['sum'];
     }
 
     public function submitBooking()
@@ -266,7 +284,7 @@ class CheckoutComponent extends Component
         $fullBreakdown = array_merge([$bookingFeeMilestone], $this->priceBreakdown);
 
         // Calculate total amount including amenities and maintains
-        $totalWithExtras = $this->totalAmount + $this->amenitiesTotal + $this->maintainsTotal;
+        $totalWithExtras = $this->totalAmount + $this->selectedAmenities['sum'] + $this->selectedMaintains['sum'];
 
         // Create booking record
         $booking = Booking::create([
@@ -429,27 +447,29 @@ class CheckoutComponent extends Component
 
     private function createBookingServices($booking)
     {
-        if (!empty($this->selectedAmenities)) {
-            foreach ($this->selectedAmenities as $amenity) {
-                DB::table('booking_amenities')->insert([
+        if (!empty($this->selectedAmenities['sum'])) {
+            foreach ($this->selectedAmenities[0] as $amenity) {
+                $amenityData = [
                     'booking_id' => $booking->id,
-                    'amenity_id' => $amenity['id'],
-                    'price' => $amenity['price'],
+                    'amenity_id' => $amenity[2],
+                    'price' => $amenity[1],
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]);
+                ];
+                DB::table('booking_amenities')->insert($amenityData);
             }
         }
 
-        if (!empty($this->selectedMaintains)) {
-            foreach ($this->selectedMaintains as $maintain) {
-                DB::table('booking_maintains')->insert([
+        if (!empty($this->selectedMaintains['sum'])) {
+            foreach ($this->selectedMaintains[0] as $maintain) {
+                $maintainData = [
                     'booking_id' => $booking->id,
-                    'maintain_id' => $maintain['id'],
-                    'price' => $maintain['price'],
+                    'maintain_id' => $maintain[2],
+                    'price' => $maintain[1],
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]);
+                ];
+                DB::table('booking_maintains')->insert($maintainData);
             }
         }
     }

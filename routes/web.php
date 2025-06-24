@@ -200,7 +200,7 @@ Route::get('/payment/cancel', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-
+    // session()->forget('checkout_data');
     Route::get('/roles', RoleManager::class)->name('roles');
     Route::get('/permissions', PermissionManager::class)->name('permissions');
     Route::get('/role-in-permission', RoleInPermissionIndex::class)->name('role.in.permission');
