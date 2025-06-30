@@ -68,10 +68,10 @@ class PackageShow extends Component
             ])
                 ->where(function ($query) use ($partnerSlug) {
                     $query->whereHas('assignedPartner', function ($q) use ($partnerSlug) {
-                        $q->whereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [strtolower($partnerSlug)]);
+                        $q->where('phone', $partnerSlug);
                     })
                         ->orWhereHas('creator', function ($q) use ($partnerSlug) {
-                            $q->whereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [strtolower($partnerSlug)]);
+                            $q->where('phone', $partnerSlug);
                         });
                 })
                 ->where(function ($query) use ($packageSlug) {
@@ -88,6 +88,7 @@ class PackageShow extends Component
                     }
                 })
                 ->firstOrFail();
+
 
             $this->packageId = $this->package->id;
             $this->incrementViews();

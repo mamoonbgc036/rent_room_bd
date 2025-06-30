@@ -138,11 +138,11 @@ class Package extends Model
     {
         // Check for assigned partner first
         if ($this->assignedPartner) {
-            $partnerSlug = str_replace(' ', '-', strtolower($this->assignedPartner->name));
+            $partnerSlug = str_replace(' ', '-', strtolower($this->assignedPartner->phone));
         }
-        // If not assigned, use the creator's name
+        // If not assigned, use the creator's phone
         elseif ($this->creator) {
-            $partnerSlug = str_replace(' ', '-', strtolower($this->creator->name));
+            $partnerSlug = str_replace(' ', '-', strtolower($this->creator->phone));
         }
         // If neither exists (shouldn't happen, but just in case)
         else {
@@ -151,7 +151,6 @@ class Package extends Model
 
         // Include ID in the package slug for better identification
         $packageSlug = $this->id . '-' . str_replace(' ', '-', strtolower($this->name));
-
         return route('package.show', [
             'partnerSlug' => $partnerSlug,
             'packageSlug' => $packageSlug

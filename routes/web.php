@@ -1,7 +1,5 @@
 <?php
-
 use App\Models\Payment;
-
 use App\Livewire\PaymentForm;
 use App\Livewire\Actions\Logout;
 use App\Livewire\RP\RoleManager;
