@@ -149,7 +149,7 @@
                             <div class="d-lg-flex align-items-center w-100">
                                 <!-- Rapid Handyworks Link -->
                                 <div class="nav-item d-lg-flex align-items-center mr-lg-4 py-2 py-lg-0">
-                                    <a href="https://ghorermenu.com" target="_blank" rel="noopener noreferrer"
+                                    <a href="{{ route('sso.ghorermenu') }}" target="_blank" rel="noopener noreferrer"
                                         class="nav-link text-dark d-flex align-items-center hover-s">
                                         <i class="fas fa-utensils mr-2"></i>
                                         <span class="fs-13 font-weight-500">Ghorer Menu</span>

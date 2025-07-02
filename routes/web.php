@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\Area\LocalArea;
 use App\Livewire\RP\PermissionManager;
 use App\Livewire\User\BookingComplete;
+use App\Http\Controllers\SSOController;
 use Illuminate\Support\Facades\Artisan;
 use App\Livewire\Admin\BookingComponent;
 use App\Livewire\Admin\PaymentComponent;
@@ -204,6 +205,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/role-in-permission', RoleInPermissionIndex::class)->name('role.in.permission');
     Route::get('/role-in-permission-create', RoleInPermissionCreate::class)->name('role-permission.create');
     Route::get('/role-permission/edit/{role_id}', RoleInPermissionEdit::class)->name('role-permission.edit');
+
+    Route::get('/sso/ghorermenu', [SSOController::class, 'redirectToGhorerMenu'])
+    ->name('sso.ghorermenu');
 
     Route::get('/users', UserManager::class)->name('users');
     Route::get('/profile', ProfileComponent::class)->name('profile');

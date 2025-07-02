@@ -26,6 +26,17 @@ class AppServiceProvider extends ServiceProvider
 
         // // Check and process auto-renewals
         // $this->processAutoRenewals();
+        
+        DB::listen(function($query){
+            $threshold = 500;
+            if($query->time > $threshold){
+                Log::channel('daily')->warning('Slow Quries : ', [
+                    'sql' => $query->sql,
+                    'bindings' => $query->bindings,
+                    'time' => $query->time . ' ms'
+                ]);
+            }
+        });
     }
 
     private function processAutoRenewals(): void
