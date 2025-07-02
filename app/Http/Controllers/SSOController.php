@@ -20,7 +20,7 @@ class SSOController extends Controller
     ];
 
     // Generate signature manually
-    $url = 'http://localhost:8080/sso-login';
+    $url = 'https://ghorermenu.com/sso-login';
     $query = http_build_query($data);
     $signature = hash_hmac('sha256', $url . '?' . $query, config('app.key'));
 
