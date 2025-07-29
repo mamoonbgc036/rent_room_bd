@@ -39,9 +39,9 @@ new #[Layout('layouts.guest')] class extends Component
                     <form wire:submit.prevent="login">
                         <!-- Email Address -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ __('Email') }}</label>
-                            <input wire:model="form.email" id="email" class="form-control" type="email" name="email" required autofocus autocomplete="username">
-                            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                            <label for="email" class="form-label">{{ __('Phone') }}</label>
+                            <input wire:model="form.phone" id="phone" class="form-control" type="phone" name="phone" required autofocus autocomplete="username">
+                            <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
                         </div>
 
                         <!-- Password -->
