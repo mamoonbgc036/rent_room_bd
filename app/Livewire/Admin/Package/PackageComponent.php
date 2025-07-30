@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Admin\Package;
 
 use App\Models\Package;
@@ -21,7 +20,6 @@ class PackageComponent extends Component
 
     public $showDeleteModal = false;
     public $packageToDelete = null;
-
 
     public function mount()
     {
@@ -54,12 +52,12 @@ class PackageComponent extends Component
         }
 
         $this->validate([
-            'selectedUserId' => 'required|exists:users,id'
+            'selectedUserId' => 'required|exists:users,id',
         ]);
 
         $package = Package::find($this->selectedPackageId);
 
-        if (!auth()->user()->hasRole('Super Admin') && auth()->id() !== $package->user_id) {
+        if (! auth()->user()->hasRole('Super Admin') && auth()->id() !== $package->user_id) {
             session()->flash('error', 'You do not have permission to assign this package.');
             return;
         }
@@ -67,7 +65,7 @@ class PackageComponent extends Component
         $package->update([
             'assigned_to' => $this->selectedUserId,
             'assigned_by' => auth()->id(),
-            'assigned_at' => now()
+            'assigned_at' => now(),
         ]);
 
         $this->refreshPackages();
@@ -79,7 +77,7 @@ class PackageComponent extends Component
     {
         $package = Package::find($this->selectedPackageId);
 
-        if (!auth()->user()->hasRole('Super Admin') && auth()->id() !== $package->user_id) {
+        if (! auth()->user()->hasRole('Super Admin') && auth()->id() !== $package->user_id) {
             session()->flash('error', 'You do not have permission to remove this assignment.');
             return;
         }
@@ -87,7 +85,7 @@ class PackageComponent extends Component
         $package->update([
             'assigned_to' => null,
             'assigned_by' => null,
-            'assigned_at' => null
+            'assigned_at' => null,
         ]);
 
         $this->refreshPackages();
@@ -98,18 +96,18 @@ class PackageComponent extends Component
     public function openAssignModal($packageId)
     {
         $this->selectedPackageId = $packageId;
-        $this->selectedPackage = Package::with(['creator', 'assignedPartner', 'assignedBy'])->find($packageId);
-        $this->selectedUserId = $this->selectedPackage->assigned_to; // Set current assignment if exists
-        $this->showAssignModal = true;
+        $this->selectedPackage   = Package::with(['creator', 'assignedPartner', 'assignedBy'])->find($packageId);
+        $this->selectedUserId    = $this->selectedPackage->assigned_to; // Set current assignment if exists
+        $this->showAssignModal   = true;
         $this->dispatch('modalOpened');
     }
 
     public function closeModal()
     {
-        $this->showAssignModal = false;
-        $this->selectedUserId = null;
+        $this->showAssignModal   = false;
+        $this->selectedUserId    = null;
         $this->selectedPackageId = null;
-        $this->selectedPackage = null;
+        $this->selectedPackage   = null;
         $this->dispatch('modalClosed');
     }
 
@@ -124,11 +122,9 @@ class PackageComponent extends Component
 
         return view('livewire.admin.package.package-component', [
             'availablePartners' => $availablePartners,
-            'packages' => $this->packages
+            'packages'          => $this->packages,
         ]);
     }
-
-
 
     public function confirmDelete($id)
     {

@@ -12,9 +12,9 @@
     <form wire:submit.prevent="update">
         <div class="group-2 form-grid mb-4 room-section">
             <div class="form-group">
-                <label for="country_id">Country</label>
+                <label for="country_id">District</label>
                 <select wire:model.live.prevent="country_id" id="country_id" class="form-control">
-                    <option value="">Select Country</option>
+                    <option value="">Select District</option>
                     @foreach ($countries as $country)
                         <option value="{{ $country->id }}">{{ $country->name }}</option>
                     @endforeach
@@ -25,9 +25,9 @@
             </div>
 
             <div class="form-group">
-                <label for="city_id">City</label>
+                <label for="city_id">Thana</label>
                 <select wire:model.live="city_id" id="city_id" class="form-control">
-                    <option value="">Select City</option>
+                    <option value="">Select Thana</option>
                     @foreach ($cities as $city)
                         <option value="{{ $city->id }}">{{ $city->name }}</option>
                     @endforeach
@@ -38,7 +38,7 @@
             </div>
 
             <div class="form-group">
-                <label for="area_id">Area</label>
+                <label for="area_id">Local Area</label>
                 <select wire:model.live="area_id" id="area_id" class="form-control">
                     <option value="">Select Area</option>
                     @foreach ($areas as $area)
@@ -322,7 +322,7 @@
                 @foreach ($storedPhotos as $photo)
                     <div class="col-md-3 col-sm-6 mb-3">
                         <div class="card h-100 position-relative">
-                            <img src="{{ Storage::url($photo['url']) }}" class="card-img-top img-fluid"
+                            <img src="{{ asset('storage/public/'.$photo['url']) }}" class="card-img-top img-fluid"
                                 style="height: 200px; object-fit: cover;" alt="Package Photo">
                             <button type="button" wire:click="removeStoredPhoto({{ $photo['id'] }})"
                                 class="btn btn-danger btn-sm position-absolute" style="top: 10px; right: 10px;">

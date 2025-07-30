@@ -1,10 +1,19 @@
 <?php
-
 namespace App\Livewire\Admin\Package;
 
-use App\Models\{Amenity, Area, City, Country, Package, Property, Room, RoomPrice, Maintain};
-use Illuminate\Support\Facades\{Auth, Storage, DB};
-use Livewire\{Component, WithFileUploads};
+use App\Models\Amenity;
+use App\Models\Area;
+use App\Models\Maintain;
+use App\Models\Package;
+use App\Models\Property;
+use App\Models\Room;
+use App\Models\RoomPrice;
+use App\Models\Zone;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EditPackageComponent extends Component
 {
@@ -19,9 +28,9 @@ class EditPackageComponent extends Component
 
     // Property Details
     public $number_of_kitchens = 0;
-    public $number_of_rooms = 0;
-    public $common_bathrooms = 0;
-    public $seating = 0;
+    public $number_of_rooms    = 0;
+    public $common_bathrooms   = 0;
+    public $seating            = 0;
     public $details;
     public $video_link;
 
@@ -36,59 +45,56 @@ class EditPackageComponent extends Component
     public $paidAmenities = [];
 
     // Photos
-    public $photos = [];
+    public $photos       = [];
     public $storedPhotos = [];
     public $instructions = [];
 
     protected array $rules = [
-        'country_id' => 'required|exists:countries,id',
-        'city_id' => 'required|exists:cities,id',
-        'area_id' => 'required|exists:areas,id',
-        'property_id' => 'required|exists:properties,id',
-        'name' => 'required|string|max:255',
-        'address' => 'required|string|max:500',
-        'map_link' => 'nullable|url|max:1000',
-        'expiration_date' => 'required|date|after:today',
-        'number_of_kitchens' => 'required|integer|min:0',
-        'number_of_rooms' => 'required|integer|min:1',
-        'common_bathrooms' => 'required|integer|min:0',
-        'seating' => 'required|integer|min:0',
-        'details' => 'nullable|string',
-        'video_link' => 'nullable|url',
-        'rooms.*.name' => 'required|string|max:255',
-        'rooms.*.number_of_beds' => 'required|integer|min:1',
-        'rooms.*.number_of_bathrooms' => 'required|integer|min:0',
-        'rooms.*.prices.*.type' => 'required|in:Day,Week,Month',
-        'rooms.*.prices.*.fixed_price' => 'required|numeric|min:0',
+        'city_id'                         => 'required|exists:areas,id',
+        'area_id'                         => 'required|exists:zones,id',
+        'property_id'                     => 'required|exists:properties,id',
+        'name'                            => 'required|string|max:255',
+        'address'                         => 'required|string|max:500',
+        'map_link'                        => 'nullable|url|max:1000',
+        'expiration_date'                 => 'required|date|after:today',
+        'number_of_kitchens'              => 'required|integer|min:0',
+        'number_of_rooms'                 => 'required|integer|min:1',
+        'common_bathrooms'                => 'required|integer|min:0',
+        'seating'                         => 'required|integer|min:0',
+        'details'                         => 'nullable|string',
+        'video_link'                      => 'nullable|url',
+        'rooms.*.name'                    => 'required|string|max:255',
+        'rooms.*.number_of_beds'          => 'required|integer|min:1',
+        'rooms.*.number_of_bathrooms'     => 'required|integer|min:0',
+        'rooms.*.prices.*.type'           => 'required|in:Day,Week,Month',
+        'rooms.*.prices.*.fixed_price'    => 'required|numeric|min:0',
         'rooms.*.prices.*.discount_price' => 'nullable|numeric|min:0|lt:rooms.*.prices.*.fixed_price',
-        'rooms.*.prices.*.booking_price' => 'required|numeric|min:0',
-        'paidMaintains.*.maintain_id' => 'required|exists:maintains,id',
-        'paidMaintains.*.price' => 'required|numeric|min:0',
-        'paidAmenities.*.amenity_id' => 'required|exists:amenities,id',
-        'paidAmenities.*.price' => 'required|numeric|min:0',
-        'photos.*' => 'nullable|image|max:5120',
-        'instructions.*.title' => 'required|string|max:255',
-        'instructions.*.description' => 'required|string',
-        'instructions.*.order' => 'required|integer|min:0',
+        'rooms.*.prices.*.booking_price'  => 'required|numeric|min:0',
+        'paidMaintains.*.maintain_id'     => 'required|exists:maintains,id',
+        'paidMaintains.*.price'           => 'required|numeric|min:0',
+        'paidAmenities.*.amenity_id'      => 'required|exists:amenities,id',
+        'paidAmenities.*.price'           => 'required|numeric|min:0',
+        'photos.*'                        => 'nullable|image|max:5120',
+        'instructions.*.title'            => 'required|string|max:255',
+        'instructions.*.description'      => 'required|string',
+        'instructions.*.order'            => 'required|integer|min:0',
     ];
 
     protected array $messages = [
         'rooms.*.prices.*.discount_price.lt' => 'The discount price must be less than the fixed price.',
-        'expiration_date.after' => 'The expiration date must be after today.',
+        'expiration_date.after'              => 'The expiration date must be after today.',
     ];
 
     public function mount($packageId)
     {
         $this->packageId = $packageId;
-        $user = Auth::user();
-        $isAdmin = $user->roles->pluck('name')->contains('Super Admin');
-
+        $user            = Auth::user();
+        $isAdmin         = $user->roles->pluck('name')->contains('Super Admin');
         // Initialize collections
-        $this->countries = Country::all();
+        $this->countries  = DB::table('cities')->get();
         $this->properties = $isAdmin ? Property::all() : Property::where('user_id', $user->id)->get();
-        $this->maintains = $isAdmin ? Maintain::all() : Maintain::where('user_id', $user->id)->get();
-        $this->amenities = $isAdmin ? Amenity::all() : Amenity::where('user_id', $user->id)->get();
-
+        $this->maintains  = $isAdmin ? Maintain::all() : Maintain::where('user_id', $user->id)->get();
+        $this->amenities  = $isAdmin ? Amenity::all() : Amenity::where('user_id', $user->id)->get();
         $this->loadPackage($packageId);
     }
 
@@ -96,41 +102,41 @@ class EditPackageComponent extends Component
     {
         $package = Package::with(['rooms.prices', 'maintains', 'amenities', 'photos', 'instructions'])
             ->findOrFail($packageId);
-
         // Load basic info
-        $this->country_id = $package->country_id;
-        $this->city_id = $package->city_id;
-        $this->area_id = $package->area_id;
-        $this->property_id = $package->property_id;
-        $this->name = $package->name;
-        $this->address = $package->address;
-        $this->map_link = $package->map_link;
+        $this->country_id         = $package->city_id;
+        $this->city_id            = $package->area_id;
+        $this->area_id            = $package->zone_id;
+        $this->property_id        = $package->property_id;
+        $this->name               = $package->name;
+        $this->address            = $package->address;
+        $this->map_link           = $package->map_link;
         $this->number_of_kitchens = $package->number_of_kitchens;
-        $this->number_of_rooms = $package->number_of_rooms;
-        $this->common_bathrooms = $package->common_bathrooms;
-        $this->seating = $package->seating;
-        $this->details = $package->details;
-        $this->video_link = $package->video_link;
-        $this->expiration_date = $package->expiration_date;
+        $this->number_of_rooms    = $package->number_of_rooms;
+        $this->common_bathrooms   = $package->common_bathrooms;
+        $this->seating            = $package->seating;
+        $this->details            = $package->details;
+        $this->video_link         = $package->video_link;
+        $this->expiration_date    = $package->expiration_date;
 
         // Load cities and areas based on selected location
-        $this->cities = City::where('country_id', $this->country_id)->get();
-        $this->areas = Area::where('city_id', $this->city_id)->get();
+
+        $this->cities = DB::table('areas')->where('district_id', $this->country_id)->get();
+        $this->areas  = Zone::where('area_id', $this->city_id)->get();
 
         // Load rooms and prices
         $this->rooms = $package->rooms->map(function ($room) {
             return [
-                'id' => $room->id,
-                'name' => $room->name,
-                'number_of_beds' => $room->number_of_beds,
+                'id'                  => $room->id,
+                'name'                => $room->name,
+                'number_of_beds'      => $room->number_of_beds,
                 'number_of_bathrooms' => $room->number_of_bathrooms,
-                'prices' => $room->prices->map(function ($price) {
+                'prices'              => $room->prices->map(function ($price) {
                     return [
-                        'id' => $price->id,
-                        'type' => $price->type,
-                        'fixed_price' => $price->fixed_price,
+                        'id'             => $price->id,
+                        'type'           => $price->type,
+                        'fixed_price'    => $price->fixed_price,
                         'discount_price' => $price->discount_price,
-                        'booking_price' => $price->booking_price,
+                        'booking_price'  => $price->booking_price,
                     ];
                 })->toArray(),
             ];
@@ -144,7 +150,7 @@ class EditPackageComponent extends Component
             ->map(function ($maintain) {
                 return [
                     'maintain_id' => $maintain->id,
-                    'price' => $maintain->pivot->price,
+                    'price'       => $maintain->pivot->price,
                 ];
             })->toArray();
 
@@ -152,15 +158,15 @@ class EditPackageComponent extends Component
             ->map(function ($amenity) {
                 return [
                     'amenity_id' => $amenity->id,
-                    'price' => $amenity->pivot->price,
+                    'price'      => $amenity->pivot->price,
                 ];
             })->toArray();
 
         // Load photos
         $this->storedPhotos = $package->photos->map(function ($photo) {
             return [
-                'id' => $photo->id,
-                'url' => $photo->url
+                'id'  => $photo->id,
+                'url' => $photo->url,
             ];
         })->toArray();
 
@@ -170,10 +176,10 @@ class EditPackageComponent extends Component
             ->get()
             ->map(function ($instruction) {
                 return [
-                    'id' => $instruction->id,
-                    'title' => $instruction->title,
+                    'id'          => $instruction->id,
+                    'title'       => $instruction->title,
                     'description' => $instruction->description,
-                    'order' => $instruction->order
+                    'order'       => $instruction->order,
                 ];
             })->toArray();
     }
@@ -181,28 +187,34 @@ class EditPackageComponent extends Component
     // Location Updates
     public function updatedCountryId($value)
     {
-        $this->cities = City::where('country_id', $value)->get();
+        $this->cities  = Area::where('district_id', $value)->get();
         $this->city_id = null;
         $this->area_id = null;
     }
 
     public function updatedCityId($value)
     {
-        $this->areas = Area::where('city_id', $value)->get();
+        $this->areas   = Zone::where('area_id', $value)->get();
         $this->area_id = null;
+    }
+
+    public function updatedAreaId($value)
+    {
+        $this->properties  = DB::table('properties')->where('zone_id', $value)->get();
+        $this->property_id = null;
     }
 
     // Room Management
     public function addRoom()
     {
         $this->rooms[] = [
-            'id' => null,
-            'name' => '',
-            'number_of_beds' => 1,
+            'id'                  => null,
+            'name'                => '',
+            'number_of_beds'      => 1,
             'number_of_bathrooms' => 0,
-            'prices' => [
-                ['id' => null, 'type' => '', 'fixed_price' => 0, 'discount_price' => null, 'booking_price' => 0]
-            ]
+            'prices'              => [
+                ['id' => null, 'type' => '', 'fixed_price' => 0, 'discount_price' => null, 'booking_price' => 0],
+            ],
         ];
     }
 
@@ -221,11 +233,11 @@ class EditPackageComponent extends Component
     {
         if (count($this->rooms[$roomIndex]['prices']) < 3) {
             $this->rooms[$roomIndex]['prices'][] = [
-                'id' => null,
-                'type' => '',
-                'fixed_price' => 0,
+                'id'             => null,
+                'type'           => '',
+                'fixed_price'    => 0,
                 'discount_price' => null,
-                'booking_price' => 0
+                'booking_price'  => 0,
             ];
         }
     }
@@ -267,10 +279,10 @@ class EditPackageComponent extends Component
     public function addInstruction()
     {
         $this->instructions[] = [
-            'id' => null,
-            'title' => '',
+            'id'          => null,
+            'title'       => '',
             'description' => '',
-            'order' => count($this->instructions)
+            'order'       => count($this->instructions),
         ];
     }
 
@@ -304,13 +316,13 @@ class EditPackageComponent extends Component
     public function updatedPhotos()
     {
         $this->validate([
-            'photos.*' => 'image|max:5120'
+            'photos.*' => 'image|max:5120',
         ]);
 
         foreach ($this->photos as $photo) {
             $path = $photo->store('photos', 'public');
             Package::find($this->packageId)->photos()->create([
-                'url' => $path,
+                'url'     => $path,
                 'user_id' => Auth::id(),
             ]);
         }
@@ -322,21 +334,18 @@ class EditPackageComponent extends Component
     public function update()
     {
         $this->validate();
-
         try {
             DB::beginTransaction();
-
             $package = Package::findOrFail($this->packageId);
             $this->updatePackage($package);
             $this->updateRooms($package);
             $this->updateAmenitiesAndMaintains($package);
             $this->updateInstructions($package);
-
             DB::commit();
-
             session()->flash('message', 'Package updated successfully.');
             return redirect()->route('admin.packages');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
             session()->flash('error', 'Error updating package: ' . $e->getMessage());
         }
@@ -345,21 +354,21 @@ class EditPackageComponent extends Component
     protected function updatePackage($package)
     {
         $package->update([
-            'country_id' => $this->country_id,
-            'city_id' => $this->city_id,
-            'area_id' => $this->area_id,
-            'property_id' => $this->property_id,
-            'name' => $this->name,
-            'address' => $this->address,
-            'map_link' => $this->map_link,
+            'city_id'            => $this->country_id,
+            'area_id'            => $this->city_id,
+            'zone_id'            => $this->area_id,
+            'property_id'        => $this->property_id,
+            'name'               => $this->name,
+            'address'            => $this->address,
+            'map_link'           => $this->map_link,
             'number_of_kitchens' => $this->number_of_kitchens,
-            'number_of_rooms' => $this->number_of_rooms,
-            'common_bathrooms' => $this->common_bathrooms,
-            'seating' => $this->seating,
-            'details' => $this->details,
-            'video_link' => $this->video_link,
-            'expiration_date' => $this->expiration_date,
-            'status' => strtotime($this->expiration_date) <= strtotime(now()) ? 'expired' : 'active',
+            'number_of_rooms'    => $this->number_of_rooms,
+            'common_bathrooms'   => $this->common_bathrooms,
+            'seating'            => $this->seating,
+            'details'            => $this->details,
+            'video_link'         => $this->video_link,
+            'expiration_date'    => $this->expiration_date,
+            'status'             => strtotime($this->expiration_date) <= strtotime(now()) ? 'expired' : 'active',
         ]);
     }
 
@@ -371,12 +380,12 @@ class EditPackageComponent extends Component
             $room = Room::updateOrCreate(
                 ['id' => $roomData['id'] ?? null],
                 [
-                    'package_id' => $package->id,
-                    'name' => $roomData['name'],
-                    'number_of_beds' => $roomData['number_of_beds'],
-'number_of_bathrooms' => $roomData['number_of_bathrooms'],
-    'user_id' => auth()->id(),
-]);
+                    'package_id'          => $package->id,
+                    'name'                => $roomData['name'],
+                    'number_of_beds'      => $roomData['number_of_beds'],
+                    'number_of_bathrooms' => $roomData['number_of_bathrooms'],
+                    'user_id'             => auth()->id(),
+                ]);
 
             $currentRoomIds[] = $room->id;
 
@@ -386,12 +395,12 @@ class EditPackageComponent extends Component
                 $price = RoomPrice::updateOrCreate(
                     ['id' => $priceData['id'] ?? null],
                     [
-                        'room_id' => $room->id,
-                        'type' => $priceData['type'],
-                        'fixed_price' => $priceData['fixed_price'],
+                        'room_id'        => $room->id,
+                        'type'           => $priceData['type'],
+                        'fixed_price'    => $priceData['fixed_price'],
                         'discount_price' => $priceData['discount_price'],
-                        'booking_price' => $priceData['booking_price'],
-                        'user_id' => auth()->id(),
+                        'booking_price'  => $priceData['booking_price'],
+                        'user_id'        => auth()->id(),
                     ]
                 );
                 $currentPriceIds[] = $price->id;
@@ -419,15 +428,15 @@ class EditPackageComponent extends Component
         foreach ($this->freeMaintains as $maintainId) {
             $package->maintains()->attach($maintainId, [
                 'is_paid' => false,
-                'user_id' => Auth::id()
+                'user_id' => Auth::id(),
             ]);
         }
 
         foreach ($this->paidMaintains as $maintainData) {
             $package->maintains()->attach($maintainData['maintain_id'], [
                 'is_paid' => true,
-                'price' => $maintainData['price'],
-                'user_id' => Auth::id()
+                'price'   => $maintainData['price'],
+                'user_id' => Auth::id(),
             ]);
         }
 
@@ -435,15 +444,15 @@ class EditPackageComponent extends Component
         foreach ($this->freeAmenities as $amenityId) {
             $package->amenities()->attach($amenityId, [
                 'is_paid' => false,
-                'user_id' => Auth::id()
+                'user_id' => Auth::id(),
             ]);
         }
 
         foreach ($this->paidAmenities as $amenityData) {
             $package->amenities()->attach($amenityData['amenity_id'], [
                 'is_paid' => true,
-                'price' => $amenityData['price'],
-                'user_id' => Auth::id()
+                'price'   => $amenityData['price'],
+                'user_id' => Auth::id(),
             ]);
         }
     }
@@ -456,10 +465,10 @@ class EditPackageComponent extends Component
             $instruction = $package->instructions()->updateOrCreate(
                 ['id' => $instructionData['id'] ?? null],
                 [
-                    'title' => $instructionData['title'],
+                    'title'       => $instructionData['title'],
                     'description' => $instructionData['description'],
-                    'order' => $instructionData['order'],
-                    'user_id' => Auth::id(),
+                    'order'       => $instructionData['order'],
+                    'user_id'     => Auth::id(),
                 ]
             );
             $currentInstructionIds[] = $instruction->id;
@@ -474,12 +483,12 @@ class EditPackageComponent extends Component
     public function render()
     {
         return view('livewire.admin.package.edit-package-component', [
-            'countries' => $this->countries,
-            'cities' => $this->cities,
-            'areas' => $this->areas,
+            'countries'  => $this->countries,
+            'cities'     => $this->cities,
+            'areas'      => $this->areas,
             'properties' => $this->properties,
-            'maintains' => $this->maintains,
-            'amenities' => $this->amenities,
+            'maintains'  => $this->maintains,
+            'amenities'  => $this->amenities,
         ]);
     }
 }
