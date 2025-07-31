@@ -175,11 +175,11 @@
                         <h6 class="border-bottom pb-2 mb-3">Basic Information</h6>
                         <div class="row g-3">
                             <div class="col-6">
-                                <small class="text-muted d-block">Name</small>
+                                <small class="text-muted d-block">Package Name</small>
                                 <strong>{{ $package->name }}</strong>
                             </div>
                             <div class="col-6">
-                                <small class="text-muted d-block">Property Type</small>
+                                <small class="text-muted d-block">Property Name</small>
                                 <strong>{{ $package->property->name }}</strong>
                             </div>
                             <div class="col-12">
@@ -188,7 +188,7 @@
                             </div>
                             <div class="col-4">
                                 <small class="text-muted d-block">Country</small>
-                                <strong>{{ $package->country?->name }}</strong>
+                                <strong>{{ $package->country?->name ?? 'Bangladesh' }}</strong>
                             </div>
                             <div class="col-4">
                                 <small class="text-muted d-block">City</small>
