@@ -40,18 +40,16 @@ class FooterSectionFourSettings extends Component
     {
         $this->validate();
 
+        $footer_data = [
+                'footer_id' => $this->footerId,
+                'title' => $this->title,
+                'description' => $this->description,
+        ]; 
+
         if ($this->footerSectionFour) {
-            $this->footerSectionFour->update([
-                'footer_id' => $this->footerId,
-                'title' => $this->title,
-                'description' => $this->description,
-            ]);
+            $this->footerSectionFour->update($footer_data);
         } else {
-            $this->footerSectionFour = FooterSectionFour::create([
-                'footer_id' => $this->footerId,
-                'title' => $this->title,
-                'description' => $this->description,
-            ]);
+            $this->footerSectionFour = FooterSectionFour::create($footer_data);
         }
 
         session()->flash('message', 'Footer section saved successfully.');

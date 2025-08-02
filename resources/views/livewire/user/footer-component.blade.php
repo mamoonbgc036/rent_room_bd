@@ -62,8 +62,8 @@
                     <ul class="list-inline mb-0">
                         @foreach($socialLinks as $social)
                         <li class="list-inline-item mr-0">
-                            <a href="{{ $social->link }}" class="text-white opacity-10 fs-25 px-4 opacity-hover-5"><i
-                                    class="{{ $social->icon_class }}"></i></a>
+                            <a href="{{ $social->link }}" class="text-white opacity-10 fs-25 px-4 opacity-hover-5">  
+                            <i class="{{ $social->icon_class }}"></i></a>
                         </li>
                         @endforeach
 

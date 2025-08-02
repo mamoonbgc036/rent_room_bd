@@ -7,7 +7,7 @@
 
     <h4>Footer Section Four</h4>
     <form wire:submit.prevent="saveFooterSectionFour">
-        <div class="form-group d-none">
+        <div class="form-group">
             <label for="footerId">Footer ID</label>
             <input type="text" class="form-control" id="footerId" wire:model="footerId">
             @error('footerId') <span class="text-danger">{{ $message }}</span> @enderror
@@ -24,7 +24,6 @@
             <textarea class="form-control" id="description" wire:model="description"></textarea>
             @error('description') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-
         <button type="submit" class="btn btn-primary mt-3">Save</button>
     </form>
 
