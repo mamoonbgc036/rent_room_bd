@@ -10,6 +10,7 @@ class FooterSectionThreeSettings extends Component
     public $footerSectionThrees = [];
     public $newTitle;
     public $newLink;
+    public $footerId;
 
     protected $rules = [
         'footerSectionThrees.*.title' => 'required|string|max:255',
@@ -26,11 +27,13 @@ class FooterSectionThreeSettings extends Component
     public function addFooterSectionThree()
     {
         $this->validate([
+            'footerId' => 'required',
             'newTitle' => 'required|string|max:255',
             'newLink' => 'required|url|max:255',
         ]);
 
         FooterSectionThree::create([
+            'footer_id' => $this->footerId,
             'title' => $this->newTitle,
             'link' => $this->newLink,
         ]);

@@ -31,6 +31,11 @@
 
     <h4>Add New Footer Section</h4>
     <form wire:submit.prevent="addFooterSectionThree">
+         <div class="form-group">
+            <label for="footerId">Footer ID</label>
+            <input type="text" class="form-control" id="footerId" wire:model="footerId">
+            @error('footerId') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
         <div class="form-group">
             <label for="newTitle">Title</label>
             <input type="text" class="form-control" id="newTitle" wire:model="newTitle">
